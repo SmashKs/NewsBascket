@@ -33,6 +33,13 @@
         <service
             android:name="com.no1.taiwan.newsbasket.components.service.InitialService"
             android:exported="false"/>
+        <service
+            android:name=".services.NewsFirebaseMessaging"
+            android:stopWithTask="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
 
         <meta-data
             android:name="preloaded_fonts"

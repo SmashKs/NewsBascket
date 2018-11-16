@@ -19,18 +19,18 @@ import org.jetbrains.anko.sdk25.coroutines.onClick
 class MainActivity : AdvActivity<MainViewModel>() {
     private val navigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
-//            R.id.navigation_home -> {
-//                return@OnNavigationItemSelectedListener true
-//            }
-//            R.id.navigation_library -> {
-//                return@OnNavigationItemSelectedListener true
-//            }
-//            R.id.navigation_book -> {
-//                return@OnNavigationItemSelectedListener true
-//            }
-//            R.id.navigation_account -> {
-//                return@OnNavigationItemSelectedListener true
-//            }
+            R.id.navigation_home -> {
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.navigation_library -> {
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.navigation_book -> {
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.navigation_account -> {
+                return@OnNavigationItemSelectedListener true
+            }
         }
         false
     }

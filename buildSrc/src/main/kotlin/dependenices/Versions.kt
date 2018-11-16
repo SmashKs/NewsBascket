@@ -71,7 +71,7 @@ object Versions {
         const val core = "16.0.5"
         const val database = core
         const val auth = "16.0.3"
-        const val messaging = "17.3.0"
+        const val messaging = "17.3.4"
 
         const val mlVision = "18.0.1"
         const val mlImageLabel = "17.0.2"
@@ -125,7 +125,7 @@ object Versions {
      * Related Android UI lib version.
      */
     object Ui {
-        const val material = "1.1.0-alpha01"
+        const val material = "1.0.0"
         const val dialog = "1.0.6"
         const val loading = "1.3.0"
         const val materialChip = "1.0.8"
@@ -153,7 +153,7 @@ object Versions {
      * Related extension Plugins lib version.
      */
     object Plugin {
-        const val detekt = "1.0.0-RC10"
+        const val detekt = "1.0.0-RC11"
         const val versionUpdater = "0.20.0"
     }
 }

@@ -120,6 +120,7 @@ dependencies {
     implementation(Deps.Presentation.firebaseCore)
     implementation(Deps.Presentation.firebaseDB)
     implementation(Deps.Presentation.firebaseVision)
+    implementation(Deps.Presentation.firebaseMessaging)
     implementation(Deps.Presentation.firebaseMLImageLabel)
 //    implementation (Presentation.cloudinary)
     implementation(Deps.Presentation.room)
@@ -155,3 +156,10 @@ dependencies {
     androidTestImplementation(Deps.PresentationTest.espressoCore)
     androidTestImplementation(Deps.PresentationTest.kakao)
 }
+
+repositories {
+    google()
+    mavenCentral()
+}
+
+apply(mapOf("plugin" to "com.google.gms.google-services"))
