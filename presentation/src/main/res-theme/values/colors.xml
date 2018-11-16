@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- New Version 1 -->
+    <color name="colorPrimaryV1">#584E67</color>
+    <color name="colorPrimaryLightV1">#7D7991</color>
+    <color name="colorPrimaryDarkV1">#4B3659</color>
+    <color name="colorAccentV1">#EDD494</color>
+    <color name="colorSecondaryV1">@color/colorAccentV1</color>
+    <color name="colorSecondaryLightV1">#C0AEA6</color>
+    <color name="colorSecondaryDarkV1">#CACACA</color>
+    <color name="colorPrimaryTextV1">#D1D2D4</color>
+    <color name="colorSecondaryTextV1">#B3B5BE</color>
+    <color name="colorNavigationBarV1">@color/colorPrimaryDarkV1</color>
+    <color name="colorBackgroundV1">@color/colorPrimaryLightV1</color>
+
+    <color name="transparent">#00000000</color>
+
+    <color name="colorDivider">#BDBDBD</color>
+</resources>

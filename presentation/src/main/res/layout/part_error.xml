@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    style="@style/Constraint.Any.MatchParent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@android:color/holo_red_dark">
+
+    <TextView
+        android:id="@+id/tv_error_msg"
+        style="@style/Constraint.Wrap.Center"
+        android:drawableTop="@android:drawable/ic_dialog_info"
+        android:text="Something wrong happens!!"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

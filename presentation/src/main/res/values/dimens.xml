@@ -1,0 +1,19 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!-- Default Material Units Dimens -->
+    <dimen name="md_zero_unit">0dp</dimen>
+    <dimen name="md_half_unit">4dp</dimen>
+    <dimen name="md_one_unit">8dp</dimen>
+    <dimen name="md_two_unit">16dp</dimen>
+    <dimen name="md_three_unit">24dp</dimen>
+    <dimen name="md_four_unit">32dp</dimen>
+    <dimen name="md_five_unit">40dp</dimen>
+    <dimen name="md_six_unit">48dp</dimen>
+    <dimen name="md_seven_unit">56dp</dimen>
+    <dimen name="md_eight_unit">64dp</dimen>
+    <dimen name="md_nine_unit">72dp</dimen>
+    <dimen name="md_ten_unit">80dp</dimen>
+</resources>

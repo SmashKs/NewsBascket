@@ -34,12 +34,10 @@ captures/
 
 # IntelliJ
 *.iml
-.idea/workspace.xml
+.idea/*
 .idea/tasks.xml
-.idea/gradle.xml
 .idea/assetWizardSettings.xml
 .idea/dictionaries
-.idea/libraries
 .idea/caches
 
 # Keystore files
@@ -63,3 +61,9 @@ fastlane/Preview.html
 fastlane/screenshots
 fastlane/test_output
 fastlane/readme.md
+
+# mac file
+*.DS_Store
+
+gradlew
+gradlew.bat

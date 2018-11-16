@@ -1,0 +1,89 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="MainTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <!-- color for the app bar and other primary UI elements -->
+        <item name="colorPrimary">?themeColorPrimary</item>
+        <!-- A darker variant of the primary color, used for the status bar (on Android 5.0+) and contextual app bars -->
+        <item name="colorPrimaryDark">?themeColorPrimaryDark</item>
+        <!-- A secondary color for controls like checkboxes and text fields -->
+        <item name="colorAccent">?themeColorAccent</item>
+        <item name="android:textColorPrimary">?themeTextColorPrimary</item>
+
+        <!--<item name="android:fontFamily">?themeFont</item>-->
+        <!-- target android sdk versions < 26 and > 14 if theme other than AppCompat -->
+        <!--<item name="fontFamily">?themeFont</item>-->
+        <item name="android:textColor">?themeTextColorPrimary</item>
+        <item name="android:navigationBarColor">?themeNavigationBarColor</item>
+        <item name="android:colorBackground">?themeBackgroundColor</item>
+
+        <!-- The view fit to until the state bar -->
+        <!--<item name="android:windowTranslucentStatus">true</item>-->
+        <!-- The view fit to until the navigation bar -->
+        <!--<item name="android:windowTranslucentNavigation">true</item>-->
+    </style>
+
+    <style name="MainTheme.Transitions">
+        <item name="android:windowContentTransitions">true</item>
+    </style>
+
+    <!-- Constraint Basic Setting -->
+    <style name="Constraint"/>
+
+    <!-- START Excepting the Constant Layout -->
+    <style name="Constraint.MatchParent">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="Constraint.Wrap">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="Constraint.MatchParent.FitWidth">
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="Constraint.MatchParent.FitHeight">
+        <item name="android:layout_height">match_parent</item>
+    </style>
+    <!-- END Excepting the Constant Layout -->
+
+    <style name="Constraint.Wrap.Center">
+        <item name="layout_constraintBottom_toBottomOf">parent</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+    </style>
+
+    <style name="Constraint.Any">
+        <item name="android:layout_width">@dimen/md_zero_unit</item>
+        <item name="android:layout_height">@dimen/md_zero_unit</item>
+    </style>
+
+    <style name="Constraint.Any.MatchHorParent">
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+    </style>
+
+    <style name="Constraint.Any.MatchVerParent">
+        <item name="layout_constraintBottom_toBottomOf">parent</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+    </style>
+
+    <style name="Constraint.Any.MatchParent">
+        <item name="layout_constraintBottom_toBottomOf">parent</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+    </style>
+
+    <!-- Dialog Fragment -->
+    <style name="NewsDialog"/>
+
+    <style name="NewsDialog.Animation">
+        <item name="android:windowEnterAnimation">@anim/scale_enter_dialog</item>
+        <item name="android:windowExitAnimation">@anim/scale_exit_dialog</item>
+    </style>
+</resources>
