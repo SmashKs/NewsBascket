@@ -9,7 +9,31 @@ import com.no1.taiwan.newsbasket.domain.models.NewsModel
  * their own data objects, the objects should transform and fit each layers.
  */
 class NewsMapper : DataNewsMapper {
-    override fun toModelFrom(data: NewsData) = data.run { NewsModel(id, name) }
+    override fun toModelFrom(data: NewsData) = data.run {
+        NewsModel(id,
+                  author,
+                  content,
+                  country,
+                  created_at,
+                  description,
+                  published_at,
+                  title,
+                  updated_at,
+                  url,
+                  urlToImage)
+    }
 
-    override fun toDataFrom(model: NewsModel) = model.run { NewsData(id, name) }
+    override fun toDataFrom(model: NewsModel) = model.run {
+        NewsData(id,
+                 author,
+                 content,
+                 country,
+                 created_at,
+                 description,
+                 published_at,
+                 title,
+                 updated_at,
+                 url,
+                 urlToImage)
+    }
 }

@@ -10,5 +10,14 @@ import com.no1.taiwan.newsbasket.ext.const.UniqueId
 data class NewsData(
     @PrimaryKey
     val id: UniqueId = DEFAULT_LONG,
-    val name: String = DEFAULT_STR
+    val author: String = DEFAULT_STR,
+    val content: String = DEFAULT_STR,
+    val country: String = DEFAULT_STR,
+    val created_at: String = DEFAULT_STR,
+    val description: String = DEFAULT_STR,
+    val published_at: String = DEFAULT_STR,
+    val title: String = DEFAULT_STR,
+    val updated_at: String = DEFAULT_STR,
+    val url: String = DEFAULT_STR,
+    val urlToImage: String = DEFAULT_STR
 ) : Data
