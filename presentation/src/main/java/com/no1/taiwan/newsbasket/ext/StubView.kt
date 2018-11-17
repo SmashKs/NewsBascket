@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.annotation.IdRes
 import com.devrapid.kotlinknifer.gone
 import com.devrapid.kotlinknifer.visible
+import com.no1.taiwan.newsbasket.R
 import com.no1.taiwan.newsbasket.ext.const.DEFAULT_STR
 import org.jetbrains.anko.find
 import org.jetbrains.anko.findOptional

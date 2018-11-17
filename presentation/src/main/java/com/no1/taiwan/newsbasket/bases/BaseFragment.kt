@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.devrapid.kotlinknifer.hideSoftKeyboard
 import com.devrapid.kotlinshaver.castOrNull
+import com.no1.taiwan.newsbasket.R
 import com.no1.taiwan.newsbasket.internal.di.ViewModelEntries
 import com.no1.taiwan.newsbasket.internal.di.dependency.fragment.SuperFragmentModule.fragmentModule
 import com.no1.taiwan.newsbasket.widget.viewmodel.ViewModelFactory

@@ -11,6 +11,7 @@ import com.devrapid.kotlinknifer.loge
 import com.devrapid.kotlinknifer.logw
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import com.no1.taiwan.newsbasket.R
 import kotlin.random.Random
 
 class NewsFirebaseMessaging : FirebaseMessagingService() {

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.devrapid.dialogbuilder.support.DialogFragmentTemplate.Builder
 import com.devrapid.dialogbuilder.support.QuickDialogFragment
+import com.no1.taiwan.newsbasket.widget.R
 
 object LoadingDialog {
     fun getInstance(fragment: Fragment) = QuickDialogFragment.Builder(fragment) {

@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Typeface
 import android.util.AttributeSet
 import android.widget.TextView
+import com.no1.taiwan.newsbasket.widget.R
 
 /**
  * It's able to set a font from imported resource font.

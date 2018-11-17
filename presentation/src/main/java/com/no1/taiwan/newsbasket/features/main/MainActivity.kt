@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.devrapid.kotlinknifer.loge
 import com.devrapid.kotlinknifer.logw
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.no1.taiwan.newsbasket.R
 import com.no1.taiwan.newsbasket.bases.AdvActivity
 import com.no1.taiwan.newsbasket.ext.doWith
 import com.no1.taiwan.newsbasket.ext.happenError
