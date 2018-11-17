@@ -10,13 +10,13 @@ import com.no1.taiwan.newsbasket.entities.Entity
 import kotlinx.coroutines.CoroutineScope
 
 /**
- * A transformer wrapper for encapsulating the [ResponseLiveData]'s state
+ * A transformer wrapper for encapsulating the [ResponseMutableLiveData]'s state
  * changing and the state becomes [Success] when retrieving a data from Data layer by Kotlin coroutine.
  *
  * Also, unboxing the [NewsResponse] and obtaining the data inside of the [NewsResponse], then return the
- * data to [ResponseLiveData].
+ * data to [ResponseMutableLiveData].
  */
-fun <E : Entity, R> ResponseLiveData<R>.requestData(
+fun <E : Entity, R> ResponseMutableLiveData<R>.requestData(
     usecaseRes: suspend CoroutineScope.() -> NewsResponse<E>,
     transformBlock: (E) -> R
 ) = preProcess {
@@ -29,10 +29,10 @@ fun <E : Entity, R> ResponseLiveData<R>.requestData(
 }
 
 /**
- * A transformer wrapper for encapsulating the [ResponseLiveData]'s state
+ * A transformer wrapper for encapsulating the [ResponseMutableLiveData]'s state
  * changing and the state becomes [Success] when retrieving a data from Data layer by Kotlin coroutine.
  */
-infix fun <E> ResponseLiveData<E>.requestData(usecaseRes: suspend CoroutineScope.() -> NewsResponse<E>) =
+infix fun <E> ResponseMutableLiveData<E>.requestData(usecaseRes: suspend CoroutineScope.() -> NewsResponse<E>) =
     preProcess {
         // Fetching the data from the data layer.
         value = tryResponse { usecaseRes() }
@@ -40,10 +40,10 @@ infix fun <E> ResponseLiveData<E>.requestData(usecaseRes: suspend CoroutineScope
 
 // TODO(jieyi): 2018/09/12 Finish the map extensions.
 /**
- * A transformer wrapper for encapsulating the [ResponseLiveData]'s state
+ * A transformer wrapper for encapsulating the [ResponseMutableLiveData]'s state
  * changing and the state becomes [Success] when retrieving a data from Data layer by Kotlin coroutine.
  */
-infix fun <E : Entity> ResponseLiveData<E>.requestDataTo(usecaseRes: suspend CoroutineScope.() -> NewsResponse<E>) =
+infix fun <E : Entity> ResponseMutableLiveData<E>.requestDataTo(usecaseRes: suspend CoroutineScope.() -> NewsResponse<E>) =
     preProcess {
         // Fetching the data from the data layer.
         value = Translating<E, Any>(tryResponse { usecaseRes() }.data)
@@ -52,7 +52,7 @@ infix fun <E : Entity> ResponseLiveData<E>.requestDataTo(usecaseRes: suspend Cor
 /**
  * Pre-process doing the loading view.
  */
-private fun <E> ResponseLiveData<E>.preProcess(block: suspend CoroutineScope.() -> Unit) = apply {
+private fun <E> ResponseMutableLiveData<E>.preProcess(block: suspend CoroutineScope.() -> Unit) = apply {
     ui {
         // Opening the loading view.
         value = Loading()

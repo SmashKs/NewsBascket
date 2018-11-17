@@ -100,7 +100,7 @@ object Versions {
         const val glide = "4.8.0"
         const val retrofit2 = "2.4.0"
         const val adapterCoroutine = "0.9.2"
-        const val okhttp3 = "3.11.0"
+        const val okhttp3 = "3.12.0"
     }
 
     /**

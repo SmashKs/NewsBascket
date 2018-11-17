@@ -13,8 +13,6 @@ import kotlinx.coroutines.async
 class LocalDataStore(
     private val newsDb: NewsDao
 ) : DataStore {
-    override fun retrieveTest(parameters: Parameterable) = throw UnsupportedOperationException()
-
     override fun retrieveNewsData(parameters: Parameterable) =
         GlobalScope.async(Dispatchers.Default) { newsDb.getAllData() }
 }

@@ -5,11 +5,8 @@ import com.google.gson.FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.no1.taiwan.newsbasket.data.datas.mappers.NewsMapper
-import com.no1.taiwan.newsbasket.data.datas.mappers.TestMapper
 import com.no1.taiwan.newsbasket.entities.PresentationNewsMapper
-import com.no1.taiwan.newsbasket.entities.PresentationTestMapper
 import com.no1.taiwan.newsbasket.entities.mappers.NewsEntityMapper
-import com.no1.taiwan.newsbasket.entities.mappers.TestEntityMapper
 import org.kodein.di.Kodein.Module
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.inSet
@@ -38,11 +35,9 @@ object UtilModule {
 
         /** Data Layer Mapper */
         bind<DataMapperEntry>().inSet() with provider { NewsMapper::class.java to NewsMapper() }
-        bind<DataMapperEntry>().inSet() with provider { TestMapper::class.java to TestMapper() }
 
         // TODO(jieyi): 2018/09/19 Doing as like the domain can find the mapper.
         /** Presentation Layer Mapper */
         bind<PresentationNewsMapper>() with singleton { NewsEntityMapper() }
-        bind<PresentationTestMapper>() with singleton { TestEntityMapper() }
     }
 }

@@ -1,8 +1,7 @@
-import com.android.build.gradle.ProguardFiles.getDefaultProguardFile
 import dependenices.Deps
 import dependenices.Versions
 import org.jetbrains.kotlin.gradle.internal.AndroidExtensionsExtension
-import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
+import java.util.Properties
 
 plugins {
     id("com.android.application")
@@ -155,6 +154,18 @@ dependencies {
     androidTestImplementation(Deps.PresentationTest.runner)
     androidTestImplementation(Deps.PresentationTest.espressoCore)
     androidTestImplementation(Deps.PresentationTest.kakao)
+}
+
+// Get a variable from local.properties.
+fun getProps(propName: String): String {
+    val propsFile = rootProject.file("local.properties")
+
+    if (!propsFile.exists()) return "\"No_Exist\""
+
+    val props = Properties()
+
+    props.load(propsFile.inputStream())
+    return if (props[propName] != null) props[propName].toString() else "\"There_is_no_parameter\""
 }
 
 repositories {

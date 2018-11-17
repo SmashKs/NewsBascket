@@ -12,7 +12,5 @@ class RemoteDataStore(
     private val newsService: NewsService,
     private val newsFirebase: NewsFirebase
 ) : DataStore {
-    override fun retrieveTest(parameters: Parameterable) = newsService.retrieveTest(parameters.toApiParam())
-
-    override fun retrieveNewsData(parameters: Parameterable) = throw UnsupportedOperationException()
+    override fun retrieveNewsData(parameters: Parameterable) = newsService.retrieveNews(parameters.toApiParam())
 }

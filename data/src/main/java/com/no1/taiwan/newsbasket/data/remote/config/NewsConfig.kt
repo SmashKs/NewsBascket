@@ -7,7 +7,7 @@ import com.no1.taiwan.newsbasket.data.BuildConfig
  */
 class NewsConfig : ApiConfig {
     companion object {
-        const val API_REQUEST = "/remote/v1"
+        const val API_REQUEST = BuildConfig.API_REQUEST
         // All basic http api url of Search Music.
         private const val BASE_URL = BuildConfig.URL_SERVER
     }

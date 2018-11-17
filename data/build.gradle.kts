@@ -1,6 +1,7 @@
 import dependenices.Deps
 import dependenices.Versions
 import java.net.NetworkInterface
+import java.util.Properties
 
 plugins {
     id("com.android.library")
@@ -23,11 +24,14 @@ android {
         getByName("release") {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), file("proguard-rules.pro"))
+            buildConfigField("String", "URL_SERVER", getProps("remote_url"))
+            buildConfigField("String", "API_REQUEST", getProps("remote_api_domain"))
         }
         getByName("debug") {
             isMinifyEnabled = false
             isTestCoverageEnabled = true
-            buildConfigField("String", "URL_SERVER", "\"http://${getLocalIp("en0")}:3000\"")
+            buildConfigField("String", "URL_SERVER", getProps("remote_url"))
+            buildConfigField("String", "API_REQUEST", getProps("remote_api_domain"))
         }
     }
     lintOptions { isAbortOnError = false }
@@ -60,6 +64,18 @@ dependencies {
 
 apply {
     from("https://raw.githubusercontent.com/pokk/JCenterUploader/master/AndroidJacocoNew.gradle.kts")
+}
+
+// Get a variable from local.properties.
+fun getProps(propName: String): String {
+    val propsFile = rootProject.file("local.properties")
+
+    if (!propsFile.exists()) return "\"No_Exist\""
+
+    val props = Properties()
+
+    props.load(propsFile.inputStream())
+    return if (props[propName] != null) props[propName].toString() else "\"There_is_no_parameter\""
 }
 
 // Get the ip address by interface name

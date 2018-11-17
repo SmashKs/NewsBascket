@@ -4,7 +4,6 @@ import com.devrapid.kotlinshaver.cast
 import com.no1.taiwan.newsbasket.data.datas.DataMapper
 import com.no1.taiwan.newsbasket.data.datas.MapperPool
 import com.no1.taiwan.newsbasket.data.datas.mappers.NewsMapper
-import com.no1.taiwan.newsbasket.data.datas.mappers.TestMapper
 import com.no1.taiwan.newsbasket.data.datastores.DataStore
 import com.no1.taiwan.newsbasket.data.local.cache.AbsCache
 import com.no1.taiwan.newsbasket.domain.parameters.Parameterable
@@ -27,17 +26,10 @@ class NewsDataRepository constructor(
     private val remote: DataStore,
     private val mapperPool: MapperPool
 ) : DataRepository {
-    private val testMapper by lazy { digDataMapper<TestMapper>() }
     private val newsMapper by lazy { digDataMapper<NewsMapper>() }
 
-    // TODO(jieyi): 2018/09/19 Added try catch for get a mapper from di.
-    override fun fetchTest(parameters: Parameterable, scope: CoroutineScope) = scope.async {
-        val data = remote.retrieveTest(parameters).await()
-        testMapper.toModelFrom(data)
-    }
-
     override fun fetchNews(parameters: Parameterable, scope: CoroutineScope) = scope.async {
-        val data = local.retrieveNewsData(parameters).await()
+        val data = remote.retrieveNewsData(parameters).await()
         data.map(newsMapper::toModelFrom)
     }
 

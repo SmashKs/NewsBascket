@@ -38,26 +38,19 @@ class MainActivity : AdvActivity<MainViewModel>() {
 
     override fun init(savedInstanceState: Bundle?) {
         navigation.setOnNavigationItemSelectedListener(navigationItemSelectedListener)
-        observeNonNull(vm.test) {
+        observeNonNull(vm.newsLiveData) {
             peel { logw(it) } happenError { loge(it) } doWith this@MainActivity
         }
 
-//        observeNonNull(vm.news) {
-//            peel { logw(it) } happenError { loge(it) } doWith this@MainActivity
-//        }
-
         btn_click.onClick {
             val s = "${et_input1.text} + ${et_input2.text}"
-
             tv_res.text = s
         }
     }
 
     override fun onResume() {
         super.onResume()
-
-        vm.fetchTest()
-//        vm.fetchNews()
+        vm.fetchNews()
     }
 
     override fun provideLayoutId() = R.layout.activity_main
