@@ -108,6 +108,7 @@ dependencies {
         exclude(group = "org.jetbrains.kotlinx", module = "kotlinx-coroutines-core")
     }
     implementation(Deps.Presentation.okhttpLogging)
+    implementation("com.itkacher.okhttpprofiler:okhttpprofiler:1.0.4")
     implementation(Deps.Presentation.glide)
     //endregion
 

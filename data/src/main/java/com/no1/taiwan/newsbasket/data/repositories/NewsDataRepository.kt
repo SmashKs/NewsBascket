@@ -30,7 +30,8 @@ class NewsDataRepository constructor(
 
     override fun fetchNews(parameters: Parameterable, scope: CoroutineScope) = scope.async {
         val data = remote.retrieveNewsData(parameters).await()
-        data.map(newsMapper::toModelFrom)
+
+        if (data.count == 0) listOf() else data.results.map(newsMapper::toModelFrom)
     }
 
     /**

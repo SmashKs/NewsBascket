@@ -1,6 +1,8 @@
 package com.no1.taiwan.newsbasket.internal.di
 
 import android.content.Context
+import com.itkacher.okhttpprofiler.OkHttpProfilerInterceptor
+import com.no1.taiwan.newsbasket.BuildConfig
 import com.no1.taiwan.newsbasket.data.remote.hasNetwork
 import com.no1.taiwan.newsbasket.ext.thirdParty.CoroutineCallAdapterFactory
 import okhttp3.Cache
@@ -30,8 +32,6 @@ object NetModule {
         bind<OkHttpClient>() with singleton {
             OkHttpClient.Builder()
                 .cache(instance())
-                // Show the http log.
-                .addInterceptor(HttpLoggingInterceptor().setLevel(BODY))
                 // Keep the internet result into the cache.
                 .addInterceptor {
                     // Get the request from the chain.
@@ -67,6 +67,12 @@ object NetModule {
 
                     // Add the modified request to the chain.
                     it.proceed(request)
+                }
+                .apply {
+                    if (BuildConfig.DEBUG) {
+                        addInterceptor(OkHttpProfilerInterceptor())  // For OkHttp Profiler plugins.
+                        addInterceptor(HttpLoggingInterceptor().setLevel(BODY))  // For print to logcat.
+                    }
                 }
                 .build()
         }

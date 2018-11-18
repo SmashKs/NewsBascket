@@ -1,6 +1,6 @@
 package com.no1.taiwan.newsbasket.data.remote.services
 
-import com.no1.taiwan.newsbasket.data.datas.NewsData
+import com.no1.taiwan.newsbasket.data.datas.NewsesData
 import com.no1.taiwan.newsbasket.data.remote.config.NewsConfig
 import com.no1.taiwan.newsbasket.domain.Parameters
 import kotlinx.coroutines.Deferred
@@ -14,7 +14,7 @@ import retrofit2.http.QueryMap
  */
 interface NewsService {
     @GET("${NewsConfig.API_REQUEST}/news/")
-    fun retrieveNews(@QueryMap params: Parameters): Deferred<List<NewsData>>
+    fun retrieveNews(@QueryMap params: Parameters): Deferred<NewsesData>
 
     @POST("${NewsConfig.API_REQUEST}/subscriber/")
     fun createSubscriber(@QueryMap params: Parameters): Deferred<Boolean>

@@ -6,14 +6,15 @@ import com.no1.taiwan.newsbasket.entities.NewsEntity
 import com.no1.taiwan.newsbasket.entities.PresentationNewsMapper
 import com.no1.taiwan.newsbasket.ext.ResponseLiveData
 import com.no1.taiwan.newsbasket.ext.ResponseMutableLiveData
+import com.no1.taiwan.newsbasket.ext.requestData
+import com.no1.taiwan.newsbasket.ext.toRunList
 
 class MainViewModel(
     private val usecase: GetNewsUsecase,
     private val mapper: PresentationNewsMapper
 ) : AutoViewModel() {
-    private val _newsLiveData by lazy { ResponseMutableLiveData<NewsEntity>() }
-    val newsLiveData: ResponseLiveData<NewsEntity> = _newsLiveData
+    private val _newsLiveData by lazy { ResponseMutableLiveData<List<NewsEntity>>() }
+    val newsLiveData: ResponseLiveData<List<NewsEntity>> = _newsLiveData
 
-    fun fetchNews() = Unit
-//        news requestData { usecase2.toRunList(mapper2, GetNewsUsecase.Request()) }
+    fun fetchNews() = _newsLiveData requestData { usecase.toRunList(mapper, GetNewsUsecase.Request()) }
 }
