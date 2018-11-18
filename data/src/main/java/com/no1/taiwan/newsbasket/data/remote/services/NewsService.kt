@@ -1,6 +1,7 @@
 package com.no1.taiwan.newsbasket.data.remote.services
 
 import com.no1.taiwan.newsbasket.data.datas.NewsesData
+import com.no1.taiwan.newsbasket.data.datas.TokenData
 import com.no1.taiwan.newsbasket.data.remote.config.NewsConfig.Companion.API_REQUEST
 import com.no1.taiwan.newsbasket.domain.Fields
 import com.no1.taiwan.newsbasket.domain.Parameters
@@ -21,9 +22,9 @@ interface NewsService {
 
     @FormUrlEncoded
     @POST("$API_REQUEST/subscriber/")
-    fun createSubscriber(@FieldMap fields: Fields): Deferred<Boolean>
+    fun createSubscriber(@FieldMap fields: Fields): Deferred<TokenData>
 
     @FormUrlEncoded
     @PUT("$API_REQUEST/subscriber/")
-    fun modifySubscriber(@FieldMap fields: Fields): Deferred<Boolean>
+    fun updateSubscriber(@FieldMap fields: Fields): Deferred<Boolean>
 }

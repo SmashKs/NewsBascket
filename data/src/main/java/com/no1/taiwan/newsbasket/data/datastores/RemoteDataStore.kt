@@ -13,4 +13,6 @@ class RemoteDataStore(
     private val newsFirebase: NewsFirebase
 ) : DataStore {
     override fun retrieveNewsData(parameters: Parameterable) = newsService.retrieveNews(parameters.toApiParam())
+
+    override fun createSubscriber(parameters: Parameterable) = newsService.createSubscriber(parameters.toApiParam())
 }

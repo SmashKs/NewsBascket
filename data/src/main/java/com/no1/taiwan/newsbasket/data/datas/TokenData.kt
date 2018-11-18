@@ -7,4 +7,4 @@ data class TokenData(
     val token: String = DEFAULT_STR,
     @SerializedName("firebase_token")
     val firebaseToken: String = DEFAULT_STR
-)
+) : Data

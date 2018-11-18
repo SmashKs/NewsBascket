@@ -1,6 +1,7 @@
 package com.no1.taiwan.newsbasket.domain.repositories
 
 import com.no1.taiwan.newsbasket.domain.models.NewsModel
+import com.no1.taiwan.newsbasket.domain.models.TokenModel
 import com.no1.taiwan.newsbasket.domain.parameters.Parameterable
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
@@ -10,4 +11,6 @@ import kotlinx.coroutines.Deferred
  */
 interface DataRepository {
     fun fetchNews(parameters: Parameterable, scope: CoroutineScope): Deferred<List<NewsModel>>
+
+    fun addSubscriber(parameters: Parameterable, scope: CoroutineScope): Deferred<TokenModel>
 }
