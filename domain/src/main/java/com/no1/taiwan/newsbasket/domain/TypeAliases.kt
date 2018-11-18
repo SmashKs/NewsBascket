@@ -6,3 +6,4 @@ import com.no1.taiwan.newsbasket.ext.const.LookUp
 
 typealias Parameters = LookUp<String>
 typealias AnyParameters = HashMap<String, Any>
+typealias Fields = LookUp<String>

@@ -1,8 +1,11 @@
 package com.no1.taiwan.newsbasket.data.datas
 
+import com.no1.taiwan.newsbasket.ext.const.DEFAULT_INT
+import com.no1.taiwan.newsbasket.ext.const.DEFAULT_STR
+
 data class NewsesData(
-    val count: Int = 0,
-    val next: String = "",
-    val previous: String = "",
+    val count: Int = DEFAULT_INT,
+    val next: String = DEFAULT_STR,
+    val previous: String = DEFAULT_STR,
     val results: List<NewsData> = listOf()
 )

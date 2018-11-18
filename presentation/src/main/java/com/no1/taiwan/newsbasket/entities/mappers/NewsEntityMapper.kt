@@ -14,11 +14,11 @@ class NewsEntityMapper : PresentationNewsMapper {
                    author,
                    content,
                    country,
-                   created_at,
+                   createdAt,
                    description,
-                   published_at,
+                   publishedAt,
                    title,
-                   updated_at,
+                   updatedAt,
                    url,
                    urlToImage)
     }
@@ -28,11 +28,11 @@ class NewsEntityMapper : PresentationNewsMapper {
                   author,
                   content,
                   country,
-                  created_at,
+                  createdAt,
                   description,
-                  published_at,
+                  publishedAt,
                   title,
-                  updated_at,
+                  updatedAt,
                   url,
                   urlToImage)
     }
