@@ -1,5 +1,6 @@
 package com.no1.taiwan.newsbasket.internal.di.dependency
 
+import com.no1.taiwan.newsbasket.domain.usecases.AddSubscriberUsecase
 import com.no1.taiwan.newsbasket.domain.usecases.GetNewsUsecase
 import org.kodein.di.Kodein.Module
 import org.kodein.di.generic.bind
@@ -12,9 +13,8 @@ import org.kodein.di.generic.singleton
 object UsecaseModule {
     fun usecaseProvider() = Module("Use Cases Module") {
         //region For Fragments
-        bind<GetNewsUsecase>() with singleton {
-            GetNewsUsecase(instance())
-        }
+        bind<GetNewsUsecase>() with singleton { GetNewsUsecase(instance()) }
+        bind<AddSubscriberUsecase>() with singleton { AddSubscriberUsecase(instance()) }
         //endregion
     }
 }
