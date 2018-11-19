@@ -13,7 +13,7 @@ import kotlinx.coroutines.Deferred
 
 //region Observable
 /**
- * Connected [ObservableUseCase] and unwrapping and letting the usecase become a await
+ * Connected [com.no1.taiwan.newsbasket.domain.BaseUsecase] and unwrapping and letting the usecase become a await
  * [Deferred] object without the mapper (Because the
  * variables should be primitive variable).
  *

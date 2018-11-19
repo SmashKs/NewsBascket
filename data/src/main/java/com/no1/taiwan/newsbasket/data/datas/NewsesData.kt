@@ -7,5 +7,5 @@ data class NewsesData(
     val count: Int = DEFAULT_INT,
     val next: String = DEFAULT_STR,
     val previous: String = DEFAULT_STR,
-    val results: List<NewsData> = listOf()
+    val results: Newses = listOf()
 )

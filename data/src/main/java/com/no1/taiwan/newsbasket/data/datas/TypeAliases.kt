@@ -9,3 +9,6 @@ typealias MapperPool = Map<Class<out DataMapper>, DataMapper>
 
 typealias DataNewsMapper = Mapper<NewsData, NewsModel>
 typealias DataTokenMapper = Mapper<TokenData, TokenModel>
+
+// Data
+typealias Newses = List<NewsData>

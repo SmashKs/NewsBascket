@@ -7,11 +7,12 @@ import android.media.RingtoneManager.getDefaultUri
 import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES.O
 import androidx.core.app.NotificationCompat
-import com.devrapid.kotlinknifer.loge
 import com.devrapid.kotlinknifer.logw
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.no1.taiwan.newsbasket.R
+import com.no1.taiwan.newsbasket.ext.const.Constants
+import com.no1.taiwan.newsbasket.ext.mmkv.kvToken
 import kotlin.random.Random
 
 class NewsFirebaseMessaging : FirebaseMessagingService() {
@@ -21,7 +22,7 @@ class NewsFirebaseMessaging : FirebaseMessagingService() {
 
     override fun onNewToken(token: String) {
         super.onNewToken(token)
-        loge(token)
+        kvToken.encode(Constants.MmkvKey.FIREBASE_TOKEN, token)
     }
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {

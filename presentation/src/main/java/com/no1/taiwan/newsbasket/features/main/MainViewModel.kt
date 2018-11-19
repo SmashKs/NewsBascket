@@ -4,18 +4,19 @@ import com.no1.taiwan.newsbasket.components.viewmodel.AutoViewModel
 import com.no1.taiwan.newsbasket.domain.parameters.fields.SubscriberFields
 import com.no1.taiwan.newsbasket.domain.usecases.AddSubscriberUsecase
 import com.no1.taiwan.newsbasket.domain.usecases.GetNewsUsecase
-import com.no1.taiwan.newsbasket.entities.NewsEntity
+import com.no1.taiwan.newsbasket.entities.Keywords
+import com.no1.taiwan.newsbasket.entities.Newses
 import com.no1.taiwan.newsbasket.entities.PresentationNewsMapper
 import com.no1.taiwan.newsbasket.entities.PresentationTokenMapper
 import com.no1.taiwan.newsbasket.entities.TokenEntity
 import com.no1.taiwan.newsbasket.ext.ResponseLiveData
 import com.no1.taiwan.newsbasket.ext.ResponseMutableLiveData
 import com.no1.taiwan.newsbasket.ext.const.Constants
+import com.no1.taiwan.newsbasket.ext.const.Token
 import com.no1.taiwan.newsbasket.ext.mmkv.kvToken
 import com.no1.taiwan.newsbasket.ext.requestData
 import com.no1.taiwan.newsbasket.ext.toRun
 import com.no1.taiwan.newsbasket.ext.toRunList
-import com.tencent.mmkv.MMKV
 
 class MainViewModel(
     private val usecase: GetNewsUsecase,
@@ -23,22 +24,19 @@ class MainViewModel(
     private val uc1: AddSubscriberUsecase,
     private val m1: PresentationTokenMapper
 ) : AutoViewModel() {
-    private val _newsLiveData by lazy { ResponseMutableLiveData<List<NewsEntity>>() }
-    val newsLiveData: ResponseLiveData<List<NewsEntity>> = _newsLiveData
+    private val _newsLiveData by lazy { ResponseMutableLiveData<Newses>() }
+    val newsLiveData: ResponseLiveData<Newses> = _newsLiveData
     private val _tokenLiveData by lazy { ResponseMutableLiveData<TokenEntity>() }
     val tokenLiveData: ResponseLiveData<Boolean> = ResponseMutableLiveData()
 
-    private val kv = MMKV.defaultMMKV()
-
     fun fetchNews() = _newsLiveData requestData { usecase.toRunList(mapper, GetNewsUsecase.Request()) }
 
-    fun addSubscriber(token: String, keywords: List<String>) {
+    fun addSubscriber(token: Token, keywords: Keywords) {
         val strKeyword = keywords.joinToString(",")
         _tokenLiveData requestData { uc1.toRun(m1, AddSubscriberUsecase.Request(SubscriberFields(token, strKeyword))) }
     }
 
     fun keepToken(tokenEntity: TokenEntity) {
-        kvToken.encode(Constants.MmkvKey.FIREBASE_TOKEN, tokenEntity.firebaseToken)
         kvToken.encode(Constants.MmkvKey.TOKEN, tokenEntity.token)
     }
 }
