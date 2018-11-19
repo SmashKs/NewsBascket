@@ -29,7 +29,7 @@
         </activity>
 
         <service
-            android:name="com.no1.taiwan.newsbasket.components.service.InitialService"
+            android:name="com.no1.taiwan.newsbasket.services.InitialService"
             android:exported="false"/>
         <service
             android:name=".services.NewsFirebaseMessaging"

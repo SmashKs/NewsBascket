@@ -7,7 +7,9 @@ import com.google.gson.GsonBuilder
 import com.no1.taiwan.newsbasket.data.datas.mappers.NewsMapper
 import com.no1.taiwan.newsbasket.data.datas.mappers.TokenMapper
 import com.no1.taiwan.newsbasket.entities.PresentationNewsMapper
+import com.no1.taiwan.newsbasket.entities.PresentationTokenMapper
 import com.no1.taiwan.newsbasket.entities.mappers.NewsEntityMapper
+import com.no1.taiwan.newsbasket.entities.mappers.TokenEntityMapper
 import org.kodein.di.Kodein.Module
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.inSet
@@ -41,5 +43,6 @@ object UtilModule {
         // TODO(jieyi): 2018/09/19 Doing as like the domain can find the mapper.
         /** Presentation Layer Mapper */
         bind<PresentationNewsMapper>() with singleton { NewsEntityMapper() }
+        bind<PresentationTokenMapper>() with singleton { TokenEntityMapper() }
     }
 }

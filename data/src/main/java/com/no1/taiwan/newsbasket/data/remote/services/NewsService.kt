@@ -6,9 +6,9 @@ import com.no1.taiwan.newsbasket.data.remote.config.NewsConfig.Companion.API_REQ
 import com.no1.taiwan.newsbasket.domain.Fields
 import com.no1.taiwan.newsbasket.domain.Parameters
 import kotlinx.coroutines.Deferred
-import retrofit2.http.FieldMap
-import retrofit2.http.FormUrlEncoded
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Headers
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.QueryMap
@@ -20,11 +20,11 @@ interface NewsService {
     @GET("$API_REQUEST/news/")
     fun retrieveNews(@QueryMap params: Parameters): Deferred<NewsesData>
 
-    @FormUrlEncoded
+    @Headers("Content-Type: application/json;charset=UTF-8")
     @POST("$API_REQUEST/subscriber/")
-    fun createSubscriber(@FieldMap fields: Fields): Deferred<TokenData>
+    fun createSubscriber(@Body fields: Fields): Deferred<TokenData>
 
-    @FormUrlEncoded
+    @Headers("Content-Type: application/json;charset=UTF-8")
     @PUT("$API_REQUEST/subscriber/")
-    fun updateSubscriber(@FieldMap fields: Fields): Deferred<Boolean>
+    fun updateSubscriber(@Body fields: Fields): Deferred<Boolean>
 }

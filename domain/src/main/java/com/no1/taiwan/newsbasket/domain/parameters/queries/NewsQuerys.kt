@@ -8,10 +8,10 @@ data class NewsQuerys(
 ) : BaseParams(),
     Parameterable {
     companion object {
-        const val HASH_NAME_PAGE = "page"
+        const val PARAM_NAME_PAGE = "page"
     }
 
     override fun toApiParam() = super.toApiParam().apply {
-        put(HASH_NAME_PAGE, page.toString())
+        put(PARAM_NAME_PAGE, page.toString())
     }
 }

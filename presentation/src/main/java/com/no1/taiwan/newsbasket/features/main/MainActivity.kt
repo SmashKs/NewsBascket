@@ -41,16 +41,14 @@ class MainActivity : AdvActivity<MainViewModel>() {
         observeNonNull(vm.newsLiveData) {
             peel { logw(it) } happenError { loge(it) } doWith this@MainActivity
         }
+        observeNonNull(vm.tokenLiveData) {
+            peel { vm::keepToken } happenError { loge(it) } doWith this@MainActivity
+        }
 
         btn_click.onClick {
             val s = "${et_input1.text} + ${et_input2.text}"
             tv_res.text = s
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        vm.fetchNews()
     }
 
     override fun provideLayoutId() = R.layout.activity_main

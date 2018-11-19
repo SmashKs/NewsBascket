@@ -10,12 +10,12 @@ data class SubscriberFields(
 ) : BaseParams(),
     Parameterable {
     companion object {
-        const val HASH_NAME_FIREBASE_TOKEN = "firebase token"
-        const val HASH_NAME_KEYWORDS = "keywords"
+        const val PARAM_NAME_FIREBASE_TOKEN = "firebase_token"
+        const val PARAM_NAME_KEYWORDS = "keywords"
     }
 
     override fun toApiParam() = hashMapOf(
-        HASH_NAME_FIREBASE_TOKEN to firebaseToken,
-        HASH_NAME_KEYWORDS to keywords
+        PARAM_NAME_FIREBASE_TOKEN to firebaseToken,
+        PARAM_NAME_KEYWORDS to keywords
     )
 }

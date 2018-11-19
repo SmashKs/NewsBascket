@@ -1,4 +1,4 @@
-package com.no1.taiwan.newsbasket.components.service
+package com.no1.taiwan.newsbasket.services
 
 import android.app.IntentService
 import android.content.Intent
