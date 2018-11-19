@@ -9,4 +9,6 @@ interface DataStore {
     fun retrieveNewsData(parameters: Parameterable): Deferred<NewsesData>
 
     fun createSubscriber(parameters: Parameterable): Deferred<TokenData>
+
+    fun updateKeywords(parameters: Parameterable): Deferred<TokenData>
 }

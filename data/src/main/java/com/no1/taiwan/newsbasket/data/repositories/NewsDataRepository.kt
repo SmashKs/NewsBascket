@@ -42,6 +42,12 @@ class NewsDataRepository constructor(
         tokenMapper.toModelFrom(data)
     }
 
+    override fun updateKeywords(parameters: Parameterable, scope: CoroutineScope) = scope.async {
+        val data = remote.updateKeywords(parameters).await()
+
+        tokenMapper.toModelFrom(data)
+    }
+
     /**
      * Get a mapper object from the mapper pool.
      */

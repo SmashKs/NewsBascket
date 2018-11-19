@@ -14,4 +14,6 @@ class LocalDataStore(
 //        GlobalScope.async(Dispatchers.Default) { newsDb.getAllData() }
 
     override fun createSubscriber(parameters: Parameterable) = throw UnsupportedOperationException()
+
+    override fun updateKeywords(parameters: Parameterable) = throw UnsupportedOperationException()
 }

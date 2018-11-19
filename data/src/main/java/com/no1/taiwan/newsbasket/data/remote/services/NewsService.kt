@@ -3,6 +3,7 @@ package com.no1.taiwan.newsbasket.data.remote.services
 import com.no1.taiwan.newsbasket.data.datas.NewsesData
 import com.no1.taiwan.newsbasket.data.datas.TokenData
 import com.no1.taiwan.newsbasket.data.remote.config.NewsConfig.Companion.API_REQUEST
+import com.no1.taiwan.newsbasket.data.remote.config.NewsConfig.Companion.CONTENT_TYPE_JSON
 import com.no1.taiwan.newsbasket.domain.Fields
 import com.no1.taiwan.newsbasket.domain.Parameters
 import kotlinx.coroutines.Deferred
@@ -20,11 +21,11 @@ interface NewsService {
     @GET("$API_REQUEST/news/")
     fun retrieveNews(@QueryMap params: Parameters): Deferred<NewsesData>
 
-    @Headers("Content-Type: application/json;charset=UTF-8")
+    @Headers(CONTENT_TYPE_JSON)
     @POST("$API_REQUEST/subscriber/")
     fun createSubscriber(@Body fields: Fields): Deferred<TokenData>
 
-    @Headers("Content-Type: application/json;charset=UTF-8")
+    @Headers(CONTENT_TYPE_JSON)
     @PUT("$API_REQUEST/subscriber/")
-    fun updateSubscriber(@Body fields: Fields): Deferred<Boolean>
+    fun updateSubscriber(@QueryMap params: Parameters, @Body fields: Fields): Deferred<TokenData>
 }

@@ -13,4 +13,6 @@ interface DataRepository {
     fun fetchNews(parameters: Parameterable, scope: CoroutineScope): Deferred<Newses>
 
     fun addSubscriber(parameters: Parameterable, scope: CoroutineScope): Deferred<TokenModel>
+
+    fun updateKeywords(parameters: Parameterable, scope: CoroutineScope): Deferred<TokenModel>
 }
