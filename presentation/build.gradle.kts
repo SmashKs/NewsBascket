@@ -149,12 +149,14 @@ dependencies {
 
     debugImplementation(Deps.GlobalDebug.steho)
 
+    //region Android Test
     androidTestImplementation(Deps.GlobalTest.junit)
     androidTestImplementation(Deps.GlobalTest.junitCore)
     androidTestImplementation(Deps.GlobalTest.assertk)
     androidTestImplementation(Deps.PresentationTest.runner)
     androidTestImplementation(Deps.PresentationTest.espressoCore)
     androidTestImplementation(Deps.PresentationTest.kakao)
+    //endregion
 }
 
 // Get a variable from local.properties.

@@ -4,7 +4,6 @@ import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.no1.taiwan.newsbasket.R
 import com.no1.taiwan.newsbasket.bases.AdvActivity
-import kotlinx.android.synthetic.main.activity_main.navigation
 
 class MainActivity : AdvActivity<MainViewModel>() {
     private val navigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
@@ -26,7 +25,7 @@ class MainActivity : AdvActivity<MainViewModel>() {
     }
 
     override fun init(savedInstanceState: Bundle?) {
-        navigation.setOnNavigationItemSelectedListener(navigationItemSelectedListener)
+//        navigation.setOnNavigationItemSelectedListener(navigationItemSelectedListener)
 //        observeNonNull(vm.newsLiveData) {
 //            peel { logw(it) } happenError { loge(it) } doWith this@MainActivity
 //        }

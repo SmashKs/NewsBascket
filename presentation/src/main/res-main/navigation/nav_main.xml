@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    android:id="@+id/nav_main"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/frag_index">
+
+    <fragment
+        android:id="@+id/frag_index"
+        android:name="com.no1.taiwan.newsbasket.features.main.IndexFragment"
+        android:label="News"
+        tools:layout="@layout/fragment_index">
+        <action
+            android:id="@+id/action_nav_index_to_keyword"
+            app:destination="@+id/frag_keyword"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/frag_keyword"
+        android:name="com.no1.taiwan.newsbasket.features.main.KeywordFragment"
+        android:label="Keywords"
+        tools:layout="@layout/fragment_keyword">
+        <action
+            android:id="@+id/action_nav_keyword_to_index"
+            app:destination="@+id/frag_index"/>
+    </fragment>
+</navigation>
