@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Splash -->
-    <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="SplashTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- The view fit to until the state bar -->
         <item name="android:windowTranslucentStatus">true</item>
         <!-- The view fit to until the navigation bar -->

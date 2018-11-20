@@ -21,4 +21,10 @@ class KeywordFragment : BaseFragment<MainActivity>() {
      */
     override fun provideInflateView() = R.layout.fragment_keyword
 
+    /**
+     * Set fragment title into action bar.
+     *
+     * @return [String] action bar title.
+     */
+    override fun actionBarTitle() = "Keywords"
 }

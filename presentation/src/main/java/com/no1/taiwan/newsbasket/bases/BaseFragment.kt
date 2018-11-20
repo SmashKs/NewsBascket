@@ -78,6 +78,9 @@ abstract class BaseFragment<out A : BaseActivity> : Fragment(), KodeinAware {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Set the title into the support action bar.
+        actionBarTitle()?.let { parent.supportActionBar?.title = it }
+        // Action for customizing.
         rendered(savedInstanceState)
         // When the fragment has base_layout id, it'll attach the function of hiding soft keyboard.
         view.findOptional<View>(R.id.base_layout)?.clickedThenHideKeyboard()
@@ -101,9 +104,22 @@ abstract class BaseFragment<out A : BaseActivity> : Fragment(), KodeinAware {
     @LayoutRes
     protected abstract fun provideInflateView(): Int
 
+    /**
+     * Set specific theme to this fragment.
+     *
+     * @return [Int] style xml resource.
+     */
     @UiThread
     @StyleRes
     protected open fun customTheme(): Int? = null
+
+    /**
+     * Set fragment title into action bar.
+     *
+     * @return [String] action bar title.
+     */
+    @UiThread
+    protected open fun actionBarTitle(): String? = null
 
     /**
      * Attaching the function of hiding the soft keyboard into a [View].

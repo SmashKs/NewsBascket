@@ -27,4 +27,11 @@ class IndexFragment : BaseFragment<MainActivity>() {
      */
     override fun provideInflateView() = R.layout.fragment_index
 
+    /**
+     * Set fragment title into action bar.
+     *
+     * @return [String] action bar title.
+     */
+    override fun actionBarTitle() = "News"
+
 }
