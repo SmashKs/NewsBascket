@@ -9,15 +9,15 @@ import kotlinx.android.synthetic.main.fragment_index.tv_hello
 import org.jetbrains.anko.sdk25.coroutines.onClick
 
 class IndexFragment : BaseFragment<MainActivity>() {
+    //region Base build-in functions
     /**
      * Initialize method.
      *
      * @param savedInstanceState before status.
      */
     override fun rendered(savedInstanceState: Bundle?) {
-        tv_hello.onClick {
-            findNavController().navigate(R.id.action_nav_index_to_keyword)
-        }
+        componentSetting()
+        eventSetting()
     }
 
     /**
@@ -32,6 +32,15 @@ class IndexFragment : BaseFragment<MainActivity>() {
      *
      * @return [String] action bar title.
      */
-    override fun actionBarTitle() = "News"
+    override fun actionBarTitle() = getString(R.string.app_name)
+    //endregion
 
+    private fun componentSetting() {
+    }
+
+    private fun eventSetting() {
+        tv_hello.onClick {
+            findNavController().navigate(R.id.action_nav_index_to_keyword)
+        }
+    }
 }

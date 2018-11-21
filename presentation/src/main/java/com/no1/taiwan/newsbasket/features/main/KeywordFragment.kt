@@ -2,14 +2,19 @@ package com.no1.taiwan.newsbasket.features.main
 
 import android.os.Bundle
 import androidx.annotation.LayoutRes
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.no1.taiwan.newsbasket.R
 import com.no1.taiwan.newsbasket.bases.BaseFragment
+import com.no1.taiwan.newsbasket.internal.di.tags.ObjectLabel.LINEAR_LAYOUT_VERTICAL
 import kotlinx.android.synthetic.main.fragment_keyword.fab_add
 import kotlinx.android.synthetic.main.fragment_keyword.rv_keywords
 import org.jetbrains.anko.sdk25.coroutines.onClick
+import org.kodein.di.generic.instance
 
 class KeywordFragment : BaseFragment<MainActivity>() {
-//    private val linearLayout by instance<LinearLayoutManager>(LINEAR_LAYOUT_VERTICAL)
+    private val linearLayout by instance<LinearLayoutManager>(LINEAR_LAYOUT_VERTICAL)
+
+    //region Base build-in functions
     /**
      * Initialize method.
      *
@@ -32,11 +37,12 @@ class KeywordFragment : BaseFragment<MainActivity>() {
      *
      * @return [String] action bar title.
      */
-    override fun actionBarTitle() = "Keywords"
+    override fun actionBarTitle() = getString(R.string.title_keyword)
+    //endregion
 
     private fun componentSetting() {
         rv_keywords.apply {
-            //            layoutManager = linearLayout
+            layoutManager = linearLayout
 //            adapter =
         }
     }

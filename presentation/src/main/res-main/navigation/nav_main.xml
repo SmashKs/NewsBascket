@@ -9,7 +9,7 @@
     <fragment
         android:id="@+id/frag_index"
         android:name="com.no1.taiwan.newsbasket.features.main.IndexFragment"
-        android:label="News"
+        android:label="@string/app_name"
         tools:layout="@layout/fragment_index">
         <action
             android:id="@+id/action_nav_index_to_keyword"
@@ -23,7 +23,7 @@
     <fragment
         android:id="@+id/frag_keyword"
         android:name="com.no1.taiwan.newsbasket.features.main.KeywordFragment"
-        android:label="Keywords"
+        android:label="@string/title_keyword"
         tools:layout="@layout/fragment_keyword">
         <action
             android:id="@+id/action_nav_keyword_to_index"

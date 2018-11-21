@@ -9,7 +9,6 @@ import com.no1.taiwan.newsbasket.internal.di.ServiceModule.serviceProvider
 import com.no1.taiwan.newsbasket.internal.di.UtilModule.utilProvider
 import com.no1.taiwan.newsbasket.internal.di.dependency.UsecaseModule.usecaseProvider
 import com.no1.taiwan.newsbasket.services.InitialService
-import me.yokeyword.fragmentation.Fragmentation
 import org.jetbrains.anko.startService
 import org.kodein.di.Kodein.Companion.lazy
 import org.kodein.di.KodeinAware
@@ -51,10 +50,5 @@ class App : MultiDexApplication(), KodeinAware {
 
         // Start init process service.
         startService<InitialService>()
-        Fragmentation.builder()
-            // show stack view. Mode: BUBBLE, SHAKE, NONE
-            .stackViewMode(Fragmentation.BUBBLE)
-            .debug(BuildConfig.DEBUG)
-            .install()
     }
 }
