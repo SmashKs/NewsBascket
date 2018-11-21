@@ -16,6 +16,7 @@ import com.no1.taiwan.newsbasket.R
 import com.no1.taiwan.newsbasket.internal.di.dependency.fragment.SuperFragmentModule.fragmentModule
 import org.jetbrains.anko.findOptional
 import org.jetbrains.anko.sdk25.coroutines.onClick
+import org.jetbrains.anko.support.v4.findOptional
 import org.kodein.di.Kodein.Companion.lazy
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
@@ -70,6 +71,7 @@ abstract class BaseFragment<out A : BaseActivity> : Fragment(), KodeinAware {
         super.onViewCreated(view, savedInstanceState)
 
         // Set the title into the support action bar.
+        parent.setSupportActionBar(findOptional(R.id.tb_header))
         actionBarTitle()?.let { parent.supportActionBar?.title = it }
         // Action for customizing.
         rendered(savedInstanceState)

@@ -1,6 +1,6 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="MainTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
+    <style name="MainTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <!-- color for the app bar and other primary UI elements -->
         <item name="colorPrimary">?themeColorPrimary</item>
@@ -85,5 +85,26 @@
     <style name="NewsDialog.Animation">
         <item name="android:windowEnterAnimation">@anim/scale_enter_dialog</item>
         <item name="android:windowExitAnimation">@anim/scale_exit_dialog</item>
+    </style>
+
+    <!-- Action Bar -->
+    <style name="CustomToolBar"/>
+
+    <style name="View.ToolBar" parent="CustomToolBar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?android:attr/actionBarSize</item>
+    </style>
+
+    <style name="View.ToolBar.Bar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?android:attr/actionBarSize</item>
+        <item name="android:background">@color/colorPrimaryV1</item>
+        <item name="titleTextColor">@color/white</item>
+    </style>
+
+    <style name="View.ToolBar.Shadow" parent="CustomToolBar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/md_one_unit</item>
+        <item name="android:background">@drawable/toolbar_shadow</item>
     </style>
 </resources>

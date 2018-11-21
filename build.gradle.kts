@@ -52,7 +52,7 @@ allprojects {
         // required to find the project's artifacts
         maven(url = "https://www.jitpack.io")
         maven(url = "https://dl.bintray.com/pokk/maven")
-        maven(url = "https://dl.bintray.com/kodein-framework/Kodein-DI/")
+//        maven(url = "https://dl.bintray.com/kodein-framework/Kodein-DI/")
     }
 }
 

@@ -90,8 +90,8 @@ dependencies {
     //endregion
 
     //region DI
-    implementation(Deps.Global.kodeinAndroidX)
     implementation(Deps.Global.kodeinJVM)
+    implementation(Deps.Global.kodeinAndroidX)
     //endregion
 
     //region Rx Bus

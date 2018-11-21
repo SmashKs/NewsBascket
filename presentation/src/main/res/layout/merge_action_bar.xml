@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+
+    <include layout="@layout/part_custom_toolbar"/>
+
+    <View
+        android:id="@+id/v_header"
+        style="@style/View.ToolBar"/>
+</merge>

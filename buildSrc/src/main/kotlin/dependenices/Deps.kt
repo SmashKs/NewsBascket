@@ -109,10 +109,11 @@ object Deps {
         const val coordinatorLayout =
             "androidx.coordinatorlayout:coordinatorlayout:${Versions.AndroidComponent.coordinatorLayout}"
         const val navigationUi =
-            "android.arch.navigation:navigation-fragment-ktx:${Versions.AndroidComponent.navigation}"
+            "android.arch.navigation:navigation-fragment-ktx:${Versions.AndroidArchitectureComponent.navigation}"
         const val navigationFragment =
-            "android.arch.navigation:navigation-ui-ktx:${Versions.AndroidComponent.navigation}"
-        const val lifecycle = "androidx.lifecycle:lifecycle-extensions:${Versions.KotlinAndroidExt.aacLifecycle}"
+            "android.arch.navigation:navigation-ui-ktx:${Versions.AndroidArchitectureComponent.navigation}"
+        const val lifecycle =
+            "androidx.lifecycle:lifecycle-extensions:${Versions.AndroidArchitectureComponent.aacLifecycle}"
 
         const val idlingEspresso = "androidx.test.espresso:espresso-idling-resource:${Versions.Test.espresso}"
     }

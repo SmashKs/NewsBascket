@@ -23,7 +23,6 @@ object Versions {
         const val cardview = androidx
         const val constraintLayout = "2.0.0-alpha2"
         const val coordinatorLayout = androidx
-        const val navigation = "1.0.0-alpha07"
     }
 
     /**
@@ -46,7 +45,6 @@ object Versions {
      */
     object KotlinAndroidExt {
         const val dex = "2.0.0"
-        const val aacLifecycle = "2.0.0"
         const val anko = "0.10.8"
         const val ktx = "1.0.1"
         const val kinfer = "2.1.1"
@@ -54,6 +52,8 @@ object Versions {
     }
 
     object AndroidArchitectureComponent {
+        const val aacLifecycle = "2.0.0"
+        const val navigation = "1.0.0-alpha07"
         const val room = "2.1.0-alpha01"
     }
 
