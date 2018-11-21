@@ -9,7 +9,6 @@ import org.kodein.di.Kodein.Module
 object SuperActivityModule {
     fun activityModule() = Module("All Activities Module") {
         // Import all of the activity modules.
-
         import(mainProvider())
     }
 }

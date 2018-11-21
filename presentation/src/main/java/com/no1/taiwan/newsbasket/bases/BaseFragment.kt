@@ -10,22 +10,17 @@ import androidx.annotation.StyleRes
 import androidx.annotation.UiThread
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.devrapid.kotlinknifer.hideSoftKeyboard
 import com.devrapid.kotlinshaver.castOrNull
 import com.no1.taiwan.newsbasket.R
-import com.no1.taiwan.newsbasket.internal.di.ViewModelEntries
 import com.no1.taiwan.newsbasket.internal.di.dependency.fragment.SuperFragmentModule.fragmentModule
-import com.no1.taiwan.newsbasket.widget.viewmodel.ViewModelFactory
 import org.jetbrains.anko.findOptional
 import org.jetbrains.anko.sdk25.coroutines.onClick
 import org.kodein.di.Kodein.Companion.lazy
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
-import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
 import org.kodein.di.generic.kcontext
-import org.kodein.di.generic.singleton
 
 /**
  * The basic fragment is for the normal activity which prepares all necessary variables or functions.
@@ -36,10 +31,6 @@ abstract class BaseFragment<out A : BaseActivity> : Fragment(), KodeinAware {
         extend(parentKodein)
         /* fragment specific bindings */
         import(fragmentModule())
-
-        bind<ViewModelProvider.Factory>() with singleton {
-            ViewModelFactory(instance(), instance<ViewModelEntries>().toMap().toMutableMap())
-        }
     }
     @Suppress("UNCHECKED_CAST")
     protected val parent

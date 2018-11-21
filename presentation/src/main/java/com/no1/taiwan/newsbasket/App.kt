@@ -12,7 +12,7 @@ import com.no1.taiwan.newsbasket.services.InitialService
 import org.jetbrains.anko.startService
 import org.kodein.di.Kodein.Companion.lazy
 import org.kodein.di.KodeinAware
-import org.kodein.di.android.androidModule
+import org.kodein.di.android.x.androidXModule
 
 /**
  * Android Main Application
@@ -33,15 +33,16 @@ class App : MultiDexApplication(), KodeinAware {
     override val kodein = lazy {
         val app = this@App
 
-        import(androidModule(app))
+        import(androidXModule(app))
         /** bindings */
         import(appProvider())
         import(utilProvider(app))
-        import(repositoryProvider())
+        /** activities or fragments */
+        import(recyclerViewProvider(app))
         /** usecases are bind here but the scope is depending on each layers.  */
         import(usecaseProvider())
+        import(repositoryProvider())
         import(serviceProvider(app))
-        import(recyclerViewProvider(app))
     }
 
     override fun onCreate() {

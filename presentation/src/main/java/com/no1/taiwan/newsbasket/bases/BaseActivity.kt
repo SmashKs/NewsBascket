@@ -32,6 +32,7 @@ abstract class BaseActivity : AppCompatActivity(), KodeinAware {
         }
     }
     protected val bus by instance<Bus>()
+    // OPTIMIZE(jieyi): 2018/11/21 This might reduce some redundant injected objects.
     private val parentKodein by closestKodein()
 
     //region RxBus Example
