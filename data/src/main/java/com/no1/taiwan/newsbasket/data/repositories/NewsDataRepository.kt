@@ -43,9 +43,13 @@ class NewsDataRepository constructor(
     }
 
     override fun updateKeywords(parameters: Parameterable, scope: CoroutineScope) = scope.async {
-        val data = remote.updateKeywords(parameters).await()
+        val data = remote.modifyKeywords(parameters).await()
 
         tokenMapper.toModelFrom(data)
+    }
+
+    override fun keepNewsToken(parameters: Parameterable, scope: CoroutineScope) = scope.async {
+        local.storeNewsToken(parameters).await()
     }
 
     /**

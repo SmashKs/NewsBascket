@@ -1,8 +1,9 @@
 package com.no1.taiwan.newsbasket.internal.di.dependency
 
 import com.no1.taiwan.newsbasket.domain.usecases.AddSubscriberUsecase
-import com.no1.taiwan.newsbasket.domain.usecases.GetNewsUsecase
-import com.no1.taiwan.newsbasket.domain.usecases.ModifyKeywordsUsecase
+import com.no1.taiwan.newsbasket.domain.usecases.FetchNewsUsecase
+import com.no1.taiwan.newsbasket.domain.usecases.KeepNewsTokenUsecase
+import com.no1.taiwan.newsbasket.domain.usecases.UpdateKeywordsUsecase
 import org.kodein.di.Kodein.Module
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
@@ -14,9 +15,10 @@ import org.kodein.di.generic.singleton
 object UsecaseModule {
     fun usecaseProvider() = Module("Use Cases Module") {
         //region For Fragments
-        bind<GetNewsUsecase>() with singleton { GetNewsUsecase(instance()) }
+        bind<FetchNewsUsecase>() with singleton { FetchNewsUsecase(instance()) }
         bind<AddSubscriberUsecase>() with singleton { AddSubscriberUsecase(instance()) }
-        bind<ModifyKeywordsUsecase>() with singleton { ModifyKeywordsUsecase(instance()) }
+        bind<UpdateKeywordsUsecase>() with singleton { UpdateKeywordsUsecase(instance()) }
+        bind<KeepNewsTokenUsecase>() with singleton { KeepNewsTokenUsecase(instance()) }
         //endregion
     }
 }

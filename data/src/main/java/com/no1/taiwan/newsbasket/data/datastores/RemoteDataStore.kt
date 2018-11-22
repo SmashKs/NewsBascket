@@ -15,14 +15,14 @@ class RemoteDataStore(
 ) : DataStore {
     override fun retrieveNewsData(parameters: Parameterable) = newsService.retrieveNews(parameters.toApiParam())
 
-    override fun createSubscriber(parameters: Parameterable) = newsService.createSubscriber(parameters.toApiParam())
+    override fun createSubscriber(parameters: Parameterable) = newsService.newSubscriber(parameters.toApiParam())
 
-    override fun updateKeywords(parameters: Parameterable) = newsService.let {
+    override fun modifyKeywords(parameters: Parameterable) = newsService.let {
         // Separate the queries and fields variables.
         val fields = parameters.toApiParam().apply { remove(PARAM_NAME_TOKEN) }
         val queries = hashMapOf(PARAM_NAME_TOKEN to parameters.toApiParam()[PARAM_NAME_TOKEN].orEmpty())
 
-        it.updateSubscriber(queries, fields)
+        it.replaceSubscriber(queries, fields)
     }
 
     override fun storeNewsToken(parameters: Parameterable) = throw UnsupportedOperationException()

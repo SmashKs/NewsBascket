@@ -3,7 +3,7 @@ package com.no1.taiwan.newsbasket.features.main.viewmodels
 import com.no1.taiwan.newsbasket.components.viewmodel.AutoViewModel
 import com.no1.taiwan.newsbasket.domain.parameters.fields.SubscriberFields
 import com.no1.taiwan.newsbasket.domain.usecases.AddSubscriberUsecase
-import com.no1.taiwan.newsbasket.domain.usecases.GetNewsUsecase
+import com.no1.taiwan.newsbasket.domain.usecases.FetchNewsUsecase
 import com.no1.taiwan.newsbasket.entities.Keywords
 import com.no1.taiwan.newsbasket.entities.Newses
 import com.no1.taiwan.newsbasket.entities.PresentationNewsMapper
@@ -17,7 +17,7 @@ import com.no1.taiwan.newsbasket.ext.toRun
 import com.no1.taiwan.newsbasket.ext.toRunList
 
 class MainViewModel(
-    private val usecase: GetNewsUsecase,
+    private val usecase: FetchNewsUsecase,
     private val mapper: PresentationNewsMapper,
     private val uc1: AddSubscriberUsecase,
     private val m1: PresentationTokenMapper
@@ -27,7 +27,7 @@ class MainViewModel(
     private val _tokenLiveData by lazy { ResponseMutableLiveData<TokenEntity>() }
     val tokenLiveData: ResponseLiveData<Boolean> = ResponseMutableLiveData()
 
-    fun fetchNews() = _newsLiveData requestData { usecase.toRunList(mapper, GetNewsUsecase.Request()) }
+    fun fetchNews() = _newsLiveData requestData { usecase.toRunList(mapper, FetchNewsUsecase.Request()) }
 
     fun addSubscriber(token: Token, keywords: Keywords) {
         val strKeyword = keywords.joinToString(",")

@@ -2,10 +2,9 @@ package com.no1.taiwan.newsbasket.data.datastores
 
 import com.no1.taiwan.newsbasket.data.local.v1.NewsDao
 import com.no1.taiwan.newsbasket.domain.parameters.Parameterable
+import com.no1.taiwan.newsbasket.domain.parameters.params.TokenParams.Companion.PARAM_NAME_TOKEN
 import com.no1.taiwan.newsbasket.ext.const.Constants
-import com.no1.taiwan.newsbasket.ext.const.DEFAULT_STR
 import com.tencent.mmkv.MMKV
-import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 
@@ -22,10 +21,11 @@ class LocalDataStore(
 
     override fun createSubscriber(parameters: Parameterable) = throw UnsupportedOperationException()
 
-    override fun updateKeywords(parameters: Parameterable) = throw UnsupportedOperationException()
+    override fun modifyKeywords(parameters: Parameterable) = throw UnsupportedOperationException()
 
-    override fun storeNewsToken(parameters: Parameterable): Deferred<Boolean> {
-        // TODO(jieyi): 2018/11/22
-        return GlobalScope.async { mmkv.encode(Constants.MmkvKey.TOKEN, DEFAULT_STR) }
+    override fun storeNewsToken(parameters: Parameterable) = GlobalScope.async {
+        val token = parameters.toApiParam()[PARAM_NAME_TOKEN].orEmpty()
+
+        mmkv.encode(Constants.MmkvKey.TOKEN, token)
     }
 }

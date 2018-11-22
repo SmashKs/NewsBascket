@@ -11,18 +11,11 @@ import com.devrapid.kotlinknifer.logw
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.no1.taiwan.newsbasket.R
-import com.no1.taiwan.newsbasket.ext.const.Constants
-import com.no1.taiwan.newsbasket.ext.mmkv.kvToken
 import kotlin.random.Random
 
 class NewsFirebaseMessaging : FirebaseMessagingService() {
     companion object {
         private val TAG = "MyFMService"
-    }
-
-    override fun onNewToken(token: String) {
-        super.onNewToken(token)
-        kvToken.encode(Constants.MmkvKey.FIREBASE_TOKEN, token)
     }
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {

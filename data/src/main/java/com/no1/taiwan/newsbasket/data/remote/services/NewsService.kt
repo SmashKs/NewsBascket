@@ -16,6 +16,7 @@ import retrofit2.http.QueryMap
 
 /**
  * Thru [retrofit2.Retrofit] we can just define the interfaces which we want to access for.
+ * Using prefix name (retrieve), (new), (replace), (release)
  */
 interface NewsService {
     @GET("$API_REQUEST/news/")
@@ -23,9 +24,9 @@ interface NewsService {
 
     @Headers(CONTENT_TYPE_JSON)
     @POST("$API_REQUEST/subscriber/")
-    fun createSubscriber(@Body fields: Fields): Deferred<TokenData>
+    fun newSubscriber(@Body fields: Fields): Deferred<TokenData>
 
     @Headers(CONTENT_TYPE_JSON)
     @PUT("$API_REQUEST/subscriber/")
-    fun updateSubscriber(@QueryMap params: Parameters, @Body fields: Fields): Deferred<TokenData>
+    fun replaceSubscriber(@QueryMap params: Parameters, @Body fields: Fields): Deferred<TokenData>
 }

@@ -7,7 +7,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 
 /**
- * This interface will be the similar to [com.no1.taiwan.newsbasket.data.datastores.DataStore] .
+ * This interface will be the similar to [com.no1.taiwan.newsbasket.data.datastores.DataStore].
+ * Using prefix name (fetch), (add), (update), (delete), (keep)
  */
 interface DataRepository {
     fun fetchNews(parameters: Parameterable, scope: CoroutineScope): Deferred<Newses>
@@ -15,4 +16,6 @@ interface DataRepository {
     fun addSubscriber(parameters: Parameterable, scope: CoroutineScope): Deferred<TokenModel>
 
     fun updateKeywords(parameters: Parameterable, scope: CoroutineScope): Deferred<TokenModel>
+
+    fun keepNewsToken(parameters: Parameterable, scope: CoroutineScope): Deferred<Boolean>
 }
