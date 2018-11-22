@@ -90,8 +90,12 @@ dependencies {
     //endregion
 
     //region DI
-    implementation(Deps.Global.kodeinJVM)
-    implementation(Deps.Global.kodeinAndroidX)
+    implementation(Deps.Global.kodeinJVM) {
+        exclude(group = "org.jetbrains.kotlin")
+    }
+    implementation(Deps.Global.kodeinAndroidX) {
+        exclude(group = "org.jetbrains.kotlin")
+    }
     //endregion
 
     //region Rx Bus
@@ -151,12 +155,14 @@ dependencies {
     implementation(Deps.Presentation.shapeOfView)
     //endregion
 
-    debugImplementation(Deps.GlobalDebug.steho)
+//    debugImplementation(Deps.GlobalDebug.steho)
 
     //region Android Test
     androidTestImplementation(Deps.GlobalTest.junit)
     androidTestImplementation(Deps.GlobalTest.junitCore)
-    androidTestImplementation(Deps.GlobalTest.assertk)
+    androidTestImplementation(Deps.GlobalTest.assertk) {
+        exclude(group = "org.jetbrains.kotlin")
+    }
     androidTestImplementation(Deps.PresentationTest.runner)
     androidTestImplementation(Deps.PresentationTest.espressoCore)
     androidTestImplementation(Deps.PresentationTest.kakao)

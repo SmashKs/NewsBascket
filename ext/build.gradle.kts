@@ -18,7 +18,9 @@ dependencies {
     testImplementation(Deps.GlobalTest.mockito) {
         exclude(group = "org.jetbrains.kotlin", module = "kotlin-reflect")
     }
-    testImplementation(Deps.GlobalTest.assertk)
+    testImplementation(Deps.GlobalTest.assertk) {
+        exclude(group = "org.jetbrains.kotlin")
+    }
 
     //region For the the newest version.
     testImplementation(Deps.GlobalTest.byteBuddy)
