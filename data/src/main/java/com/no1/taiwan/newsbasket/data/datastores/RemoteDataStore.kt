@@ -26,4 +26,10 @@ class RemoteDataStore(
     }
 
     override fun storeNewsToken(parameters: Parameterable) = throw UnsupportedOperationException()
+
+    override fun retrieveKeywords(parameters: Parameterable) = throw UnsupportedOperationException()
+
+    override fun createKeyword(parameters: Parameterable) = throw UnsupportedOperationException()
+
+    override fun removeKeyword(parameters: Parameterable) = throw UnsupportedOperationException()
 }

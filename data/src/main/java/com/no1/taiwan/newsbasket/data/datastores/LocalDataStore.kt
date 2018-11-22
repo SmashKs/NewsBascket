@@ -34,4 +34,10 @@ class LocalDataStore(
             resToken || resFirebaseToken
         }
     }
+
+    override fun retrieveKeywords(parameters: Parameterable) = TODO()
+
+    override fun createKeyword(parameters: Parameterable) = TODO()
+
+    override fun removeKeyword(parameters: Parameterable) = TODO()
 }

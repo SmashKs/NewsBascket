@@ -18,4 +18,10 @@ interface DataRepository {
     fun updateKeywords(parameters: Parameterable, scope: CoroutineScope): Deferred<TokenModel>
 
     fun keepNewsToken(parameters: Parameterable, scope: CoroutineScope): Deferred<Boolean>
+
+    fun fetchKeywords(parameters: Parameterable, scope: CoroutineScope): Deferred<List<String>>
+
+    fun addKeyword(parameters: Parameterable, scope: CoroutineScope): Deferred<Boolean>
+
+    fun deleteKeywordToken(parameters: Parameterable, scope: CoroutineScope): Deferred<Boolean>
 }

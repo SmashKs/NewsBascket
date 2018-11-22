@@ -52,6 +52,18 @@ class NewsDataRepository constructor(
         local.storeNewsToken(parameters).await()
     }
 
+    override fun fetchKeywords(parameters: Parameterable, scope: CoroutineScope) = scope.async {
+        local.retrieveKeywords(parameters).await()
+    }
+
+    override fun addKeyword(parameters: Parameterable, scope: CoroutineScope) = scope.async {
+        local.createKeyword(parameters).await()
+    }
+
+    override fun deleteKeywordToken(parameters: Parameterable, scope: CoroutineScope) = scope.async {
+        local.removeKeyword(parameters).await()
+    }
+
     /**
      * Get a mapper object from the mapper pool.
      */
