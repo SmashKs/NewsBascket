@@ -23,7 +23,7 @@ object RepositoryModule {
     fun repositoryProvider() = Module("Repository Module") {
         bind<AbsCache>(LOCAL) with singleton { NewsMemoryCache() }
         bind<DataStore>(REMOTE) with singleton { RemoteDataStore(instance(), instance()) }
-        bind<DataStore>(LOCAL) with singleton { LocalDataStore(instance()) }
+        bind<DataStore>(LOCAL) with singleton { LocalDataStore(instance(), instance()) }
         /** Mapper Pool for providing all data mappers */
         bind<MapperPool>() with provider { instance<DataMapperEntries>().toMap() }
 

@@ -10,6 +10,9 @@ import com.no1.taiwan.newsbasket.data.remote.services.NewsFirebase
 import com.no1.taiwan.newsbasket.data.remote.services.NewsService
 import com.no1.taiwan.newsbasket.data.remote.v1.NewsFirebaseImpl
 import com.no1.taiwan.newsbasket.internal.di.NetModule.netProvider
+import com.tencent.mmkv.MMKV
+import com.tencent.mmkv.MMKV.SINGLE_PROCESS_MODE
+import com.tencent.mmkv.MMKV.defaultMMKV
 import org.kodein.di.Kodein.Module
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
@@ -21,6 +24,8 @@ import retrofit2.Retrofit
  * To provide the necessary objects for the remote/local data store service.
  */
 object ServiceModule {
+    private const val TOKEN_PUBLIC_KEY = "dG9rZW4="
+
     fun serviceProvider(context: Context) = Module("RESTFul Service Module") {
         // *** For the [Remote] data module.
         import(netProvider(context))
@@ -62,5 +67,6 @@ object ServiceModule {
      */
     private fun implementationLocalProvider(context: Context) = Module("Implementation Local Module") {
         bind<NewsDao>() with instance(NewsDatabase.getDatabase(context).contactsDao())
+        bind<MMKV>() with singleton { defaultMMKV(SINGLE_PROCESS_MODE, TOKEN_PUBLIC_KEY) }
     }
 }

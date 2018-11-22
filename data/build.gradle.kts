@@ -54,6 +54,7 @@ dependencies {
 
     kapt(Deps.Data.roomAnnotation)
     implementation(Deps.Data.room)
+    implementation(Deps.Data.mmkv)
 
     //region Internet & Image loading
     implementation(Deps.Data.retrofit2)

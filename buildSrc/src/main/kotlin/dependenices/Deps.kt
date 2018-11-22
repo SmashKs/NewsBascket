@@ -163,6 +163,8 @@ object Deps {
         const val firebaseMLImageLabel = Presentation.firebaseMLImageLabel
         // Cloudinary
         const val cloudinary = Presentation.cloudinary
+        // MMKV
+        const val mmkv = Presentation.mmkv
 
         const val appcompat = Presentation.appcompat
     }

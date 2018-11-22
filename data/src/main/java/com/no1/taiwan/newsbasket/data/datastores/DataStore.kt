@@ -11,4 +11,6 @@ interface DataStore {
     fun createSubscriber(parameters: Parameterable): Deferred<TokenData>
 
     fun updateKeywords(parameters: Parameterable): Deferred<TokenData>
+
+    fun storeNewsToken(parameters: Parameterable): Deferred<Boolean>
 }

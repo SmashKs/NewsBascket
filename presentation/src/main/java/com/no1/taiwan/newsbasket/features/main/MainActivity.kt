@@ -9,6 +9,7 @@ import com.no1.taiwan.newsbasket.ext.doWith
 import com.no1.taiwan.newsbasket.ext.happenError
 import com.no1.taiwan.newsbasket.ext.observeNonNull
 import com.no1.taiwan.newsbasket.ext.peel
+import com.no1.taiwan.newsbasket.features.main.viewmodels.MainViewModel
 
 class MainActivity : AdvActivity<MainViewModel>() {
     override fun init(savedInstanceState: Bundle?) {

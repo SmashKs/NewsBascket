@@ -24,4 +24,6 @@ class RemoteDataStore(
 
         it.updateSubscriber(queries, fields)
     }
+
+    override fun storeNewsToken(parameters: Parameterable) = throw UnsupportedOperationException()
 }

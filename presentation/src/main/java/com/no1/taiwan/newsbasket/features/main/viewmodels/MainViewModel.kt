@@ -1,4 +1,4 @@
-package com.no1.taiwan.newsbasket.features.main
+package com.no1.taiwan.newsbasket.features.main.viewmodels
 
 import com.no1.taiwan.newsbasket.components.viewmodel.AutoViewModel
 import com.no1.taiwan.newsbasket.domain.parameters.fields.SubscriberFields
@@ -11,9 +11,7 @@ import com.no1.taiwan.newsbasket.entities.PresentationTokenMapper
 import com.no1.taiwan.newsbasket.entities.TokenEntity
 import com.no1.taiwan.newsbasket.ext.ResponseLiveData
 import com.no1.taiwan.newsbasket.ext.ResponseMutableLiveData
-import com.no1.taiwan.newsbasket.ext.const.Constants
 import com.no1.taiwan.newsbasket.ext.const.Token
-import com.no1.taiwan.newsbasket.ext.mmkv.kvToken
 import com.no1.taiwan.newsbasket.ext.requestData
 import com.no1.taiwan.newsbasket.ext.toRun
 import com.no1.taiwan.newsbasket.ext.toRunList
@@ -37,6 +35,5 @@ class MainViewModel(
     }
 
     fun keepToken(tokenEntity: TokenEntity) {
-        kvToken.encode(Constants.MmkvKey.TOKEN, tokenEntity.token)
     }
 }
