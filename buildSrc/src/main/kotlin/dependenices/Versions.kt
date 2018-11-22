@@ -38,6 +38,7 @@ object Versions {
      */
     object ViewComponent {
         const val adaptiveRecyclerView = "1.0.3"
+        const val shapeOfView = "1.4.4"
     }
 
     /**

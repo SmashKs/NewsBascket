@@ -116,6 +116,8 @@ object Deps {
             "androidx.lifecycle:lifecycle-extensions:${Versions.AndroidArchitectureComponent.aacLifecycle}"
 
         const val idlingEspresso = "androidx.test.espresso:espresso-idling-resource:${Versions.Test.espresso}"
+
+        const val shapeOfView = "com.github.florent37:shapeofview:${Versions.ViewComponent.shapeOfView}"
     }
 
     /**

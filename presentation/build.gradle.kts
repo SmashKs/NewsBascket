@@ -147,6 +147,10 @@ dependencies {
     implementation(Deps.Presentation.idlingEspresso)
     //endregion
 
+    //region Third-party view components
+    implementation(Deps.Presentation.shapeOfView)
+    //endregion
+
     debugImplementation(Deps.GlobalDebug.steho)
 
     //region Android Test

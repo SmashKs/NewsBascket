@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
 
-    <include layout="@layout/part_custom_toolbar"/>
+    <include
+        android:id="@+id/include"
+        layout="@layout/part_custom_toolbar"/>
 
     <View
         android:id="@+id/v_header"
