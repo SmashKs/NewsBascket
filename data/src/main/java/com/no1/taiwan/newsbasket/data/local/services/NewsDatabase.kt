@@ -4,13 +4,14 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.no1.taiwan.newsbasket.data.datas.KeywordData
 import com.no1.taiwan.newsbasket.data.datas.NewsData
 import com.no1.taiwan.newsbasket.data.local.v1.NewsDao
 
 /**
  * The access operations to a database.
  */
-@Database(entities = [NewsData::class], version = 1)
+@Database(entities = [NewsData::class, KeywordData::class], version = 1)
 abstract class NewsDatabase : RoomDatabase() {
     companion object {
         @Volatile private var INSTANCE: NewsDatabase? = null

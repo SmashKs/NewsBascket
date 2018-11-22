@@ -12,3 +12,5 @@ typealias DataTokenMapper = Mapper<TokenData, TokenModel>
 
 // Data
 typealias Newses = List<NewsData>
+
+typealias Keywords = List<KeywordData>

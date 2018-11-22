@@ -1,7 +1,9 @@
 package com.no1.taiwan.newsbasket.data.datastores
 
+import com.no1.taiwan.newsbasket.data.datas.KeywordData
 import com.no1.taiwan.newsbasket.data.local.v1.NewsDao
 import com.no1.taiwan.newsbasket.domain.parameters.Parameterable
+import com.no1.taiwan.newsbasket.domain.parameters.params.KeywordsParams.Companion.PARAM_NAME_KEYWORD
 import com.no1.taiwan.newsbasket.domain.parameters.params.TokenParams.Companion.PARAM_NAME_FIREBASE_TOKEN
 import com.no1.taiwan.newsbasket.domain.parameters.params.TokenParams.Companion.PARAM_NAME_TOKEN
 import com.no1.taiwan.newsbasket.ext.const.Constants
@@ -35,9 +37,17 @@ class LocalDataStore(
         }
     }
 
-    override fun retrieveKeywords() = TODO()
+    override fun retrieveKeywords() = GlobalScope.async {
+        newsDb.getAllKeywords().map(KeywordData::keyword)
+    }
 
-    override fun createKeyword(parameters: Parameterable) = TODO()
+    override fun createKeyword(parameters: Parameterable) = GlobalScope.async {
+        parameters.toApiParam()[PARAM_NAME_KEYWORD]
+            ?.let { newsDb.insertKeyword(KeywordData(it));true } ?: false
+    }
 
-    override fun removeKeyword(parameters: Parameterable) = TODO()
+    override fun removeKeyword(parameters: Parameterable) = GlobalScope.async {
+        parameters.toApiParam()[PARAM_NAME_KEYWORD]
+            ?.let { newsDb.deleteKeyword(KeywordData(it)); true } ?: false
+    }
 }
