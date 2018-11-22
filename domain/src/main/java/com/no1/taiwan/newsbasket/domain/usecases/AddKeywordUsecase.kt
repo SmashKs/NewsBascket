@@ -1,7 +1,7 @@
 package com.no1.taiwan.newsbasket.domain.usecases
 
 import com.no1.taiwan.newsbasket.domain.DeferredUsecase
-import com.no1.taiwan.newsbasket.domain.parameters.params.TokenParams
+import com.no1.taiwan.newsbasket.domain.parameters.params.KeywordsParams
 import com.no1.taiwan.newsbasket.domain.repositories.DataRepository
 import com.no1.taiwan.newsbasket.domain.usecases.AddKeywordUsecase.Request
 import kotlinx.coroutines.CoroutineScope
@@ -13,5 +13,5 @@ class AddKeywordUsecase(
         repository.addKeyword(it.parameters, this).await()
     }
 
-    class Request(val parameters: TokenParams = TokenParams()) : RequestValues
+    class Request(val parameters: KeywordsParams = KeywordsParams()) : RequestValues
 }

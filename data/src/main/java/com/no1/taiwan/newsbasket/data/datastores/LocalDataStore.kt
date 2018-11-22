@@ -35,7 +35,7 @@ class LocalDataStore(
         }
     }
 
-    override fun retrieveKeywords(parameters: Parameterable) = TODO()
+    override fun retrieveKeywords() = TODO()
 
     override fun createKeyword(parameters: Parameterable) = TODO()
 

@@ -18,7 +18,7 @@ interface DataStore {
 
     fun storeNewsToken(parameters: Parameterable): Deferred<Boolean>
 
-    fun retrieveKeywords(parameters: Parameterable): Deferred<List<String>>
+    fun retrieveKeywords(): Deferred<List<String>>
 
     fun createKeyword(parameters: Parameterable): Deferred<Boolean>
 

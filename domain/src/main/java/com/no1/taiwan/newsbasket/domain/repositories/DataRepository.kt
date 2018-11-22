@@ -19,7 +19,7 @@ interface DataRepository {
 
     fun keepNewsToken(parameters: Parameterable, scope: CoroutineScope): Deferred<Boolean>
 
-    fun fetchKeywords(parameters: Parameterable, scope: CoroutineScope): Deferred<List<String>>
+    fun fetchKeywords(scope: CoroutineScope): Deferred<List<String>>
 
     fun addKeyword(parameters: Parameterable, scope: CoroutineScope): Deferred<Boolean>
 

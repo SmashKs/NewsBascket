@@ -52,8 +52,8 @@ class NewsDataRepository constructor(
         local.storeNewsToken(parameters).await()
     }
 
-    override fun fetchKeywords(parameters: Parameterable, scope: CoroutineScope) = scope.async {
-        local.retrieveKeywords(parameters).await()
+    override fun fetchKeywords(scope: CoroutineScope) = scope.async {
+        local.retrieveKeywords().await()
     }
 
     override fun addKeyword(parameters: Parameterable, scope: CoroutineScope) = scope.async {
