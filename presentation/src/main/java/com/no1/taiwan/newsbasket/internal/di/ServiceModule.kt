@@ -66,6 +66,8 @@ object ServiceModule {
      * To provide the necessary objects Local Implementation objects into the repository.
      */
     private fun implementationLocalProvider(context: Context) = Module("Implementation Local Module") {
+        MMKV.initialize(context)
+
         bind<NewsDao>() with instance(NewsDatabase.getDatabase(context).contactsDao())
         bind<MMKV>() with singleton { defaultMMKV(SINGLE_PROCESS_MODE, TOKEN_PUBLIC_KEY) }
     }

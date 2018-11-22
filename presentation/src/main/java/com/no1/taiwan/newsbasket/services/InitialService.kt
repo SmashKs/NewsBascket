@@ -3,7 +3,6 @@ package com.no1.taiwan.newsbasket.services
 import android.app.IntentService
 import android.content.Intent
 import com.devrapid.kotlinknifer.SharedPrefs
-import com.tencent.mmkv.MMKV
 import org.jetbrains.anko.defaultSharedPreferences
 
 class InitialService : IntentService(SERVICE_NAME) {
@@ -18,7 +17,6 @@ class InitialService : IntentService(SERVICE_NAME) {
     private fun init() {
         // key-value storage, choose one for using.
         SharedPrefs.setPrefSettings(defaultSharedPreferences)
-        MMKV.initialize(this)
 
 //        Stetho.initialize(Stetho.newInitializerBuilder(this)
 //                              .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))

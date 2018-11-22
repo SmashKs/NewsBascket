@@ -36,6 +36,7 @@ class IndexFragment : BaseFragment<MainActivity>() {
     //endregion
 
     private fun componentSetting() {
+        findNavController().navigate(R.id.action_nav_index_to_keyword)
     }
 
     private fun eventSetting() {

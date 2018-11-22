@@ -15,7 +15,7 @@ import org.kodein.di.android.retainedKodein
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
 import org.kodein.di.generic.kcontext
-import org.kodein.di.generic.singleton
+import org.kodein.di.generic.provider
 
 /**
  * The basic activity is for the normal activity which prepares all necessary variables or functions.
@@ -27,7 +27,7 @@ abstract class BaseActivity : AppCompatActivity(), KodeinAware {
         /* activity specific bindings */
         import(activityModule())
 
-        bind<ViewModelProvider.Factory>() with singleton {
+        bind<ViewModelProvider.Factory>() with provider {
             ViewModelFactory(instance(), instance<ViewModelEntries>().toMap().toMutableMap())
         }
     }
