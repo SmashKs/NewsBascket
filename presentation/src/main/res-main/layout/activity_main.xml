@@ -40,4 +40,6 @@
         android:layout_height="match_parent"
         app:defaultNavHost="true"
         app:navGraph="@navigation/nav_main"/>
+
+    <include layout="@layout/merge_stub_views"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,8 +5,8 @@ import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.devrapid.dialogbuilder.support.QuickDialogFragment
 import com.devrapid.kotlinknifer.loge
-import com.devrapid.kotlinknifer.logw
 import com.devrapid.kotlinshaver.cast
+import com.google.android.material.snackbar.Snackbar
 import com.no1.taiwan.newsbasket.R
 import com.no1.taiwan.newsbasket.bases.AdvFragment
 import com.no1.taiwan.newsbasket.components.recyclerview.MultiData
@@ -19,6 +19,8 @@ import com.no1.taiwan.newsbasket.ext.peel
 import com.no1.taiwan.newsbasket.features.main.viewmodels.KeywordViewModel
 import com.no1.taiwan.newsbasket.internal.di.tags.ObjectLabel.LINEAR_LAYOUT_VERTICAL
 import kotlinx.android.synthetic.main.dialog_input_keyword.view.btn_send
+import kotlinx.android.synthetic.main.dialog_input_keyword.view.et_keyword
+import kotlinx.android.synthetic.main.fragment_keyword.fab_add
 import kotlinx.android.synthetic.main.fragment_keyword.rv_keywords
 import org.jetbrains.anko.sdk25.coroutines.onClick
 import org.kodein.di.generic.instance
@@ -61,11 +63,22 @@ class KeywordFragment : AdvFragment<MainActivity, KeywordViewModel>() {
     }
 
     private fun eventSetting() {
-//        fab_add.onClick {
-//            createKeywordDialog()
-//        }
+        fab_add.onClick {
+            createKeywordDialog()
+        }
         observeNonNull(vm.keywordsLiveData) {
-            peel { logw(it) } happenError { loge(it) } doWith this@KeywordFragment
+            peel {
+
+            } happenError {
+                loge(it)
+            } doWith this@KeywordFragment
+        }
+        observeNonNull(vm.storeKeywordLiveData) {
+            peel {
+                Snackbar.make(fab_add, "success", Snackbar.LENGTH_SHORT).show()
+            } happenError {
+
+            } doWith this@KeywordFragment
         }
         vm.fetchKeywords()
     }
@@ -75,6 +88,7 @@ class KeywordFragment : AdvFragment<MainActivity, KeywordViewModel>() {
             viewResCustom = R.layout.dialog_input_keyword
             fetchComponents = { v, df ->
                 v.btn_send.onClick {
+                    vm.storeKeyword(v.et_keyword.text.toString())
                     df.dismiss()
                 }
             }

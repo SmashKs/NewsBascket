@@ -51,9 +51,7 @@ internal class LoadingBuilder<D>(response: NewsResponse<D>) {
  * Check the [NewsResponse]'s changing and do the corresponding reaction.
  */
 internal inline infix fun <D> NewsResponse<D>.peel(noinline λ: (D) -> Unit) =
-    LoadingBuilder(this).apply {
-        successBlock = λ
-    }
+    LoadingBuilder(this).apply { successBlock = λ }
 
 /**
  * Check the [NewsResponse]'s changing and do the corresponding reaction. For the situation which we need

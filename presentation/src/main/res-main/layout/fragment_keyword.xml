@@ -1,26 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.motion.widget.MotionLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    android:id="@+id/cl_sub"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layoutDescription="@xml/sense_01"
-    app:showPaths="true"
-    tools:context=".features.main.KeywordFragment"
-    tools:showPaths="true">
+    android:layout_height="match_parent">
 
-    <include layout="@layout/merge_action_bar"/>
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutDescription="@xml/sense_01"
+        app:showPaths="true"
+        tools:context=".features.main.KeywordFragment"
+        tools:showPaths="true">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_keywords"
-        style="@style/Constraint.Any.MatchHorParent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/v_header"
-        tools:itemCount="4"
-        tools:listitem="@layout/item_showing"/>
+        <include layout="@layout/merge_action_bar"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_keywords"
+            style="@style/test"
+            tools:itemCount="4"
+            tools:listitem="@layout/item_showing"/>
+    </androidx.constraintlayout.motion.widget.MotionLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_add"
         style="@style/FAB.keyword.add"/>
-</androidx.constraintlayout.motion.widget.MotionLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

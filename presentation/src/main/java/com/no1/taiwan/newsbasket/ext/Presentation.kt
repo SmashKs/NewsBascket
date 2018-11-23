@@ -16,7 +16,7 @@ import kotlinx.coroutines.CoroutineScope
  * Also, unboxing the [NewsResponse] and obtaining the data inside of the [NewsResponse], then return the
  * data to [ResponseMutableLiveData].
  */
-fun <E : Entity, R> ResponseMutableLiveData<R>.requestData(
+fun <E, R> ResponseMutableLiveData<R>.requestDataMap(
     usecaseRes: suspend CoroutineScope.() -> NewsResponse<E>,
     transformBlock: (E) -> R
 ) = preProcess {

@@ -156,6 +156,7 @@ dependencies {
     //endregion
 
 //    debugImplementation(Deps.GlobalDebug.steho)
+    debugImplementation(Deps.GlobalDebug.debugDb)
 
     //region Android Test
     androidTestImplementation(Deps.GlobalTest.junit)

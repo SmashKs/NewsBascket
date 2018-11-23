@@ -91,6 +91,7 @@ object Versions {
      */
     object Database {
         const val debug = "1.5.0"
+        const val debugDb = "1.0.4"
         const val mmkv = "1.0.13"
     }
 
