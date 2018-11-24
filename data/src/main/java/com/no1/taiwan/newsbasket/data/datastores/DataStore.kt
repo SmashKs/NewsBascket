@@ -18,6 +18,8 @@ interface DataStore {
 
     fun storeNewsToken(parameters: Parameterable): Deferred<Boolean>
 
+    fun storeFirebaseToken(parameters: Parameterable): Deferred<Boolean>
+
     fun retrieveKeywords(): Deferred<List<String>>
 
     fun createKeyword(parameters: Parameterable): Deferred<Boolean>

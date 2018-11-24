@@ -4,11 +4,12 @@ import android.os.Bundle
 import androidx.annotation.LayoutRes
 import androidx.navigation.fragment.findNavController
 import com.no1.taiwan.newsbasket.R
-import com.no1.taiwan.newsbasket.bases.BaseFragment
-import kotlinx.android.synthetic.main.fragment_index.tv_hello
+import com.no1.taiwan.newsbasket.bases.AdvFragment
+import com.no1.taiwan.newsbasket.features.main.viewmodels.IndexViewModel
+import kotlinx.android.synthetic.main.fragment_index.btn_next
 import org.jetbrains.anko.sdk25.coroutines.onClick
 
-class IndexFragment : BaseFragment<MainActivity>() {
+class IndexFragment : AdvFragment<MainActivity, IndexViewModel>() {
     //region Base build-in functions
     /**
      * Initialize method.
@@ -36,11 +37,11 @@ class IndexFragment : BaseFragment<MainActivity>() {
     //endregion
 
     private fun componentSetting() {
-        findNavController().navigate(R.id.action_nav_index_to_keyword)
+        vm.addSubscriber("")
     }
 
     private fun eventSetting() {
-        tv_hello.onClick {
+        btn_next.onClick {
             findNavController().navigate(R.id.action_nav_index_to_keyword)
         }
     }

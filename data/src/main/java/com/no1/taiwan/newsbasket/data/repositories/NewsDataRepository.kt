@@ -52,6 +52,10 @@ class NewsDataRepository constructor(
         local.storeNewsToken(parameters).await()
     }
 
+    override fun keepFirebaseToken(parameters: Parameterable, scope: CoroutineScope) = scope.async {
+        local.storeFirebaseToken(parameters).await()
+    }
+
     override fun fetchKeywords(scope: CoroutineScope) = scope.async {
         local.retrieveKeywords().await()
     }

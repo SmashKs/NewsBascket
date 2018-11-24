@@ -37,6 +37,12 @@ class LocalDataStore(
         }
     }
 
+    override fun storeFirebaseToken(parameters: Parameterable) = GlobalScope.async {
+        parameters.toApiParam().run {
+            this[PARAM_NAME_FIREBASE_TOKEN]?.let { mmkv.encode(Constants.MmkvKey.FIREBASE_TOKEN, it) } ?: false
+        }
+    }
+
     override fun retrieveKeywords() = GlobalScope.async {
         newsDb.getAllKeywords().map(KeywordData::keyword)
     }

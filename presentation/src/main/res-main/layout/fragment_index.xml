@@ -7,12 +7,14 @@
 
     <include layout="@layout/merge_action_bar"/>
 
-    <TextView
-        android:id="@+id/tv_hello"
+    <com.google.android.material.button.MaterialButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="hello world"
+        android:layout_marginBottom="8dp"
+        android:text="KEYWORD"
+        android:id="@+id/btn_next"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/v_header"/>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
