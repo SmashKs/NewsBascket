@@ -10,7 +10,9 @@ import com.google.android.material.snackbar.Snackbar
 import com.no1.taiwan.newsbasket.R
 import com.no1.taiwan.newsbasket.bases.AdvFragment
 import com.no1.taiwan.newsbasket.components.recyclerview.NewsAdapter
+import com.no1.taiwan.newsbasket.components.recyclerview.NewsMultiVisitable
 import com.no1.taiwan.newsbasket.entities.KeywordEntity
+import com.no1.taiwan.newsbasket.ext.const.DEFAULT_STR
 import com.no1.taiwan.newsbasket.ext.doWith
 import com.no1.taiwan.newsbasket.ext.happenError
 import com.no1.taiwan.newsbasket.ext.observeNonNull
@@ -28,8 +30,39 @@ import org.kodein.di.generic.instance
 class KeywordFragment : AdvFragment<MainActivity, KeywordViewModel>() {
     private val linearLayout by instance<LinearLayoutManager>(LINEAR_LAYOUT_VERTICAL)
     private val keywordAdapter by instance<NewsAdapter>(KEYOWRD_ADAPTER)
+    private val keywordItems = mutableListOf<NewsMultiVisitable>()
+    private var currentInput = DEFAULT_STR
 
     //region Base build-in functions
+    /** The block of binding to [androidx.lifecycle.ViewModel]'s [androidx.lifecycle.LiveData]. */
+    override fun bindLiveData() {
+        observeNonNull(vm.keywordsLiveData) {
+            peel {
+                keywordItems.addAll(it.map { KeywordEntity(it) })
+                // Only first time into here.
+                keywordAdapter.appendList(keywordItems)
+            } happenError {
+                loge(it)
+            } doWith this@KeywordFragment
+        }
+        observeNonNull(vm.storeKeywordLiveData) {
+            peel {
+                vm.updateRemoteSubscribing(currentInput)
+                //                Snackbar.make(fab_add, "success", Snackbar.LENGTH_SHORT).show()
+            } happenError {
+                Snackbar.make(fab_add, it, Snackbar.LENGTH_SHORT).show()
+            } doWith this@KeywordFragment
+        }
+        observeNonNull(vm.updateKeywordsLiveData) {
+            peel {
+                keywordAdapter.appendList(mutableListOf(KeywordEntity(currentInput)))
+                Snackbar.make(fab_add, "success", Snackbar.LENGTH_SHORT).show()
+            } happenError {
+                Snackbar.make(fab_add, it, Snackbar.LENGTH_SHORT).show()
+            } doWith this@KeywordFragment
+        }
+    }
+
     /**
      * Initialize method.
      *
@@ -38,6 +71,8 @@ class KeywordFragment : AdvFragment<MainActivity, KeywordViewModel>() {
     override fun rendered(savedInstanceState: Bundle?) {
         componentSetting()
         eventSetting()
+
+        vm.fetchKeywords()
     }
 
     /**
@@ -68,21 +103,6 @@ class KeywordFragment : AdvFragment<MainActivity, KeywordViewModel>() {
         fab_add.onClick {
             createKeywordDialog()
         }
-        observeNonNull(vm.keywordsLiveData) {
-            peel {
-                keywordAdapter.appendList(it.map { KeywordEntity(it) }.toMutableList())
-            } happenError {
-                loge(it)
-            } doWith this@KeywordFragment
-        }
-        observeNonNull(vm.storeKeywordLiveData) {
-            peel {
-                Snackbar.make(fab_add, "success", Snackbar.LENGTH_SHORT).show()
-            } happenError {
-                Snackbar.make(fab_add, it, Snackbar.LENGTH_SHORT).show()
-            } doWith this@KeywordFragment
-        }
-        vm.fetchKeywords()
     }
 
     private fun createKeywordDialog() {
@@ -90,7 +110,8 @@ class KeywordFragment : AdvFragment<MainActivity, KeywordViewModel>() {
             viewResCustom = R.layout.dialog_input_keyword
             fetchComponents = { v, df ->
                 v.btn_send.onClick {
-                    vm.storeKeyword(v.et_keyword.text.toString())
+                    currentInput = v.et_keyword.text.toString()
+                    vm.storeKeyword(currentInput)
                     df.dismiss()
                 }
             }

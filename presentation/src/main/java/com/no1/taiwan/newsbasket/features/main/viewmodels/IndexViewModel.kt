@@ -19,7 +19,6 @@ class IndexViewModel(
     private val _tokenLiveData by lazy { ResponseMutableLiveData<TokenEntity>() }
     val tokenLiveData: ResponseLiveData<TokenEntity> = _tokenLiveData
     private val _resLiveData by lazy { ResponseMutableLiveData<Boolean>() }
-//    val resLiveData: ResponseLiveData<Boolean> = _resLiveData
 
     fun addSubscriber() {
         _tokenLiveData requestData {

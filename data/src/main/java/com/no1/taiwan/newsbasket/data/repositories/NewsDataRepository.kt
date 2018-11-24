@@ -9,6 +9,7 @@ import com.no1.taiwan.newsbasket.data.datastores.DataStore
 import com.no1.taiwan.newsbasket.data.local.cache.AbsCache
 import com.no1.taiwan.newsbasket.domain.parameters.Parameterable
 import com.no1.taiwan.newsbasket.domain.repositories.DataRepository
+import com.no1.taiwan.newsbasket.ext.const.isDefault
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
 
@@ -45,19 +46,19 @@ class NewsDataRepository constructor(
     override fun updateKeywords(parameters: Parameterable, scope: CoroutineScope) = scope.async {
         val data = remote.modifyKeywords(parameters).await()
 
-        tokenMapper.toModelFrom(data)
+        !data.firebaseToken.isDefault() && !data.token.isDefault()
     }
 
     override fun keepNewsToken(parameters: Parameterable, scope: CoroutineScope) = scope.async {
         local.storeNewsToken(parameters).await()
     }
 
-    override fun keepFirebaseToken(parameters: Parameterable, scope: CoroutineScope) = scope.async {
-        local.storeFirebaseToken(parameters).await()
-    }
-
     override fun fetchFirebaseToken(scope: CoroutineScope) = scope.async {
         local.retrieveFirebaseToken().await()
+    }
+
+    override fun fetchToken(scope: CoroutineScope) = scope.async {
+        local.retrieveToken().await()
     }
 
     override fun fetchKeywords(scope: CoroutineScope) = scope.async {

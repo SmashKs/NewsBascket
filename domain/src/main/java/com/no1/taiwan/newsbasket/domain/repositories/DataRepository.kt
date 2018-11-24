@@ -15,13 +15,13 @@ interface DataRepository {
 
     fun addSubscriber(parameters: Parameterable, scope: CoroutineScope): Deferred<TokenModel>
 
-    fun updateKeywords(parameters: Parameterable, scope: CoroutineScope): Deferred<TokenModel>
+    fun updateKeywords(parameters: Parameterable, scope: CoroutineScope): Deferred<Boolean>
 
     fun keepNewsToken(parameters: Parameterable, scope: CoroutineScope): Deferred<Boolean>
 
-    fun keepFirebaseToken(parameters: Parameterable, scope: CoroutineScope): Deferred<Boolean>
-
     fun fetchFirebaseToken(scope: CoroutineScope): Deferred<String>
+
+    fun fetchToken(scope: CoroutineScope): Deferred<String>
 
     fun fetchKeywords(scope: CoroutineScope): Deferred<List<String>>
 

@@ -25,11 +25,11 @@ class RemoteDataStore(
         it.replaceSubscriber(queries, fields)
     }
 
-    override fun storeFirebaseToken(parameters: Parameterable) = throw UnsupportedOperationException()
+    override fun storeNewsToken(parameters: Parameterable) = throw UnsupportedOperationException()
 
     override fun retrieveFirebaseToken() = throw UnsupportedOperationException()
 
-    override fun storeNewsToken(parameters: Parameterable) = throw UnsupportedOperationException()
+    override fun retrieveToken() = throw UnsupportedOperationException()
 
     override fun retrieveKeywords() = throw UnsupportedOperationException()
 
