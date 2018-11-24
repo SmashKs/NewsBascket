@@ -1,6 +1,5 @@
 package com.no1.taiwan.newsbasket.components.recyclerview
 
-import androidx.recyclerview.widget.RecyclerView
 import com.devrapid.adaptiverecyclerview.AdaptiveAdapter
 import com.devrapid.adaptiverecyclerview.AdaptiveViewHolder
 import com.devrapid.adaptiverecyclerview.IVisitable
@@ -9,5 +8,3 @@ typealias NewsViewHolder = AdaptiveViewHolder<MultiTypeFactory, NewsMultiVisitab
 typealias NewsMultiVisitable = IVisitable<MultiTypeFactory>
 typealias NewsAdapter = AdaptiveAdapter<MultiTypeFactory, NewsMultiVisitable, NewsViewHolder>
 typealias MultiData = MutableList<NewsMultiVisitable>
-
-typealias RVAdapterAny = RecyclerView.Adapter<*>
