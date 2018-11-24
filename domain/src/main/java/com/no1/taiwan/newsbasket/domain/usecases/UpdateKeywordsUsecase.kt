@@ -16,15 +16,7 @@ class UpdateKeywordsUsecase(
         val parameter = KeywordsFields(
             token.await(),
             firebaseToken.await(),
-            keywords.await()
-                .joinToString(",")
-                .run {
-                    StringBuilder(this)
-                        .append(",")
-                        .append(it.parameters.keywords)
-                        .toString()
-                }
-        )
+            keywords.await().joinToString(","))
 
         repository.updateKeywords(parameter, this).await()
     }
