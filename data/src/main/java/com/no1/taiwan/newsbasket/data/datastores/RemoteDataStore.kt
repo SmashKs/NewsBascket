@@ -27,6 +27,8 @@ class RemoteDataStore(
 
     override fun storeFirebaseToken(parameters: Parameterable) = throw UnsupportedOperationException()
 
+    override fun retrieveFirebaseToken() = throw UnsupportedOperationException()
+
     override fun storeNewsToken(parameters: Parameterable) = throw UnsupportedOperationException()
 
     override fun retrieveKeywords() = throw UnsupportedOperationException()

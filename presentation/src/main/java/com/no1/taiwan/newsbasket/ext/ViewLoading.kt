@@ -80,7 +80,11 @@ internal inline infix fun <D> LoadingBuilder<D>.finally(noinline completedBlock:
     this.completedBlock = completedBlock
 }
 
+
 /**
  * Execute the checking [NewsResponse]'s process with the triggering [LoadView].
  */
 internal inline infix fun <D> LoadingBuilder<D>.doWith(loadView: LoadView) = peel(loadView)
+
+internal inline infix fun <D> LoadingBuilder<D>.muteErrorDoWith(loadView: LoadView) =
+    apply { isShowError = false }.peel(loadView)

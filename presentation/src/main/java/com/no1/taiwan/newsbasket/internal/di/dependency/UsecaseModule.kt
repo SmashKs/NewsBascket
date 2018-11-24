@@ -5,6 +5,7 @@ import com.no1.taiwan.newsbasket.domain.usecases.AddSubscriberUsecase
 import com.no1.taiwan.newsbasket.domain.usecases.DeleteKeywordUsecase
 import com.no1.taiwan.newsbasket.domain.usecases.FetchKeywordsUsecase
 import com.no1.taiwan.newsbasket.domain.usecases.FetchNewsUsecase
+import com.no1.taiwan.newsbasket.domain.usecases.KeepFirebaseTokenUsecase
 import com.no1.taiwan.newsbasket.domain.usecases.KeepNewsTokenUsecase
 import com.no1.taiwan.newsbasket.domain.usecases.UpdateKeywordsUsecase
 import org.kodein.di.Kodein.Module
@@ -23,6 +24,7 @@ object UsecaseModule {
         bind<UpdateKeywordsUsecase>() with singleton { UpdateKeywordsUsecase(instance()) }
 
         bind<KeepNewsTokenUsecase>() with singleton { KeepNewsTokenUsecase(instance()) }
+        bind<KeepFirebaseTokenUsecase>() with singleton { KeepFirebaseTokenUsecase(instance()) }
         bind<AddKeywordUsecase>() with singleton { AddKeywordUsecase(instance()) }
         bind<DeleteKeywordUsecase>() with singleton { DeleteKeywordUsecase(instance()) }
         bind<FetchKeywordsUsecase>() with singleton { FetchKeywordsUsecase(instance()) }

@@ -11,7 +11,10 @@ class AddSubscriberUsecase(
     private val repository: DataRepository
 ) : DeferredUsecase<TokenModel, Request>() {
     override fun CoroutineScope.fetchCase() = attachParameter {
-        repository.addSubscriber(it.parameters, this).await()
+        // Retrieve the firebase token first.
+        val firebaseToken = repository.fetchFirebaseToken(this).await()
+
+        repository.addSubscriber(SubscriberFields(firebaseToken, it.parameters.keywords), this).await()
     }
 
     class Request(val parameters: SubscriberFields = SubscriberFields()) : RequestValues

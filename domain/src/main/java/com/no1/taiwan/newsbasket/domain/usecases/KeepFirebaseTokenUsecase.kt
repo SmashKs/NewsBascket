@@ -3,7 +3,7 @@ package com.no1.taiwan.newsbasket.domain.usecases
 import com.no1.taiwan.newsbasket.domain.DeferredUsecase
 import com.no1.taiwan.newsbasket.domain.parameters.params.TokenParams
 import com.no1.taiwan.newsbasket.domain.repositories.DataRepository
-import com.no1.taiwan.newsbasket.domain.usecases.KeepNewsTokenUsecase.Request
+import com.no1.taiwan.newsbasket.domain.usecases.KeepFirebaseTokenUsecase.Request
 import kotlinx.coroutines.CoroutineScope
 
 class KeepFirebaseTokenUsecase(

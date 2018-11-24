@@ -7,6 +7,7 @@ import com.no1.taiwan.newsbasket.domain.parameters.params.KeywordsParams.Compani
 import com.no1.taiwan.newsbasket.domain.parameters.params.TokenParams.Companion.PARAM_NAME_FIREBASE_TOKEN
 import com.no1.taiwan.newsbasket.domain.parameters.params.TokenParams.Companion.PARAM_NAME_TOKEN
 import com.no1.taiwan.newsbasket.ext.const.Constants
+import com.no1.taiwan.newsbasket.ext.const.DEFAULT_STR
 import com.tencent.mmkv.MMKV
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
@@ -41,6 +42,10 @@ class LocalDataStore(
         parameters.toApiParam().run {
             this[PARAM_NAME_FIREBASE_TOKEN]?.let { mmkv.encode(Constants.MmkvKey.FIREBASE_TOKEN, it) } ?: false
         }
+    }
+
+    override fun retrieveFirebaseToken() = GlobalScope.async {
+        mmkv.decodeString(Constants.MmkvKey.FIREBASE_TOKEN, DEFAULT_STR)
     }
 
     override fun retrieveKeywords() = GlobalScope.async {
