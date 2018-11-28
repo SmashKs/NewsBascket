@@ -2,15 +2,19 @@ package com.no1.taiwan.newsbasket.features.main
 
 import android.os.Bundle
 import androidx.annotation.LayoutRes
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.devrapid.dialogbuilder.support.QuickDialogFragment
 import com.devrapid.kotlinknifer.loge
+import com.devrapid.kotlinshaver.cast
 import com.devrapid.kotlinshaver.isNull
 import com.google.android.material.snackbar.Snackbar
 import com.no1.taiwan.newsbasket.R
 import com.no1.taiwan.newsbasket.bases.AdvFragment
 import com.no1.taiwan.newsbasket.components.recyclerview.NewsAdapter
 import com.no1.taiwan.newsbasket.components.recyclerview.NewsMultiVisitable
+import com.no1.taiwan.newsbasket.components.recyclerview.helpers.NewsItemTouchHelper
+import com.no1.taiwan.newsbasket.components.recyclerview.helpers.ViewItemTouchCallback
 import com.no1.taiwan.newsbasket.entities.KeywordEntity
 import com.no1.taiwan.newsbasket.ext.const.DEFAULT_STR
 import com.no1.taiwan.newsbasket.ext.doWith
@@ -31,6 +35,15 @@ class KeywordFragment : AdvFragment<MainActivity, KeywordViewModel>() {
     private val linearLayout by instance<LinearLayoutManager>(LINEAR_LAYOUT_VERTICAL)
     private val keywordAdapter by instance<NewsAdapter>(KEYOWRD_ADAPTER)
     private val keywordItems = mutableListOf<NewsMultiVisitable>()
+    private val helper = object : ViewItemTouchCallback {
+        override fun onItemSwiped(position: Int) {
+            vm.removeKeyword(cast<KeywordEntity>(keywordItems[position]).keyword)
+            keywordItems.removeAt(position)
+        }
+
+        override fun onItemMoved(fromPosition: Int, toPosition: Int) {
+        }
+    }
     private var currentInput = DEFAULT_STR
 
     //region Base build-in functions
@@ -56,6 +69,7 @@ class KeywordFragment : AdvFragment<MainActivity, KeywordViewModel>() {
         observeNonNull(vm.updateKeywordsLiveData) {
             peel {
                 keywordAdapter.appendList(mutableListOf(KeywordEntity(currentInput)))
+                keywordItems.add(KeywordEntity(currentInput))
                 Snackbar.make(fab_add, "success", Snackbar.LENGTH_SHORT).show()
             } happenError {
                 Snackbar.make(fab_add, it, Snackbar.LENGTH_SHORT).show()
@@ -91,6 +105,8 @@ class KeywordFragment : AdvFragment<MainActivity, KeywordViewModel>() {
     //endregion
 
     private fun componentSetting() {
+        ItemTouchHelper(NewsItemTouchHelper(cast(keywordAdapter), helper)).attachToRecyclerView(rv_keywords)
+
         rv_keywords.apply {
             if (layoutManager.isNull())
                 layoutManager = linearLayout
