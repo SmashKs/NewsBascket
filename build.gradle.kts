@@ -1,3 +1,5 @@
+import java.time.Duration
+
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
@@ -58,4 +60,13 @@ allprojects {
 
 task("clean", Delete::class) {
     delete = setOf(rootProject.buildDir)
+}
+
+tasks {
+    register("hangingTask") {
+        doLast {
+            Thread.sleep(100000)
+        }
+        timeout.set(Duration.ofMillis(500))
+    }
 }
