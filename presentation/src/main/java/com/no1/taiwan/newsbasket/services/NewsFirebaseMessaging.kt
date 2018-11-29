@@ -22,16 +22,13 @@ import org.kodein.di.generic.instance
 import kotlin.random.Random
 
 class NewsFirebaseMessaging : FirebaseMessagingService(), KodeinAware {
-    companion object {
-        private val TAG = "MyFMService"
-    }
-
     /** A Kodein Aware class must be within reach of a [Kodein] object. */
     override val kodein by closestKodein()
     private val usecase by instance<KeepNewsTokenUsecase>()
 
     override fun onNewToken(token: String) {
         super.onNewToken(token)
+        logw(token)
         // Keep the firebase token into mmkv storage.
         bkg { usecase.toRun(KeepNewsTokenUsecase.Request(TokenParams(firebaseToken = token))) }
     }

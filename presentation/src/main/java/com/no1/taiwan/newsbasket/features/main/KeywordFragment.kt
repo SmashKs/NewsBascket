@@ -9,6 +9,7 @@ import com.devrapid.kotlinknifer.loge
 import com.devrapid.kotlinshaver.cast
 import com.devrapid.kotlinshaver.isNull
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.snackbar.Snackbar.LENGTH_SHORT
 import com.no1.taiwan.newsbasket.R
 import com.no1.taiwan.newsbasket.bases.AdvFragment
 import com.no1.taiwan.newsbasket.components.recyclerview.NewsAdapter
@@ -21,6 +22,7 @@ import com.no1.taiwan.newsbasket.ext.doWith
 import com.no1.taiwan.newsbasket.ext.happenError
 import com.no1.taiwan.newsbasket.ext.observeNonNull
 import com.no1.taiwan.newsbasket.ext.peel
+import com.no1.taiwan.newsbasket.ext.peelSkipLoading
 import com.no1.taiwan.newsbasket.features.main.viewmodels.KeywordViewModel
 import com.no1.taiwan.newsbasket.internal.di.tags.ObjectLabel.KEYOWRD_ADAPTER
 import com.no1.taiwan.newsbasket.internal.di.tags.ObjectLabel.LINEAR_LAYOUT_VERTICAL
@@ -50,7 +52,7 @@ class KeywordFragment : AdvFragment<MainActivity, KeywordViewModel>() {
     /** The block of binding to [androidx.lifecycle.ViewModel]'s [androidx.lifecycle.LiveData]. */
     override fun bindLiveData() {
         observeNonNull(vm.keywordsLiveData) {
-            peel {
+            peelSkipLoading {
                 keywordItems.addAll(it.map { KeywordEntity(it) })
                 // Only first time into here.
                 keywordAdapter.appendList(keywordItems)
@@ -59,19 +61,19 @@ class KeywordFragment : AdvFragment<MainActivity, KeywordViewModel>() {
             } doWith this@KeywordFragment
         }
         observeNonNull(vm.storeKeywordLiveData) {
-            peel {
+            peelSkipLoading {
                 vm.updateRemoteSubscribing(currentInput)
             } happenError {
-                Snackbar.make(fab_add, it, Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(fab_add, it, LENGTH_SHORT).show()
             } doWith this@KeywordFragment
         }
         observeNonNull(vm.updateKeywordsLiveData) {
             peel {
                 keywordAdapter.appendList(mutableListOf(KeywordEntity(currentInput)))
                 keywordItems.add(KeywordEntity(currentInput))
-                Snackbar.make(fab_add, "success", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(fab_add, "success", LENGTH_SHORT).show()
             } happenError {
-                Snackbar.make(fab_add, it, Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(fab_add, it, LENGTH_SHORT).show()
             } doWith this@KeywordFragment
         }
     }

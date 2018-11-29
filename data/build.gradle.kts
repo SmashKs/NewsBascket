@@ -30,14 +30,14 @@ android {
         getByName("debug") {
             isMinifyEnabled = false
             isTestCoverageEnabled = true
-//            buildConfigField("String", "URL_SERVER", "\"http://${getLocalIp("en0")}:55667\"")
-            buildConfigField("String", "URL_SERVER", getProps("remote_url"))
+            buildConfigField("String", "URL_SERVER", "\"http://${getLocalIp("en0")}:55667\"")
+//            buildConfigField("String", "URL_SERVER", getProps("remote_url"))
             buildConfigField("String", "API_REQUEST", getProps("remote_api_domain"))
         }
     }
     lintOptions { isAbortOnError = false }
     compileOptions {
-        setSourceCompatibility(JavaVersion.VERSION_1_8)
+        sourceCompatibility = JavaVersion.VERSION_1_8
         setTargetCompatibility(JavaVersion.VERSION_1_8)
     }
 }

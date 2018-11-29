@@ -13,7 +13,6 @@ import com.no1.taiwan.newsbasket.features.main.viewmodels.MainViewModel
 
 class MainActivity : AdvActivity<MainViewModel>() {
     override fun init(savedInstanceState: Bundle?) {
-//        navigation.setOnNavigationItemSelectedListener(navigationItemSelectedListener)
         observeNonNull(vm.newsLiveData) {
             peel { logw(it) } happenError { loge(it) } doWith this@MainActivity
         }

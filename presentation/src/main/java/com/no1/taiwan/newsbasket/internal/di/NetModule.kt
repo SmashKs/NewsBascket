@@ -7,8 +7,6 @@ import com.no1.taiwan.newsbasket.data.remote.hasNetwork
 import com.no1.taiwan.newsbasket.ext.thirdParty.CoroutineCallAdapterFactory
 import okhttp3.Cache
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import okhttp3.logging.HttpLoggingInterceptor.Level.BODY
 import org.kodein.di.Kodein.Module
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
@@ -71,7 +69,7 @@ object NetModule {
                 .apply {
                     if (BuildConfig.DEBUG) {
                         addInterceptor(OkHttpProfilerInterceptor())  // For OkHttp Profiler plugins.
-                        addInterceptor(HttpLoggingInterceptor().setLevel(BODY))  // For print to logcat.
+//                        addInterceptor(HttpLoggingInterceptor().setLevel(BODY))  // For print to logcat.
                     }
                 }
                 .build()

@@ -12,6 +12,7 @@ import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.POST
 import retrofit2.http.PUT
+import retrofit2.http.Path
 import retrofit2.http.QueryMap
 
 /**
@@ -27,6 +28,6 @@ interface NewsService {
     fun newSubscriber(@Body fields: Fields): Deferred<TokenData>
 
     @Headers(CONTENT_TYPE_JSON)
-    @PUT("$API_REQUEST/subscriber/")
-    fun replaceSubscriber(@QueryMap params: Parameters, @Body fields: Fields): Deferred<TokenData>
+    @PUT("$API_REQUEST/subscriber/{token}/")
+    fun replaceSubscriber(@Path("token") token: String, @Body fields: Fields): Deferred<TokenData>
 }
