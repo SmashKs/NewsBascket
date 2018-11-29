@@ -38,7 +38,7 @@ object Versions {
      */
     object ViewComponent {
         const val adaptiveRecyclerView = "1.0.3"
-        const val shapeOfView = "1.4.4"
+        const val shapeOfView = "1.4.6"
     }
 
     /**
@@ -103,6 +103,7 @@ object Versions {
         const val retrofit2 = "2.5.0"
         const val adapterCoroutine = "0.9.2"
         const val okhttp3 = "3.12.0"
+        const val okhttpProfiler = "1.0.4"
     }
 
     /**
@@ -147,7 +148,7 @@ object Versions {
         const val mockitoKotlin = "2.0.0"
         const val mockitoAndroid = "2.23.0"
         const val mockk = "v1.8.9.kotlin13"
-        const val byteBuddy = "1.9.4"
+        const val byteBuddy = "1.9.5"
 
     }
 

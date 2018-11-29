@@ -44,7 +44,7 @@ android {
     testOptions { unitTests.isReturnDefaultValues = true }
     lintOptions { isAbortOnError = false }
     compileOptions {
-        setSourceCompatibility(JavaVersion.VERSION_1_8)
+        sourceCompatibility = JavaVersion.VERSION_1_8
         setTargetCompatibility(JavaVersion.VERSION_1_8)
     }
 }
@@ -112,8 +112,8 @@ dependencies {
         exclude(group = "org.jetbrains.kotlinx", module = "kotlinx-coroutines-core")
     }
     implementation(Deps.Presentation.okhttpLogging)
-    implementation("com.itkacher.okhttpprofiler:okhttpprofiler:1.0.4")
     implementation(Deps.Presentation.glide)
+    implementation(Deps.GlobalDebug.okHttpProfiler)
     //endregion
 
     //region UI

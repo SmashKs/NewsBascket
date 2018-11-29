@@ -50,6 +50,7 @@ object Deps {
     object GlobalDebug {
         const val steho = "com.facebook.stetho:stetho:${Versions.Database.debug}"
         const val debugDb = "com.amitshekhar.android:debug-db:${Versions.Database.debugDb}"
+        const val okHttpProfiler = "com.itkacher.okhttpprofiler:okhttpprofiler:${Versions.Network.okhttpProfiler}"
     }
     //endregion
 

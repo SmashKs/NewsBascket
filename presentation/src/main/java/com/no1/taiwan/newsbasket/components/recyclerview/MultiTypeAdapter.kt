@@ -2,6 +2,7 @@ package com.no1.taiwan.newsbasket.components.recyclerview
 
 import android.content.Context
 import android.view.ViewGroup
+import com.devrapid.adaptiverecyclerview.AdaptiveDiffUtil
 import com.no1.taiwan.newsbasket.components.recyclerview.helpers.AdapterItemTouchHelper
 import com.no1.taiwan.newsbasket.ext.const.DEFAULT_INT
 import org.kodein.di.KodeinAware
@@ -14,10 +15,14 @@ import org.kodein.di.generic.instance
  */
 open class MultiTypeAdapter(
     override var dataList: MultiData,
-    context: Context
+    context: Context,
+    private val externalDiffUtil: AdaptiveDiffUtil<MultiTypeFactory, NewsMultiVisitable>? = null
 ) : NewsAdapter(), KodeinAware, AdapterItemTouchHelper {
     override var typeFactory: MultiTypeFactory
         get() = multiTypeFactory
+        set(_) = throw UnsupportedOperationException("We don't allow this method to use!")
+    override var diffUtil: AdaptiveDiffUtil<MultiTypeFactory, NewsMultiVisitable>
+        get() = externalDiffUtil ?: super.diffUtil
         set(_) = throw UnsupportedOperationException("We don't allow this method to use!")
     override val kodein by closestKodein(context)
     protected var viewType = DEFAULT_INT

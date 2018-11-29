@@ -61,7 +61,6 @@ class KeywordFragment : AdvFragment<MainActivity, KeywordViewModel>() {
         observeNonNull(vm.storeKeywordLiveData) {
             peel {
                 vm.updateRemoteSubscribing(currentInput)
-                //                Snackbar.make(fab_add, "success", Snackbar.LENGTH_SHORT).show()
             } happenError {
                 Snackbar.make(fab_add, it, Snackbar.LENGTH_SHORT).show()
             } doWith this@KeywordFragment

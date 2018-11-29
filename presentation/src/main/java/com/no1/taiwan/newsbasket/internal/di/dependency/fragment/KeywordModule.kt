@@ -1,8 +1,10 @@
 package com.no1.taiwan.newsbasket.internal.di.dependency.fragment
 
+import com.devrapid.kotlinshaver.cast
 import com.no1.taiwan.newsbasket.R
 import com.no1.taiwan.newsbasket.components.recyclerview.MultiTypeAdapter
 import com.no1.taiwan.newsbasket.components.recyclerview.NewsAdapter
+import com.no1.taiwan.newsbasket.components.recyclerview.utils.NewsKeywordDiffUtil
 import com.no1.taiwan.newsbasket.entities.KeywordEntity
 import com.no1.taiwan.newsbasket.features.main.viewholders.KeywordViewHolder
 import com.no1.taiwan.newsbasket.features.main.viewmodels.KeywordViewModel
@@ -31,7 +33,7 @@ object KeywordModule {
 
         // *** Others
         bind<NewsAdapter>(KEYOWRD_ADAPTER) with scoped(fragmentScope).singleton {
-            MultiTypeAdapter(mutableListOf(), context)
+            MultiTypeAdapter(mutableListOf(), context, cast(NewsKeywordDiffUtil()))
         }
     }
 }
