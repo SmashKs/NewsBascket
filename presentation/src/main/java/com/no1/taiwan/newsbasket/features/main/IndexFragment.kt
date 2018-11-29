@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.annotation.LayoutRes
 import androidx.navigation.fragment.findNavController
 import com.devrapid.kotlinknifer.loge
+import com.google.firebase.iid.FirebaseInstanceId
 import com.no1.taiwan.newsbasket.R
 import com.no1.taiwan.newsbasket.bases.AdvFragment
 import com.no1.taiwan.newsbasket.ext.happenError
@@ -19,12 +20,12 @@ class IndexFragment : AdvFragment<MainActivity, IndexViewModel>() {
     /** The block of binding to [androidx.lifecycle.ViewModel]'s [androidx.lifecycle.LiveData]. */
     override fun bindLiveData() {
         observeNonNull(vm.tokenLiveData) {
-            peelSkipLoading {
-                vm.keepNewsToken(it)
-            } happenError {
+            peelSkipLoading(vm::keepNewsToken) happenError {
                 loge(it)
+                btn_next.performClick()
             } muteErrorDoWith this@IndexFragment
         }
+        observeNonNull(vm.resLiveData) { if (this) btn_next.performClick() }
     }
 
     /**
@@ -53,7 +54,9 @@ class IndexFragment : AdvFragment<MainActivity, IndexViewModel>() {
     //endregion
 
     private fun componentSetting() {
-        vm.addSubscriber()
+        FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener {
+            vm.addFirstSubscriber(it.token)
+        }
     }
 
     private fun eventSetting() {

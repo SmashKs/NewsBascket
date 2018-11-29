@@ -14,12 +14,12 @@ import com.google.firebase.messaging.RemoteMessage
 import com.no1.taiwan.newsbasket.R
 import com.no1.taiwan.newsbasket.domain.parameters.params.TokenParams
 import com.no1.taiwan.newsbasket.domain.usecases.KeepNewsTokenUsecase
-import com.no1.taiwan.newsbasket.ext.toRun
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.closestKodein
 import org.kodein.di.generic.instance
 import kotlin.random.Random
+import com.no1.taiwan.newsbasket.domain.usecases.KeepNewsTokenUsecase.Request as KeepNewsTokenRequest
 
 class NewsFirebaseMessaging : FirebaseMessagingService(), KodeinAware {
     /** A Kodein Aware class must be within reach of a [Kodein] object. */
@@ -28,9 +28,8 @@ class NewsFirebaseMessaging : FirebaseMessagingService(), KodeinAware {
 
     override fun onNewToken(token: String) {
         super.onNewToken(token)
-        logw(token)
         // Keep the firebase token into mmkv storage.
-        bkg { usecase.toRun(KeepNewsTokenUsecase.Request(TokenParams(firebaseToken = token))) }
+        bkg { usecase.execute(KeepNewsTokenRequest(TokenParams(firebaseToken = token))) }
     }
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
