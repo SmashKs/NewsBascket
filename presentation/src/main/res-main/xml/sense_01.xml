@@ -8,7 +8,7 @@
         app:constraintSetStart="@id/cs_end"
         app:duration="1000">
         <OnSwipe
-            app:dragDirection="dragRight"
+            app:dragDirection="dragLeft"
             app:touchAnchorId="@id/fab_add"
             app:touchAnchorSide="right"/>
     </Transition>

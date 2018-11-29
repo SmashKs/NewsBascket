@@ -19,8 +19,8 @@ object Versions {
      */
     object AndroidComponent {
         const val androidx = "1.0.0"
-        const val appComapt = "1.0.2"
-        const val cardview = androidx
+        const val appCompat = "1.0.2"
+        const val cardView = androidx
         const val constraintLayout = "2.0.0-alpha2"
         const val coordinatorLayout = androidx
     }

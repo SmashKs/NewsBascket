@@ -102,10 +102,10 @@ object Deps {
         const val cameraView = "com.otaliastudios:cameraview:${Versions.Ui.cameraView}"
 
         const val materialDessign = "com.google.android.material:material:${Versions.Ui.material}"
-        const val appcompat = "androidx.appcompat:appcompat:${Versions.AndroidComponent.appComapt}"
+        const val appcompat = "androidx.appcompat:appcompat:${Versions.AndroidComponent.appCompat}"
         const val annot = "androidx.annotation:annotation:${Versions.AndroidComponent.androidx}"
         const val recyclerview = "androidx.recyclerview:recyclerview:${Versions.AndroidComponent.androidx}"
-        const val cardview = "androidx.cardview:cardview:${Versions.AndroidComponent.cardview}"
+        const val cardview = "androidx.cardview:cardview:${Versions.AndroidComponent.cardView}"
         const val constraintLayout =
             "androidx.constraintlayout:constraintlayout:${Versions.AndroidComponent.constraintLayout}"
         const val coordinatorLayout =
