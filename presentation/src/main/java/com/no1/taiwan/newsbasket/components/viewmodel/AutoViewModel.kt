@@ -20,7 +20,7 @@ open class AutoViewModel : ViewModel() {
             if (DeferredUsecase::class.java == usecaseSuperclass) {
                 val method = usecaseSuperclass.getMethod("abort")
                 it.accessible()
-//                method.invoke(it.get(this))
+                method.invoke(it.get(this))
             }
         }
     }

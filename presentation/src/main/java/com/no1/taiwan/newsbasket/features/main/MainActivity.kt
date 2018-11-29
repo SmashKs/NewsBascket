@@ -16,9 +16,6 @@ class MainActivity : AdvActivity<MainViewModel>() {
         observeNonNull(vm.newsLiveData) {
             peel { logw(it) } happenError { loge(it) } doWith this@MainActivity
         }
-//        observeNonNull(vm.tokenLiveData) {
-//            peel { vm::keepToken } happenError { loge(it) } doWith this@MainActivity
-//        }
     }
 
     override fun provideLayoutId() = R.layout.activity_main

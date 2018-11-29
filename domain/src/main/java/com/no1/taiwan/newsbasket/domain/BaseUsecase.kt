@@ -21,7 +21,10 @@ abstract class BaseUsecase<R : RequestValues> {
     var requestValues: R? = null
     protected lateinit var parentJob: CoroutineContext
 
-    open fun abort() = parentJob.takeIf(CoroutineContext::isActive)?.cancel() ?: Unit
+    open fun abort() {
+        if (::parentJob.isInitialized && parentJob.isActive)
+            parentJob.cancel()
+    }
 
     /** Interface for wrap a data for passing to a request.*/
     interface RequestValues
