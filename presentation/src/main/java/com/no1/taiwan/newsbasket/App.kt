@@ -19,6 +19,7 @@ import org.kodein.di.android.x.androidXModule
  */
 class App : MultiDexApplication(), KodeinAware {
     companion object {
+        var isFirstTimeOpen = false
         lateinit var appContext: Context
             private set
     }

@@ -5,6 +5,7 @@ import androidx.annotation.LayoutRes
 import androidx.navigation.fragment.findNavController
 import com.devrapid.kotlinknifer.loge
 import com.google.firebase.iid.FirebaseInstanceId
+import com.no1.taiwan.newsbasket.App
 import com.no1.taiwan.newsbasket.R
 import com.no1.taiwan.newsbasket.bases.AdvFragment
 import com.no1.taiwan.newsbasket.ext.happenError
@@ -22,10 +23,11 @@ class IndexFragment : AdvFragment<MainActivity, IndexViewModel>() {
         observeNonNull(vm.tokenLiveData) {
             peelSkipLoading(vm::keepNewsToken) happenError {
                 loge(it)
+                // Anyway go to next keyword page.
                 btn_next.performClick()
             } muteErrorDoWith this@IndexFragment
         }
-        observeNonNull(vm.resLiveData) { if (this) btn_next.performClick() }
+        observeNonNull(vm.resLiveData) { if (this) btn_next.performClick() }  // If success doing the first register.
     }
 
     /**
@@ -54,9 +56,11 @@ class IndexFragment : AdvFragment<MainActivity, IndexViewModel>() {
     //endregion
 
     private fun componentSetting() {
-        FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener {
-            vm.addFirstSubscriber(it.token)
-        }
+        if (!App.isFirstTimeOpen)
+            FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener {
+                vm.addFirstSubscriber(it.token)
+                App.isFirstTimeOpen = true
+            }
     }
 
     private fun eventSetting() {

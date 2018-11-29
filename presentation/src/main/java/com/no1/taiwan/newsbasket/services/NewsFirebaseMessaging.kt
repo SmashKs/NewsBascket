@@ -2,11 +2,15 @@ package com.no1.taiwan.newsbasket.services
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent.FLAG_ONE_SHOT
+import android.app.PendingIntent.getActivity
+import android.content.Intent
 import android.media.RingtoneManager.TYPE_NOTIFICATION
 import android.media.RingtoneManager.getDefaultUri
 import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES.O
 import androidx.core.app.NotificationCompat
+import androidx.core.net.toUri
 import com.devrapid.kotlinknifer.bkg
 import com.devrapid.kotlinknifer.logw
 import com.google.firebase.messaging.FirebaseMessagingService
@@ -42,12 +46,10 @@ class NewsFirebaseMessaging : FirebaseMessagingService(), KodeinAware {
     private fun handleNotification(data: Map<String, String>) {
         val title = data["news_title"].orEmpty()
         val content = data["news_body"].orEmpty()
+        val newsUrl = data["news_url"].orEmpty()
         val icon = R.drawable.ic_star
-//        val intent = Intent(this, MainV2Activity::class.java).apply {
-//            addFlags(FLAG_ACTIVITY_CLEAR_TOP)
-//            putExtras(bundleOf(PARAMS_REQUEST_CODE to requestCode))
-//        }
-//        val pendingIntent = getActivity(this, notificationId, intent, FLAG_ONE_SHOT)
+        val intent = Intent(Intent.ACTION_VIEW, newsUrl.toUri())
+        val pendingIntent = getActivity(this, 0, intent, FLAG_ONE_SHOT)
         val defaultSoundUri = getDefaultUri(TYPE_NOTIFICATION)
         val channelId = getString(R.string.gcm_defaultSenderId)
         val notificationBuilder = NotificationCompat.Builder(this, channelId)
@@ -56,7 +58,7 @@ class NewsFirebaseMessaging : FirebaseMessagingService(), KodeinAware {
             .setContentText(content)
             .setAutoCancel(true)
             .setSound(defaultSoundUri)
-//            .setContentIntent(pendingIntent)
+            .setContentIntent(pendingIntent)
 
         sendNotification(notificationBuilder)
     }
