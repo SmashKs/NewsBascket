@@ -35,7 +35,7 @@ open class MultiTypeAdapter(
     }
 
     override fun onItemSwiped(position: Int) {
-        dropList(position, position)
+        dropAt(position)
     }
 
     override fun onItemMoved(fromPosition: Int, toPosition: Int) {
