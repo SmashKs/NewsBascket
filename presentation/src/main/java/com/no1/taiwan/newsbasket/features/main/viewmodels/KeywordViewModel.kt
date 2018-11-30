@@ -25,6 +25,7 @@ class KeywordViewModel(
     private val _updateKeywordsLiveData by lazy { ResponseMutableLiveData<Boolean>() }
     val updateKeywordsLiveData: ResponseLiveData<Boolean> = _storeKeywordLiveData
     private val _removeKeywordLiveData by lazy { ResponseMutableLiveData<Boolean>() }
+    val removeKeywordLiveData: ResponseLiveData<Boolean> = _removeKeywordLiveData
 
     fun fetchKeywords() {
         _keywordsLiveData requestData { fetchUsecase.toRun(FetchKeywordsUsecase.Request()) }
@@ -47,7 +48,7 @@ class KeywordViewModel(
                 updateRemoteUsecase.toRun(UpdateKeywordsUsecase.Request())
             }
             else {
-                TODO()
+                res
             }
         }
     }

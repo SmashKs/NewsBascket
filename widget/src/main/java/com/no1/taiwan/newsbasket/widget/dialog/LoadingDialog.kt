@@ -7,13 +7,17 @@ import com.devrapid.dialogbuilder.support.QuickDialogFragment
 import com.no1.taiwan.newsbasket.widget.R
 
 object LoadingDialog {
-    fun getInstance(fragment: Fragment) = QuickDialogFragment.Builder(fragment) {
-        builder()
-    }.build()
+    fun getInstance(fragment: Fragment, cancelable: Boolean = false) =
+        QuickDialogFragment.Builder(fragment) {
+            this.cancelable = cancelable
+            builder()
+        }.build()
 
-    fun getInstance(activity: AppCompatActivity) = QuickDialogFragment.Builder(activity) {
-        builder()
-    }.build()
+    fun getInstance(activity: AppCompatActivity, cancelable: Boolean = false) =
+        QuickDialogFragment.Builder(activity) {
+            this.cancelable = cancelable
+            builder()
+        }.build()
 
     private fun Builder.builder() {
         viewResCustom = R.layout.dialog_loading

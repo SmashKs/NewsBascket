@@ -5,6 +5,7 @@ import androidx.annotation.UiThread
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import com.devrapid.dialogbuilder.support.QuickDialogFragment
 import com.devrapid.kotlinshaver.cast
 import com.no1.taiwan.newsbasket.ext.const.DEFAULT_INT
 import com.no1.taiwan.newsbasket.ext.const.isDefault
@@ -13,6 +14,7 @@ import com.no1.taiwan.newsbasket.ext.hideRetryView
 import com.no1.taiwan.newsbasket.ext.showErrorView
 import com.no1.taiwan.newsbasket.ext.showLoadingView
 import com.no1.taiwan.newsbasket.ext.showRetryView
+import com.no1.taiwan.newsbasket.widget.dialog.LoadingDialog
 import org.kodein.di.generic.instance
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
@@ -47,6 +49,10 @@ abstract class AdvFragment<out A : BaseActivity, out VM : ViewModel> : BaseFragm
         }
     /** The [ViewModelProviders.of] function for obtaining a [ViewModel]. */
     private val vmCreateMethod get() = vmProviders.javaClass.getMethod("get", vmConcreteClass.superclass.javaClass)
+    /** Dialog loading view. */
+    private val loadingView by lazy { LoadingDialog.getInstance(this) }
+    /** Enable dialog loading view or use loading layout. */
+    protected open var enableDialogLoading = true
 
     //region Fragment's lifecycle.
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,19 +68,22 @@ abstract class AdvFragment<out A : BaseActivity, out VM : ViewModel> : BaseFragm
 
     //region View Implementation for the Presenter.
     @UiThread
-    override fun showLoading() = requireActivity().showLoadingView()
+    override fun showLoading() = if (enableDialogLoading) loadingView.show() else parent.showLoadingView()
 
     @UiThread
-    override fun hideLoading() = requireActivity().hideLoadingView()
+    override fun hideLoading() = if (enableDialogLoading)
+        loadingView.takeUnless(QuickDialogFragment::isDismiss)?.dismiss() ?: Unit
+    else
+        parent.hideLoadingView()
 
     @UiThread
-    override fun showRetry() = requireActivity().showRetryView()
+    override fun showRetry() = parent.showRetryView()
 
     @UiThread
-    override fun hideRetry() = requireActivity().hideRetryView()
+    override fun hideRetry() = parent.hideRetryView()
 
     @UiThread
-    override fun showError(message: String) = requireActivity().showErrorView(message)
+    override fun showError(message: String) = parent.showErrorView(message)
     //endregion
 
     /** The block of binding to [androidx.lifecycle.ViewModel]'s [androidx.lifecycle.LiveData]. */

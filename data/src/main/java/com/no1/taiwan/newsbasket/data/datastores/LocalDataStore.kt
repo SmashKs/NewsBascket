@@ -11,6 +11,7 @@ import com.no1.taiwan.newsbasket.ext.const.DEFAULT_STR
 import com.tencent.mmkv.MMKV
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
 
 /**
  * The implementation of the local data store. The responsibility is selecting a correct
@@ -56,6 +57,7 @@ class LocalDataStore(
     }
 
     override fun removeKeyword(parameters: Parameterable) = GlobalScope.async {
+        delay(4000)
         parameters.toApiParam()[PARAM_NAME_KEYWORD]
             ?.let { newsDb.deleteKeyword(KeywordData(it)); true } ?: false
     }

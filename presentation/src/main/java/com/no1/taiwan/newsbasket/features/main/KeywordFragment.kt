@@ -1,6 +1,7 @@
 package com.no1.taiwan.newsbasket.features.main
 
 import android.os.Bundle
+import android.view.KeyEvent
 import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,8 +19,8 @@ import com.no1.taiwan.newsbasket.components.recyclerview.helpers.NewsItemTouchHe
 import com.no1.taiwan.newsbasket.components.recyclerview.helpers.ViewItemTouchCallback
 import com.no1.taiwan.newsbasket.entities.KeywordEntity
 import com.no1.taiwan.newsbasket.ext.const.DEFAULT_STR
-import com.no1.taiwan.newsbasket.ext.doWith
 import com.no1.taiwan.newsbasket.ext.happenError
+import com.no1.taiwan.newsbasket.ext.muteErrorDoWith
 import com.no1.taiwan.newsbasket.ext.observeNonNull
 import com.no1.taiwan.newsbasket.ext.peel
 import com.no1.taiwan.newsbasket.ext.peelSkipLoading
@@ -31,50 +32,51 @@ import kotlinx.android.synthetic.main.dialog_input_keyword.view.et_keyword
 import kotlinx.android.synthetic.main.fragment_keyword.fab_add
 import kotlinx.android.synthetic.main.fragment_keyword.rv_keywords
 import org.jetbrains.anko.sdk25.coroutines.onClick
+import org.jetbrains.anko.sdk25.coroutines.onKey
 import org.kodein.di.generic.instance
 
 class KeywordFragment : AdvFragment<MainActivity, KeywordViewModel>() {
     private val linearLayout by instance<LinearLayoutManager>(LINEAR_LAYOUT_VERTICAL)
     private val keywordAdapter by instance<NewsAdapter>(KEYOWRD_ADAPTER)
-    private val keywordItems = mutableListOf<NewsMultiVisitable>()
+    private val dupKeywords = mutableListOf<String>()
     private val helper = object : ViewItemTouchCallback {
         override fun onItemSwiped(position: Int) {
-            vm.removeKeyword(cast<KeywordEntity>(keywordItems[position]).keyword)
-            keywordItems.removeAt(position)
+            removedPosition = position
+            vm.removeKeyword(dupKeywords[position])
         }
 
         override fun onItemMoved(fromPosition: Int, toPosition: Int) {
         }
     }
     private var currentInput = DEFAULT_STR
+    private var removedPosition = -1
 
     //region Base build-in functions
     /** The block of binding to [androidx.lifecycle.ViewModel]'s [androidx.lifecycle.LiveData]. */
     override fun bindLiveData() {
         observeNonNull(vm.keywordsLiveData) {
             peelSkipLoading {
-                keywordItems.addAll(it.map { KeywordEntity(it) })
+                dupKeywords.addAll(it)
                 // Only first time into here.
-                keywordAdapter.appendList(keywordItems)
-            } happenError {
-                loge(it)
-            } doWith this@KeywordFragment
+                keywordAdapter.appendList(it.map { cast<NewsMultiVisitable>(KeywordEntity(it)) }.toMutableList())
+            } happenError { loge(it) } muteErrorDoWith this@KeywordFragment
         }
         observeNonNull(vm.storeKeywordLiveData) {
             peelSkipLoading {
                 vm.updateRemoteSubscribing(currentInput)
-            } happenError {
-                Snackbar.make(fab_add, it, LENGTH_SHORT).show()
-            } doWith this@KeywordFragment
+            } happenError { Snackbar.make(fab_add, it, LENGTH_SHORT).show() } muteErrorDoWith this@KeywordFragment
         }
         observeNonNull(vm.updateKeywordsLiveData) {
             peel {
                 keywordAdapter.appendList(mutableListOf(KeywordEntity(currentInput)))
-                keywordItems.add(KeywordEntity(currentInput))
+                dupKeywords.add(currentInput)
                 Snackbar.make(fab_add, "success", LENGTH_SHORT).show()
-            } happenError {
-                Snackbar.make(fab_add, it, LENGTH_SHORT).show()
-            } doWith this@KeywordFragment
+            } happenError { Snackbar.make(fab_add, it, LENGTH_SHORT).show() } muteErrorDoWith this@KeywordFragment
+        }
+        observeNonNull(vm.removeKeywordLiveData) {
+            peel {
+                if (it) dupKeywords.removeAt(removedPosition)
+            } happenError { Snackbar.make(fab_add, it, LENGTH_SHORT).show() } muteErrorDoWith this@KeywordFragment
         }
     }
 
@@ -126,10 +128,17 @@ class KeywordFragment : AdvFragment<MainActivity, KeywordViewModel>() {
         QuickDialogFragment.Builder(this) {
             viewResCustom = R.layout.dialog_input_keyword
             fetchComponents = { v, df ->
-                v.btn_send.onClick {
-                    currentInput = v.et_keyword.text.toString()
-                    vm.storeKeyword(currentInput)
-                    df.dismiss()
+                v.apply {
+                    btn_send.onClick {
+                        currentInput = v.et_keyword.text.toString().replace("\n", DEFAULT_STR)
+                        vm.storeKeyword(currentInput)
+                        df.dismiss()
+                    }
+                    et_keyword.onKey { v, keyCode, event ->
+                        if (event?.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                            btn_send.performClick()
+                        }
+                    }
                 }
             }
         }.build().show()

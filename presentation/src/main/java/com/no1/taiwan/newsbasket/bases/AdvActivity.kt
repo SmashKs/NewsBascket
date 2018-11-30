@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.devrapid.dialogbuilder.support.QuickDialogFragment
 import com.devrapid.kotlinshaver.cast
+import com.no1.taiwan.newsbasket.ext.showLoadingView
 import com.no1.taiwan.newsbasket.widget.dialog.LoadingDialog
 import org.kodein.di.generic.instance
 import java.lang.reflect.ParameterizedType
@@ -25,17 +26,23 @@ abstract class AdvActivity<out VM : ViewModel> : BaseActivity(), LoadView {
     private val vmProviders get() = ViewModelProviders.of(this, viewModelFactory)
     /** The [ViewModelProviders.of] function for obtaining a [ViewModel]. */
     private val vmCreateMethod get() = vmProviders.javaClass.getMethod("get", vmConcreteClass.superclass.javaClass)
+    /** Dialog loading view. */
     private val loadingView by lazy { LoadingDialog.getInstance(this) }
+    /** Enable dialog loading view or use loading layout. */
+    protected open var enableDialogLoading = true
 
     /**
      * Show a view with a progress bar indicating a loading process.
      */
-    override fun showLoading() = loadingView.show()
+    override fun showLoading() = if (enableDialogLoading) loadingView.show() else showLoadingView()
 
     /**
      * Hide a loading view.
      */
-    override fun hideLoading() = loadingView.takeUnless(QuickDialogFragment::isDismiss)?.dismiss() ?: Unit
+    override fun hideLoading() = if (enableDialogLoading)
+        loadingView.takeUnless(QuickDialogFragment::isDismiss)?.dismiss() ?: Unit
+    else
+        showLoadingView()
 
     /**
      * Show a retry view in case of an error when retrieving data.
