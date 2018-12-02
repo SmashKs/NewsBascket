@@ -42,13 +42,15 @@ class KeywordFragment : AdvFragment<MainActivity, KeywordViewModel>() {
     private val helper = object : ViewItemTouchCallback {
         override fun onItemSwiped(position: Int) {
             removedPosition = position
-            vm.removeKeyword(dupKeywords[position])
+            currentDeleted = dupKeywords[position]
+            vm.removeKeyword(currentDeleted)
         }
 
         override fun onItemMoved(fromPosition: Int, toPosition: Int) {
         }
     }
     private var currentInput = DEFAULT_STR
+    private var currentDeleted = DEFAULT_STR
     private var removedPosition = -1
 
     //region Base build-in functions
@@ -78,8 +80,8 @@ class KeywordFragment : AdvFragment<MainActivity, KeywordViewModel>() {
                 if (it) dupKeywords.removeAt(removedPosition)
             } happenError {
                 Snackbar.make(fab_add, it, LENGTH_SHORT).show()
-//                vm.storeLocalKeyword()
                 // Rollback the data we deleted.
+                vm.storeLocalKeyword(currentDeleted)
             } muteErrorDoWith this@KeywordFragment
         }
     }
