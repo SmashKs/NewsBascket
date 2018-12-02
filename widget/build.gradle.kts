@@ -1,7 +1,13 @@
 import com.android.build.gradle.ProguardFiles.getDefaultProguardFile
+import dependenices.BuildSetting
 import dependenices.Deps
 import dependenices.Versions
-import org.gradle.internal.impldep.com.amazonaws.PredefinedClientConfigurations.defaultConfig
+
+tasks.whenObjectAdded {
+    if ("lint".toRegex().containsMatchIn(this.name)) {
+        this.enabled = BuildSetting.enableLint
+    }
+}
 
 plugins {
     id("com.android.library")
@@ -31,7 +37,7 @@ android {
     }
     lintOptions { isAbortOnError = false }
     compileOptions {
-        setSourceCompatibility(JavaVersion.VERSION_1_8)
+        sourceCompatibility = JavaVersion.VERSION_1_8
         setTargetCompatibility(JavaVersion.VERSION_1_8)
     }
 }

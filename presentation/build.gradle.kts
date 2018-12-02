@@ -1,7 +1,14 @@
 import dependenices.Deps
 import dependenices.Versions
+import dependenices.BuildSetting
 import org.jetbrains.kotlin.gradle.internal.AndroidExtensionsExtension
 import java.util.Properties
+
+tasks.whenObjectAdded {
+    if ("lint".toRegex().containsMatchIn(this.name)) {
+        this.enabled = BuildSetting.enableLint
+    }
+}
 
 plugins {
     id("com.android.application")
@@ -40,7 +47,12 @@ android {
             res.srcDirs(resource.FeatureRes.dirs)
         }
     }
-    dexOptions { javaMaxHeapSize = "4g" }
+    dexOptions {
+        javaMaxHeapSize = "4g"
+        jumboMode = true
+        preDexLibraries = true
+        threadCount = 8
+    }
     testOptions { unitTests.isReturnDefaultValues = true }
     lintOptions { isAbortOnError = false }
     compileOptions {

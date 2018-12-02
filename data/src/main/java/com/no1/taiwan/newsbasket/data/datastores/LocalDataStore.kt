@@ -57,7 +57,7 @@ class LocalDataStore(
     }
 
     override fun removeKeyword(parameters: Parameterable) = GlobalScope.async {
-        delay(4000)
+        delay(2000)
         parameters.toApiParam()[PARAM_NAME_KEYWORD]
             ?.let { newsDb.deleteKeyword(KeywordData(it)); true } ?: false
     }

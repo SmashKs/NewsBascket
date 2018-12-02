@@ -76,7 +76,11 @@ class KeywordFragment : AdvFragment<MainActivity, KeywordViewModel>() {
         observeNonNull(vm.removeKeywordLiveData) {
             peel {
                 if (it) dupKeywords.removeAt(removedPosition)
-            } happenError { Snackbar.make(fab_add, it, LENGTH_SHORT).show() } muteErrorDoWith this@KeywordFragment
+            } happenError {
+                Snackbar.make(fab_add, it, LENGTH_SHORT).show()
+//                vm.storeLocalKeyword()
+                // Rollback the data we deleted.
+            } muteErrorDoWith this@KeywordFragment
         }
     }
 
@@ -89,7 +93,7 @@ class KeywordFragment : AdvFragment<MainActivity, KeywordViewModel>() {
         componentSetting()
         eventSetting()
 
-        vm.fetchKeywords()
+        vm.fetchLocalKeywords()
     }
 
     /**
@@ -131,7 +135,7 @@ class KeywordFragment : AdvFragment<MainActivity, KeywordViewModel>() {
                 v.apply {
                     btn_send.onClick {
                         currentInput = v.et_keyword.text.toString().replace("\n", DEFAULT_STR)
-                        vm.storeKeyword(currentInput)
+                        vm.storeLocalKeyword(currentInput)
                         df.dismiss()
                     }
                     et_keyword.onKey { v, keyCode, event ->

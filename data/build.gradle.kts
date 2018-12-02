@@ -1,7 +1,14 @@
 import dependenices.Deps
 import dependenices.Versions
+import dependenices.BuildSetting
 import java.net.NetworkInterface
 import java.util.Properties
+
+tasks.whenObjectAdded {
+    if ("lint".toRegex().containsMatchIn(this.name)) {
+        this.enabled = BuildSetting.enableLint
+    }
+}
 
 plugins {
     id("com.android.library")
