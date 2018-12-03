@@ -11,7 +11,7 @@ class AddLocalKeywordWrapUsecase(
     private val repository: DataRepository,
     override var requestValues: Request? = null
 ) : DeferredWrapUsecase<Boolean, Request>() {
-    override fun CoroutineScope.fetchWrapCase() = attachParameterWrap {
+    override fun CoroutineScope.acquireCase() = attachParameter {
         repository.addKeyword(it.parameters, this)
     }
 

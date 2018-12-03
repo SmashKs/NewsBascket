@@ -12,7 +12,7 @@ class UpdateRemoteKeywordsWrapUsecase(
     private val repository: DataRepository,
     override var requestValues: Request? = null
 ) : DeferredWrapUsecase<Boolean, Request>() {
-    override fun CoroutineScope.fetchWrapCase() = attachParameterWrap {
+    override fun CoroutineScope.acquireCase() = attachParameter {
         val firebaseToken = repository.fetchFirebaseToken(this)
         val token = repository.fetchToken(this)
         val keywords = repository.fetchKeywords(this)

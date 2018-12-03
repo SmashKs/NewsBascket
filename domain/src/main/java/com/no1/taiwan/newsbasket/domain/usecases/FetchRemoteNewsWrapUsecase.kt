@@ -12,7 +12,7 @@ class FetchRemoteNewsWrapUsecase(
     private val repository: DataRepository,
     override var requestValues: Request? = null
 ) : DeferredWrapUsecase<Newses, Request>() {
-    override fun CoroutineScope.fetchWrapCase() = attachParameterWrap {
+    override fun CoroutineScope.acquireCase() = attachParameter {
         repository.fetchNews(it.parameters, this)
     }
 
