@@ -4,6 +4,7 @@ import com.no1.taiwan.newsbasket.domain.DeferredUsecase
 import com.no1.taiwan.newsbasket.domain.parameters.fields.KeywordsFields
 import com.no1.taiwan.newsbasket.domain.repositories.DataRepository
 import com.no1.taiwan.newsbasket.domain.usecases.UpdateRemoteKeywordsUsecase.Request
+import com.no1.taiwan.newsbasket.ext.const.takeIfDefault
 import kotlinx.coroutines.CoroutineScope
 
 class UpdateRemoteKeywordsUsecase(
@@ -14,8 +15,8 @@ class UpdateRemoteKeywordsUsecase(
         val token = repository.fetchToken(this)
         val keywords = repository.fetchKeywords(this)
         val parameter = KeywordsFields(
-            token.await(),
-            firebaseToken.await(),
+            it.parameters.firebaseToken.takeIfDefault() ?: firebaseToken.await(),
+            it.parameters.token.takeIfDefault() ?: firebaseToken.await(),
             keywords.await().joinToString(","))
 
         repository.updateKeywords(parameter, this).await()
