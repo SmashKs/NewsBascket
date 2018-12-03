@@ -10,8 +10,8 @@ class FetchLocalFirebaseTokenWrapUsecase(
     private val repository: DataRepository,
     override var requestValues: Request? = null
 ) : DeferredWrapUsecase<List<String>, Request>() {
-    override fun CoroutineScope.fetchCase() = attachParameter {
-        repository.fetchKeywords(this).await()
+    override fun CoroutineScope.fetchWrapCase() = attachParameterWrap {
+        repository.fetchKeywords(this)
     }
 
     class Request : RequestValues

@@ -12,11 +12,11 @@ class AddSubscriberWrapUsecase(
     private val repository: DataRepository,
     override var requestValues: Request? = null
 ) : DeferredWrapUsecase<TokenModel, Request>() {
-    override fun CoroutineScope.fetchCase() = attachParameter {
+    override fun CoroutineScope.fetchWrapCase() = attachParameterWrap {
         // Retrieve the firebase token first.
         val firebaseToken = repository.fetchFirebaseToken(this).await()
 
-        repository.addSubscriber(SubscriberFields(firebaseToken, it.parameters.keywords), this).await()
+        repository.addSubscriber(SubscriberFields(firebaseToken, it.parameters.keywords), this)
     }
 
     class Request(val parameters: SubscriberFields = SubscriberFields()) : RequestValues

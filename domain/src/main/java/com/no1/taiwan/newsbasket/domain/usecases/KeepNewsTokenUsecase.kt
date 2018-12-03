@@ -11,8 +11,8 @@ class KeepNewsTokenUsecase(
     private val repository: DataRepository,
     override var requestValues: Request? = null
 ) : DeferredWrapUsecase<Boolean, Request>() {
-    override fun CoroutineScope.fetchCase() = attachParameter {
-        repository.keepNewsToken(it.parameters, this).await()
+    override fun CoroutineScope.fetchWrapCase() = attachParameterWrap {
+        repository.keepNewsToken(it.parameters, this)
     }
 
     class Request(val parameters: TokenParams = TokenParams()) : RequestValues

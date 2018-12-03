@@ -2,6 +2,7 @@ package com.no1.taiwan.newsbasket.domain
 
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
@@ -24,9 +25,14 @@ abstract class DeferredUsecase<T : Any, R : BaseUsecase.RequestValues> : BaseUse
         GlobalScope.async(parentJob) { fetchCase() }.await()
     }
 
-    protected abstract fun CoroutineScope.fetchCase(): T
+    internal abstract fun CoroutineScope.fetchWrapCase(): Deferred<T>
+
+    protected suspend fun CoroutineScope.fetchCase() = fetchWrapCase().await()
 
     protected fun attachParameter(λ: suspend (R) -> T) = runBlocking { requireNotNull(requestValues?.run { λ(this) }) }
+
+    protected fun attachParameterWrap(λ: suspend (R) -> Deferred<T>) =
+        runBlocking { requireNotNull(requestValues?.run { λ(this) }) }
 
     open fun abort() {
         if (::parentJob.isInitialized && parentJob.isActive)

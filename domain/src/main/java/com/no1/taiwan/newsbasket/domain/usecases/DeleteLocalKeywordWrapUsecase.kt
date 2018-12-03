@@ -11,8 +11,8 @@ class DeleteLocalKeywordWrapUsecase(
     private val repository: DataRepository,
     override var requestValues: Request? = null
 ) : DeferredWrapUsecase<Boolean, Request>() {
-    override fun CoroutineScope.fetchCase() = attachParameter {
-        repository.deleteKeywordToken(it.parameters, this).await()
+    override fun CoroutineScope.fetchWrapCase() = attachParameterWrap {
+        repository.deleteKeywordToken(it.parameters, this)
     }
 
     class Request(val parameters: KeywordsParams = KeywordsParams()) : RequestValues
