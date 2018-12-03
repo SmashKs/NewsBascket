@@ -50,7 +50,7 @@ abstract class AdvFragment<out A : BaseActivity, out VM : ViewModel> : BaseFragm
     /** The [ViewModelProviders.of] function for obtaining a [ViewModel]. */
     private val vmCreateMethod get() = vmProviders.javaClass.getMethod("get", vmConcreteClass.superclass.javaClass)
     /** Dialog loading view. */
-    private val loadingView by lazy { LoadingDialog.getInstance(this) }
+    private val loadingView by lazy { LoadingDialog.getInstance(this, true) }
     /** Enable dialog loading view or use loading layout. */
     protected open var enableDialogLoading = true
 

@@ -1,5 +1,6 @@
 package com.no1.taiwan.newsbasket.data.datastores
 
+import android.database.sqlite.SQLiteConstraintException
 import com.no1.taiwan.newsbasket.data.datas.KeywordData
 import com.no1.taiwan.newsbasket.data.local.v1.NewsDao
 import com.no1.taiwan.newsbasket.domain.parameters.Parameterable
@@ -53,7 +54,16 @@ class LocalDataStore(
 
     override fun createKeyword(parameters: Parameterable) = GlobalScope.async {
         parameters.toApiParam()[PARAM_NAME_KEYWORD]
-            ?.let { newsDb.insertKeyword(KeywordData(it));true } ?: false
+            ?.let {
+                try {
+                    newsDb.insertKeyword(KeywordData(it))
+                    true
+                }
+                catch (e: SQLiteConstraintException) {
+                    e.printStackTrace()
+                    false
+                }
+            } ?: false
     }
 
     override fun removeKeyword(parameters: Parameterable) = GlobalScope.async {

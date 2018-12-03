@@ -1,5 +1,6 @@
 package com.no1.taiwan.newsbasket.internal.di.dependency
 
+import com.no1.taiwan.newsbasket.domain.usecases.AddKeywordRespUsecase
 import com.no1.taiwan.newsbasket.domain.usecases.AddLocalKeywordWrapUsecase
 import com.no1.taiwan.newsbasket.domain.usecases.AddSubscriberWrapUsecase
 import com.no1.taiwan.newsbasket.domain.usecases.DeleteLocalKeywordWrapUsecase
@@ -26,6 +27,7 @@ object UsecaseModule {
         bind<AddLocalKeywordWrapUsecase>() with singleton { AddLocalKeywordWrapUsecase(instance()) }
         bind<DeleteLocalKeywordWrapUsecase>() with singleton { DeleteLocalKeywordWrapUsecase(instance()) }
         bind<FetchLocalKeywordsWrapUsecase>() with singleton { FetchLocalKeywordsWrapUsecase(instance()) }
+        bind<AddKeywordRespUsecase>() with singleton { AddKeywordRespUsecase(instance()) }
         //endregion
     }
 }

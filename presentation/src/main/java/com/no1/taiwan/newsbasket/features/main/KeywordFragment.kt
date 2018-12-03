@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.devrapid.dialogbuilder.support.QuickDialogFragment
 import com.devrapid.kotlinknifer.loge
+import com.devrapid.kotlinknifer.logw
 import com.devrapid.kotlinshaver.cast
 import com.devrapid.kotlinshaver.isNull
 import com.google.android.material.snackbar.Snackbar
@@ -65,8 +66,12 @@ class KeywordFragment : AdvFragment<MainActivity, KeywordViewModel>() {
         }
         observeNonNull(vm.storeKeywordLiveData) {
             peelSkipLoading {
-                vm.updateRemoteSubscribing(currentInput)
-            } happenError { Snackbar.make(fab_add, it, LENGTH_SHORT).show() } muteErrorDoWith this@KeywordFragment
+                //                vm.updateRemoteSubscribing(currentInput)
+                logw(it)
+            } happenError {
+                loge(it)
+                Snackbar.make(fab_add, it, LENGTH_SHORT).show()
+            } muteErrorDoWith this@KeywordFragment
         }
         observeNonNull(vm.updateKeywordsLiveData) {
             peel {
@@ -137,7 +142,8 @@ class KeywordFragment : AdvFragment<MainActivity, KeywordViewModel>() {
                 v.apply {
                     btn_send.onClick {
                         currentInput = v.et_keyword.text.toString().replace("\n", DEFAULT_STR)
-                        vm.storeLocalKeyword(currentInput)
+//                        vm.storeLocalKeyword(currentInput)
+                        vm.mix(currentInput)
                         df.dismiss()
                     }
                     et_keyword.onKey { v, keyCode, event ->

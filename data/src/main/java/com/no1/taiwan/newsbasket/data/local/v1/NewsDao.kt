@@ -21,7 +21,7 @@ interface NewsDao {
     @Query("SELECT * FROM table_keywords")
     fun getAllKeywords(): Keywords
 
-    @Insert(onConflict = OnConflictStrategy.ABORT)
+    @Insert(onConflict = OnConflictStrategy.FAIL)
     fun insertKeyword(keyword: KeywordData)
 
     @Delete()
