@@ -3,10 +3,10 @@ package com.no1.taiwan.newsbasket.domain.usecases
 import com.no1.taiwan.newsbasket.domain.DeferredUsecase
 import com.no1.taiwan.newsbasket.domain.parameters.fields.KeywordsFields
 import com.no1.taiwan.newsbasket.domain.repositories.DataRepository
-import com.no1.taiwan.newsbasket.domain.usecases.UpdateKeywordsUsecase.Request
+import com.no1.taiwan.newsbasket.domain.usecases.UpdateRemoteKeywordsUsecase.Request
 import kotlinx.coroutines.CoroutineScope
 
-class UpdateKeywordsUsecase(
+class UpdateRemoteKeywordsUsecase(
     private val repository: DataRepository
 ) : DeferredUsecase<Boolean, Request>() {
     override fun CoroutineScope.fetchCase() = attachParameter {

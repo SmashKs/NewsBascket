@@ -1,12 +1,12 @@
 package com.no1.taiwan.newsbasket.internal.di.dependency
 
-import com.no1.taiwan.newsbasket.domain.usecases.AddKeywordUsecase
+import com.no1.taiwan.newsbasket.domain.usecases.AddLocalKeywordUsecase
 import com.no1.taiwan.newsbasket.domain.usecases.AddSubscriberUsecase
-import com.no1.taiwan.newsbasket.domain.usecases.DeleteKeywordUsecase
-import com.no1.taiwan.newsbasket.domain.usecases.FetchKeywordsUsecase
-import com.no1.taiwan.newsbasket.domain.usecases.FetchNewsUsecase
+import com.no1.taiwan.newsbasket.domain.usecases.DeleteLocalKeywordUsecase
+import com.no1.taiwan.newsbasket.domain.usecases.FetchLocalKeywordsUsecase
+import com.no1.taiwan.newsbasket.domain.usecases.FetchRemoteNewsUsecase
 import com.no1.taiwan.newsbasket.domain.usecases.KeepNewsTokenUsecase
-import com.no1.taiwan.newsbasket.domain.usecases.UpdateKeywordsUsecase
+import com.no1.taiwan.newsbasket.domain.usecases.UpdateRemoteKeywordsUsecase
 import org.kodein.di.Kodein.Module
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
@@ -18,14 +18,14 @@ import org.kodein.di.generic.singleton
 object UsecaseModule {
     fun usecaseProvider() = Module("Use Cases Module") {
         //region For Fragments
-        bind<FetchNewsUsecase>() with singleton { FetchNewsUsecase(instance()) }
+        bind<FetchRemoteNewsUsecase>() with singleton { FetchRemoteNewsUsecase(instance()) }
         bind<AddSubscriberUsecase>() with singleton { AddSubscriberUsecase(instance()) }
-        bind<UpdateKeywordsUsecase>() with singleton { UpdateKeywordsUsecase(instance()) }
+        bind<UpdateRemoteKeywordsUsecase>() with singleton { UpdateRemoteKeywordsUsecase(instance()) }
 
         bind<KeepNewsTokenUsecase>() with singleton { KeepNewsTokenUsecase(instance()) }
-        bind<AddKeywordUsecase>() with singleton { AddKeywordUsecase(instance()) }
-        bind<DeleteKeywordUsecase>() with singleton { DeleteKeywordUsecase(instance()) }
-        bind<FetchKeywordsUsecase>() with singleton { FetchKeywordsUsecase(instance()) }
+        bind<AddLocalKeywordUsecase>() with singleton { AddLocalKeywordUsecase(instance()) }
+        bind<DeleteLocalKeywordUsecase>() with singleton { DeleteLocalKeywordUsecase(instance()) }
+        bind<FetchLocalKeywordsUsecase>() with singleton { FetchLocalKeywordsUsecase(instance()) }
         //endregion
     }
 }
