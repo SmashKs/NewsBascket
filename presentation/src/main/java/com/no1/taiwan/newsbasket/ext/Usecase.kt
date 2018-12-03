@@ -21,7 +21,7 @@ import kotlinx.coroutines.Deferred
  */
 suspend fun <M : Any, V : RequestValues> ObservableCaseWithResponse<M, V>.toRun(
     parameter: V? = null
-) = execute(parameter)
+) = executeWrap(parameter)
 
 /**
  * Connected [ObservableUseCase] and unwrapping and letting the usecase become a await
@@ -33,7 +33,7 @@ suspend fun <M : Any, V : RequestValues> ObservableCaseWithResponse<M, V>.toRun(
 suspend fun <M : Model, E : Entity, V : RequestValues> ObservableCaseWithResponse<M, V>.toRun(
     mapper: Mapper<M, E>,
     parameter: V? = null
-) = execute(parameter).run { mapToEntity(mapper) }
+) = executeWrap(parameter).run { mapToEntity(mapper) }
 
 /**
  * Connected [ObservableUseCase] and unwrapping and letting the usecase become a await
@@ -45,7 +45,7 @@ suspend fun <M : Model, E : Entity, V : RequestValues> ObservableCaseWithRespons
 suspend fun <M : Model, E : Entity, V : RequestValues, MS : List<M>> ObservableCaseWithResponse<MS, V>.toRunList(
     mapper: Mapper<M, E>,
     parameter: V? = null
-) = execute(parameter).run { mapToEntities(mapper) }
+) = executeWrap(parameter).run { mapToEntities(mapper) }
 //endregion
 
 /**

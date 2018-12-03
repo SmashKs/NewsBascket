@@ -1,9 +1,6 @@
 package com.no1.taiwan.newsbasket.domain
 
 import com.no1.taiwan.newsbasket.domain.BaseUsecase.RequestValues
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.isActive
-import kotlin.coroutines.CoroutineContext
 
 /**
  * Abstract class for a Use Case (Interactor in terms of Clean Architecture).
@@ -16,15 +13,9 @@ import kotlin.coroutines.CoroutineContext
  * For passing a request parameters [RequestValues] to data layer that set a generic type for wrapping
  * vary data.
  */
-abstract class BaseUsecase<R : RequestValues> {
+interface BaseUsecase<R : RequestValues> {
     /** Provide a common parameter variable for the children class. */
-    var requestValues: R? = null
-    protected lateinit var parentJob: CoroutineContext
-
-    open fun abort() {
-        if (::parentJob.isInitialized && parentJob.isActive)
-            parentJob.cancel()
-    }
+    var requestValues: R?
 
     /** Interface for wrap a data for passing to a request.*/
     interface RequestValues

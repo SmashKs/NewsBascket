@@ -2,18 +2,17 @@ package com.no1.taiwan.newsbasket.domain.usecases
 
 import com.no1.taiwan.newsbasket.domain.BaseUsecase.RequestValues
 import com.no1.taiwan.newsbasket.domain.DeferredWrapUsecase
-import com.no1.taiwan.newsbasket.domain.parameters.params.TokenParams
 import com.no1.taiwan.newsbasket.domain.repositories.DataRepository
-import com.no1.taiwan.newsbasket.domain.usecases.KeepNewsTokenUsecase.Request
+import com.no1.taiwan.newsbasket.domain.usecases.FetchLocalKeywordsWrapUsecase.Request
 import kotlinx.coroutines.CoroutineScope
 
-class KeepNewsTokenUsecase(
+class FetchLocalKeywordsWrapUsecase(
     private val repository: DataRepository,
     override var requestValues: Request? = null
-) : DeferredWrapUsecase<Boolean, Request>() {
+) : DeferredWrapUsecase<List<String>, Request>() {
     override fun CoroutineScope.fetchCase() = attachParameter {
-        repository.keepNewsToken(it.parameters, this).await()
+        repository.fetchKeywords(this).await()
     }
 
-    class Request(val parameters: TokenParams = TokenParams()) : RequestValues
+    class Request : RequestValues
 }
