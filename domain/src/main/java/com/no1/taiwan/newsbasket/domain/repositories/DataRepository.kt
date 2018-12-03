@@ -3,29 +3,29 @@ package com.no1.taiwan.newsbasket.domain.repositories
 import com.no1.taiwan.newsbasket.domain.Newses
 import com.no1.taiwan.newsbasket.domain.models.TokenModel
 import com.no1.taiwan.newsbasket.domain.parameters.Parameterable
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
+import kotlin.coroutines.CoroutineContext
 
 /**
  * This interface will be the similar to [com.no1.taiwan.newsbasket.data.datastores.DataStore].
  * Using prefix name (fetch), (add), (update), (delete), (keep)
  */
 interface DataRepository {
-    fun fetchNews(parameters: Parameterable, scope: CoroutineScope): Deferred<Newses>
+    fun fetchNews(parameters: Parameterable, context: CoroutineContext): Deferred<Newses>
 
-    fun addSubscriber(parameters: Parameterable, scope: CoroutineScope): Deferred<TokenModel>
+    fun addSubscriber(parameters: Parameterable, context: CoroutineContext): Deferred<TokenModel>
 
-    fun updateKeywords(parameters: Parameterable, scope: CoroutineScope): Deferred<Boolean>
+    fun updateKeywords(parameters: Parameterable, context: CoroutineContext): Deferred<Boolean>
 
-    fun keepNewsToken(parameters: Parameterable, scope: CoroutineScope): Deferred<Boolean>
+    fun keepNewsToken(parameters: Parameterable, context: CoroutineContext): Deferred<Boolean>
 
-    fun fetchFirebaseToken(scope: CoroutineScope): Deferred<String>
+    fun fetchFirebaseToken(context: CoroutineContext): Deferred<String>
 
-    fun fetchToken(scope: CoroutineScope): Deferred<String>
+    fun fetchToken(context: CoroutineContext): Deferred<String>
 
-    fun fetchKeywords(scope: CoroutineScope): Deferred<List<String>>
+    fun fetchKeywords(context: CoroutineContext): Deferred<List<String>>
 
-    fun addKeyword(parameters: Parameterable, scope: CoroutineScope): Deferred<Boolean>
+    fun addKeyword(parameters: Parameterable, context: CoroutineContext): Deferred<Boolean>
 
-    fun deleteKeywordToken(parameters: Parameterable, scope: CoroutineScope): Deferred<Boolean>
+    fun deleteKeywordToken(parameters: Parameterable, context: CoroutineContext): Deferred<Boolean>
 }

@@ -5,14 +5,14 @@ import com.no1.taiwan.newsbasket.domain.DeferredWrapUsecase
 import com.no1.taiwan.newsbasket.domain.parameters.params.TokenParams
 import com.no1.taiwan.newsbasket.domain.repositories.DataRepository
 import com.no1.taiwan.newsbasket.domain.usecases.KeepNewsTokenUsecase.Request
-import kotlinx.coroutines.CoroutineScope
+import kotlin.coroutines.CoroutineContext
 
 class KeepNewsTokenUsecase(
     private val repository: DataRepository,
     override var requestValues: Request? = null
 ) : DeferredWrapUsecase<Boolean, Request>() {
-    override fun CoroutineScope.acquireCase() = attachParameter {
-        repository.keepNewsToken(it.parameters, this)
+    override fun acquireCase(parentJob: CoroutineContext) = attachParameter {
+        repository.keepNewsToken(it.parameters, parentJob)
     }
 
     class Request(val parameters: TokenParams = TokenParams()) : RequestValues

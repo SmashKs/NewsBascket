@@ -6,17 +6,17 @@ import com.no1.taiwan.newsbasket.domain.models.TokenModel
 import com.no1.taiwan.newsbasket.domain.parameters.fields.SubscriberFields
 import com.no1.taiwan.newsbasket.domain.repositories.DataRepository
 import com.no1.taiwan.newsbasket.domain.usecases.AddSubscriberWrapUsecase.Request
-import kotlinx.coroutines.CoroutineScope
+import kotlin.coroutines.CoroutineContext
 
 class AddSubscriberWrapUsecase(
     private val repository: DataRepository,
     override var requestValues: Request? = null
 ) : DeferredWrapUsecase<TokenModel, Request>() {
-    override fun CoroutineScope.acquireCase() = attachParameter {
+    override fun acquireCase(parentJob: CoroutineContext) = attachParameter {
         // Retrieve the firebase token first.
-        val firebaseToken = repository.fetchFirebaseToken(this).await()
+        val firebaseToken = repository.fetchFirebaseToken(parentJob).await()
 
-        repository.addSubscriber(SubscriberFields(firebaseToken, it.parameters.keywords), this)
+        repository.addSubscriber(SubscriberFields(firebaseToken, it.parameters.keywords), parentJob)
     }
 
     class Request(val parameters: SubscriberFields = SubscriberFields()) : RequestValues
