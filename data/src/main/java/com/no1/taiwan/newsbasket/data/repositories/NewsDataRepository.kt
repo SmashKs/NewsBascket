@@ -1,6 +1,7 @@
 package com.no1.taiwan.newsbasket.data.repositories
 
 import com.devrapid.kotlinshaver.cast
+import com.devrapid.kotlinshaver.gAsync
 import com.no1.taiwan.newsbasket.data.datas.DataMapper
 import com.no1.taiwan.newsbasket.data.datas.MapperPool
 import com.no1.taiwan.newsbasket.data.datas.mappers.NewsMapper
@@ -10,7 +11,6 @@ import com.no1.taiwan.newsbasket.data.local.cache.AbsCache
 import com.no1.taiwan.newsbasket.domain.parameters.Parameterable
 import com.no1.taiwan.newsbasket.domain.repositories.DataRepository
 import com.no1.taiwan.newsbasket.ext.const.isDefault
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlin.coroutines.CoroutineContext
 
@@ -33,45 +33,45 @@ class NewsDataRepository constructor(
     private val newsMapper by lazy { digDataMapper<NewsMapper>() }
     private val tokenMapper by lazy { digDataMapper<TokenMapper>() }
 
-    override fun fetchNews(parameters: Parameterable, context: CoroutineContext) = GlobalScope.async(context) {
+    override fun fetchNews(parameters: Parameterable, context: CoroutineContext) = gAsync(context) {
         val data = remote.retrieveNewsData(parameters).await()
 
         if (data.count == 0) listOf() else data.results.map(newsMapper::toModelFrom)
     }
 
-    override fun addSubscriber(parameters: Parameterable, context: CoroutineContext) = GlobalScope.async(context) {
+    override fun addSubscriber(parameters: Parameterable, context: CoroutineContext) = gAsync(context) {
         val data = remote.createSubscriber(parameters).await()
 
         tokenMapper.toModelFrom(data)
     }
 
-    override fun updateKeywords(parameters: Parameterable, context: CoroutineContext) = GlobalScope.async(context) {
+    override fun updateKeywords(parameters: Parameterable, context: CoroutineContext) = gAsync(context) {
         val data = remote.modifyKeywords(parameters).await()
 
         !data.firebaseToken.isDefault() && !data.token.isDefault()
     }
 
-    override fun keepNewsToken(parameters: Parameterable, context: CoroutineContext) = GlobalScope.async(context) {
+    override fun keepNewsToken(parameters: Parameterable, context: CoroutineContext) = gAsync(context) {
         local.storeNewsToken(parameters).await()
     }
 
-    override fun fetchFirebaseToken(context: CoroutineContext) = GlobalScope.async(context) {
+    override fun fetchFirebaseToken(context: CoroutineContext) = gAsync(context) {
         local.retrieveFirebaseToken().await()
     }
 
-    override fun fetchToken(context: CoroutineContext) = GlobalScope.async(context) {
+    override fun fetchToken(context: CoroutineContext) = gAsync(context) {
         local.retrieveToken().await()
     }
 
-    override fun fetchKeywords(context: CoroutineContext) = GlobalScope.async(context) {
+    override fun fetchKeywords(context: CoroutineContext) = gAsync(context) {
         local.retrieveKeywords().await()
     }
 
-    override fun addKeyword(parameters: Parameterable, context: CoroutineContext) = GlobalScope.async(context) {
+    override fun addKeyword(parameters: Parameterable, context: CoroutineContext) = gAsync(context) {
         local.createKeyword(parameters).await()
     }
 
-    override fun deleteKeywordToken(parameters: Parameterable, context: CoroutineContext) = GlobalScope.async(context) {
+    override fun deleteKeywordToken(parameters: Parameterable, context: CoroutineContext) = gAsync(context) {
         local.removeKeyword(parameters).await()
     }
 
