@@ -104,8 +104,8 @@ object Deps {
 
         const val materialDessign = "com.google.android.material:material:${Versions.Ui.material}"
         const val appcompat = "androidx.appcompat:appcompat:${Versions.AndroidComponent.appCompat}"
-        const val annot = "androidx.annotation:annotation:${Versions.AndroidComponent.androidx}"
-        const val recyclerview = "androidx.recyclerview:recyclerview:${Versions.AndroidComponent.androidx}"
+        const val annot = "androidx.annotation:annotation:${Versions.AndroidComponent.annotation}"
+        const val recyclerview = "androidx.recyclerview:recyclerview:${Versions.AndroidComponent.recyclerView}"
         const val cardview = "androidx.cardview:cardview:${Versions.AndroidComponent.cardView}"
         const val constraintLayout =
             "androidx.constraintlayout:constraintlayout:${Versions.AndroidComponent.constraintLayout}"

@@ -15,21 +15,21 @@ class AddKeywordRespUsecase(
     override var requestValues: Request? = null
 ) : DeferredWrapUsecase<Boolean, AddKeywordRespUsecase.Request>() {
     override fun acquireCase(parentJob: CoroutineContext) = attachParameter {
-        // Keep it into the local first.
+        // 1. Keep it into the local first.
         val localRes = repository.addKeyword(it.parameters, parentJob).await()
-        // If keeping into local database failed.
+        // !!Fails!! If keeping into local database failed.
         if (!localRes) return@attachParameter GlobalScope.async(parentJob) { localRes }
 
-        // Update to remote server.
+        // 2. Update to remote server.
         val remoteRes = try {
-            // Mostly, happening some Internet issues.
+            // !!Fails!! Mostly, happening some Internet issues.
             UpdateRemoteKeywordsWrapUsecase(repository, UpdateRemoteKeywordsWrapUsecase.Request()).execute()
         }
         catch (e: Exception) {
             rollbackLocalDB(it.parameters.keyword)
             throw e
         }
-        // If keeping into remote database failed because of some reasons.
+        // !!Fails!! If keeping into remote database failed because of some reasons.
         if (!remoteRes) {
             // It might happened issues from remote server.
             rollbackLocalDB(it.parameters.keyword)
@@ -41,6 +41,10 @@ class AddKeywordRespUsecase(
 
     class Request(val parameters: KeywordsParams = KeywordsParams()) : RequestValues
 
+    /**
+     * Rollback the keyword input into the database.
+     * @param keyword String
+     */
     private fun rollbackLocalDB(keyword: String) {
         GlobalScope.launch(IO) {
             DeleteLocalKeywordWrapUsecase(repository)

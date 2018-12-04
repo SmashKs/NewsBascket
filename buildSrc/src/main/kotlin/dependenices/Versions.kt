@@ -19,10 +19,12 @@ object Versions {
      */
     object AndroidComponent {
         const val androidx = "1.0.0"
-        const val appCompat = "1.0.2"
+        const val annotation = "1.0.1"
+        const val appCompat = "1.1.0-alpha01"
         const val cardView = androidx
+        const val recyclerView = appCompat
         const val constraintLayout = "2.0.0-alpha2"
-        const val coordinatorLayout = androidx
+        const val coordinatorLayout = appCompat
     }
 
     /**
@@ -48,8 +50,8 @@ object Versions {
         const val dex = "2.0.0"
         const val anko = "0.10.8"
         const val ktx = "1.0.1"
-        const val kinfer = "2.1.1"
-        const val shaver = "1.1.1"
+        const val kinfer = "2.1.2"
+        const val shaver = "1.1.2"
     }
 
     object AndroidArchitectureComponent {
@@ -74,7 +76,7 @@ object Versions {
         const val auth = "16.0.3"
         const val messaging = "17.3.4"
 
-        const val mlVision = "18.0.1"
+        const val mlVision = "18.0.2"
         const val mlImageLabel = "17.0.2"
     }
 
@@ -92,7 +94,7 @@ object Versions {
     object Database {
         const val debug = "1.5.0"
         const val debugDb = "1.0.4"
-        const val mmkv = "1.0.13"
+        const val mmkv = "1.0.14"
     }
 
     /**
@@ -128,7 +130,7 @@ object Versions {
      * Related Android UI lib version.
      */
     object Ui {
-        const val material = "1.0.0"
+        const val material = "1.1.0-alpha01"
         const val dialog = "1.0.6"
         const val loading = "1.3.0"
         const val materialChip = "1.0.8"
@@ -139,10 +141,10 @@ object Versions {
      * Related Android unit test lib version.
      */
     object Test {
-        const val jUnit = "1.0.0"
+        const val jUnit = "1.1.0-alpha01"
         const val assertK = "0.12"
-        const val runner = "1.1.0"
-        const val espresso = "3.1.0"
+        const val runner = "1.1.1-alpha01"
+        const val espresso = "3.1.1-alpha01"
         const val kakao = "1.4.0"
         const val powerMockito = "1.7.4"
         const val mockitoKotlin = "2.0.0"
