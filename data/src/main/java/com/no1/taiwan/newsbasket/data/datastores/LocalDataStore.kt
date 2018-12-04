@@ -1,6 +1,7 @@
 package com.no1.taiwan.newsbasket.data.datastores
 
 import android.database.sqlite.SQLiteConstraintException
+import com.devrapid.kotlinshaver.gAsync
 import com.no1.taiwan.newsbasket.data.datas.KeywordData
 import com.no1.taiwan.newsbasket.data.local.v1.NewsDao
 import com.no1.taiwan.newsbasket.domain.parameters.Parameterable
@@ -10,8 +11,6 @@ import com.no1.taiwan.newsbasket.domain.parameters.params.TokenParams.Companion.
 import com.no1.taiwan.newsbasket.ext.const.Constants
 import com.no1.taiwan.newsbasket.ext.const.DEFAULT_STR
 import com.tencent.mmkv.MMKV
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 
 /**
@@ -23,13 +22,13 @@ class LocalDataStore(
     private val mmkv: MMKV
 ) : DataStore {
     override fun retrieveNewsData(parameters: Parameterable) = throw UnsupportedOperationException()
-//        GlobalScope.async(Dispatchers.Default) { newsDb.getAllData() }
+//        gAsync(Dispatchers.Default) { newsDb.getAllData() }
 
     override fun createSubscriber(parameters: Parameterable) = throw UnsupportedOperationException()
 
     override fun modifyKeywords(parameters: Parameterable) = throw UnsupportedOperationException()
 
-    override fun storeNewsToken(parameters: Parameterable) = GlobalScope.async {
+    override fun storeNewsToken(parameters: Parameterable) = gAsync {
         parameters.toApiParam().run {
             val resToken = this[PARAM_NAME_TOKEN]
                                ?.let { mmkv.encode(Constants.MmkvKey.TOKEN, it) } ?: false
@@ -40,19 +39,19 @@ class LocalDataStore(
         }
     }
 
-    override fun retrieveFirebaseToken() = GlobalScope.async {
+    override fun retrieveFirebaseToken() = gAsync {
         mmkv.decodeString(Constants.MmkvKey.FIREBASE_TOKEN, DEFAULT_STR)
     }
 
-    override fun retrieveToken() = GlobalScope.async {
+    override fun retrieveToken() = gAsync {
         mmkv.decodeString(Constants.MmkvKey.TOKEN, DEFAULT_STR)
     }
 
-    override fun retrieveKeywords() = GlobalScope.async {
+    override fun retrieveKeywords() = gAsync {
         newsDb.getAllKeywords().map(KeywordData::keyword)
     }
 
-    override fun createKeyword(parameters: Parameterable) = GlobalScope.async {
+    override fun createKeyword(parameters: Parameterable) = gAsync {
         parameters.toApiParam()[PARAM_NAME_KEYWORD]
             ?.let {
                 try {
@@ -66,7 +65,7 @@ class LocalDataStore(
             } ?: false
     }
 
-    override fun removeKeyword(parameters: Parameterable) = GlobalScope.async {
+    override fun removeKeyword(parameters: Parameterable) = gAsync {
         delay(2000)
         parameters.toApiParam()[PARAM_NAME_KEYWORD]
             ?.let { newsDb.deleteKeyword(KeywordData(it)); true } ?: false

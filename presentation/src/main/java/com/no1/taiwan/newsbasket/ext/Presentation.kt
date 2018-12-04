@@ -1,6 +1,6 @@
 package com.no1.taiwan.newsbasket.ext
 
-import com.devrapid.kotlinknifer.ui
+import com.devrapid.kotlinshaver.ui
 import com.no1.taiwan.newsbasket.domain.NewsResponse
 import com.no1.taiwan.newsbasket.domain.NewsResponse.Error
 import com.no1.taiwan.newsbasket.domain.NewsResponse.Loading

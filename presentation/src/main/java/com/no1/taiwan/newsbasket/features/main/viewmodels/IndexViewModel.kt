@@ -2,7 +2,7 @@ package com.no1.taiwan.newsbasket.features.main.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.devrapid.kotlinknifer.ui
+import com.devrapid.kotlinshaver.ui
 import com.no1.taiwan.newsbasket.components.viewmodel.AutoViewModel
 import com.no1.taiwan.newsbasket.domain.parameters.fields.SubscriberFields
 import com.no1.taiwan.newsbasket.domain.parameters.params.TokenParams

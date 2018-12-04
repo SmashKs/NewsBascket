@@ -56,7 +56,9 @@ dependencies {
 
     implementation(Deps.Global.kotlin)
     implementation(Deps.Global.coroutine)
-    implementation(Deps.Global.shaver)
+    implementation(Deps.Global.shaver) {
+        exclude(group = "io.reactivex.rxjava2")
+    }
     implementation(Deps.Global.gson)
 
     kapt(Deps.Data.roomAnnotation)

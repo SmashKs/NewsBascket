@@ -19,8 +19,7 @@ dependencies {
     implementation(Deps.Global.coroutine)
 
     implementation(Deps.Global.shaver) {
-        exclude(group = "io.reactivex.rxjava2", module = "rxjava")
-        exclude(group = "io.reactivex.rxjava2", module = "rxkotlin")
+        exclude(group = "io.reactivex.rxjava2")
     }
 
     testImplementation(Deps.GlobalTest.kotlin)
@@ -31,7 +30,7 @@ dependencies {
         exclude(group = "org.jetbrains.kotlin")
     }
 
-    //region For the the newest version.
+    //region For testing the newest version.
     testImplementation(Deps.GlobalTest.byteBuddy)
     testImplementation(Deps.GlobalTest.byteBuddyAgent)
     //endregion

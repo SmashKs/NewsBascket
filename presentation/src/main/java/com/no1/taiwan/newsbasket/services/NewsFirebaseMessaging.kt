@@ -11,8 +11,8 @@ import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES.O
 import androidx.core.app.NotificationCompat
 import androidx.core.net.toUri
-import com.devrapid.kotlinknifer.bkg
 import com.devrapid.kotlinknifer.logw
+import com.devrapid.kotlinshaver.bkg
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.no1.taiwan.newsbasket.R
