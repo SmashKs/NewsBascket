@@ -1,7 +1,8 @@
 package com.no1.taiwan.newsbasket.features.main
 
 import android.os.Bundle
-import android.view.KeyEvent
+import android.view.KeyEvent.ACTION_DOWN
+import android.view.KeyEvent.KEYCODE_ENTER
 import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -64,29 +65,22 @@ class KeywordFragment : AdvFragment<MainActivity, KeywordViewModel>() {
                 keywordAdapter.appendList(it.map { cast<NewsMultiVisitable>(KeywordEntity(it)) }.toMutableList())
             } happenError { loge(it) } muteErrorDoWith this@KeywordFragment
         }
-        observeNonNull(vm.storeKeywordLiveData) {
+        observeNonNull(vm.storeResLiveData) {
             peelSkipLoading {
-                //                vm.updateRemoteSubscribing(currentInput)
                 logw(it)
+                showSuccessNotification()
             } happenError {
                 loge(it)
-                Snackbar.make(fab_add, it, LENGTH_SHORT).show()
+                showFailNotification(it)
             } muteErrorDoWith this@KeywordFragment
         }
-        observeNonNull(vm.updateKeywordsLiveData) {
-            peel {
-                keywordAdapter.appendList(mutableListOf(KeywordEntity(currentInput)))
-                dupKeywords.add(currentInput)
-                Snackbar.make(fab_add, "success", LENGTH_SHORT).show()
-            } happenError { Snackbar.make(fab_add, it, LENGTH_SHORT).show() } muteErrorDoWith this@KeywordFragment
-        }
-        observeNonNull(vm.removeKeywordLiveData) {
+        observeNonNull(vm.removeResLiveData) {
             peel {
                 if (it) dupKeywords.removeAt(removedPosition)
             } happenError {
-                Snackbar.make(fab_add, it, LENGTH_SHORT).show()
+                showFailNotification(it)
                 // Rollback the data we deleted.
-                vm.storeLocalKeyword(currentDeleted)
+                vm.storeKeyword(currentDeleted)
             } muteErrorDoWith this@KeywordFragment
         }
     }
@@ -142,12 +136,11 @@ class KeywordFragment : AdvFragment<MainActivity, KeywordViewModel>() {
                 v.apply {
                     btn_send.onClick {
                         currentInput = v.et_keyword.text.toString().replace("\n", DEFAULT_STR)
-//                        vm.storeLocalKeyword(currentInput)
-                        vm.mix(currentInput)
+                        vm.storeKeyword(currentInput)
                         df.dismiss()
                     }
-                    et_keyword.onKey { v, keyCode, event ->
-                        if (event?.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                    et_keyword.onKey { _, keyCode, event ->
+                        if (event?.action == ACTION_DOWN && keyCode == KEYCODE_ENTER) {
                             btn_send.performClick()
                         }
                     }
@@ -155,4 +148,9 @@ class KeywordFragment : AdvFragment<MainActivity, KeywordViewModel>() {
             }
         }.build().show()
     }
+
+    private fun showSuccessNotification(success: String = "Success") =
+        Snackbar.make(fab_add, success, LENGTH_SHORT).show()
+
+    private fun showFailNotification(error: String) = Snackbar.make(fab_add, error, LENGTH_SHORT).show()
 }

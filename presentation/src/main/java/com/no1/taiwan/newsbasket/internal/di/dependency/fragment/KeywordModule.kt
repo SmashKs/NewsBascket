@@ -24,7 +24,7 @@ object KeywordModule {
     fun keywordProvider() = Module("Keyword Fragment") {
         // *** ViewModel
         bind<ViewModelEntry>().inSet() with provider {
-            KeywordViewModel::class.java to KeywordViewModel(instance(), instance(), instance(), instance(), instance())
+            KeywordViewModel::class.java to KeywordViewModel(instance(), instance(), instance())
         }
         // *** ViewHolder
         bind<ViewHolderEntry>().inSet() with provider {
