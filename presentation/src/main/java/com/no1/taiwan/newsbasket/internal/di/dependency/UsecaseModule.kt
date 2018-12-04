@@ -3,6 +3,7 @@ package com.no1.taiwan.newsbasket.internal.di.dependency
 import com.no1.taiwan.newsbasket.domain.usecases.AddKeywordRespUsecase
 import com.no1.taiwan.newsbasket.domain.usecases.AddLocalKeywordWrapUsecase
 import com.no1.taiwan.newsbasket.domain.usecases.AddSubscriberWrapUsecase
+import com.no1.taiwan.newsbasket.domain.usecases.DeleteKeywordRespUsecase
 import com.no1.taiwan.newsbasket.domain.usecases.DeleteLocalKeywordWrapUsecase
 import com.no1.taiwan.newsbasket.domain.usecases.FetchLocalKeywordsWrapUsecase
 import com.no1.taiwan.newsbasket.domain.usecases.FetchRemoteNewsWrapUsecase
@@ -28,6 +29,7 @@ object UsecaseModule {
         bind<DeleteLocalKeywordWrapUsecase>() with singleton { DeleteLocalKeywordWrapUsecase(instance()) }
         bind<FetchLocalKeywordsWrapUsecase>() with singleton { FetchLocalKeywordsWrapUsecase(instance()) }
         bind<AddKeywordRespUsecase>() with singleton { AddKeywordRespUsecase(instance()) }
+        bind<DeleteKeywordRespUsecase>() with singleton { DeleteKeywordRespUsecase(instance()) }
         //endregion
     }
 }

@@ -6,6 +6,7 @@ import com.no1.taiwan.newsbasket.data.datastores.LocalDataStore
 import com.no1.taiwan.newsbasket.data.datastores.RemoteDataStore
 import com.no1.taiwan.newsbasket.data.local.cache.AbsCache
 import com.no1.taiwan.newsbasket.data.local.cache.NewsMemoryCache
+import com.no1.taiwan.newsbasket.data.local.services.NewsDatabase
 import com.no1.taiwan.newsbasket.data.repositories.NewsDataRepository
 import com.no1.taiwan.newsbasket.domain.repositories.DataRepository
 import com.no1.taiwan.newsbasket.internal.di.tags.NewsTag.LOCAL
@@ -23,7 +24,11 @@ object RepositoryModule {
     fun repositoryProvider() = Module("Repository Module") {
         bind<AbsCache>(LOCAL) with singleton { NewsMemoryCache() }
         bind<DataStore>(REMOTE) with singleton { RemoteDataStore(instance(), instance()) }
-        bind<DataStore>(LOCAL) with singleton { LocalDataStore(instance(), instance()) }
+        bind<DataStore>(LOCAL) with singleton {
+            LocalDataStore(instance(),
+                           instance<NewsDatabase>().contactsDao(),
+                           instance())
+        }
         /** Mapper Pool for providing all data mappers */
         bind<MapperPool>() with provider { instance<DataMapperEntries>().toMap() }
 

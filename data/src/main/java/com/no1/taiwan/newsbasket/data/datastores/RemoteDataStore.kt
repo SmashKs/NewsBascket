@@ -6,6 +6,7 @@ import com.no1.taiwan.newsbasket.domain.parameters.Parameterable
 import com.no1.taiwan.newsbasket.domain.parameters.fields.KeywordsFields.Companion.PARAM_NAME_TOKEN
 import com.no1.taiwan.newsbasket.domain.parameters.fields.SubscriberFields.Companion.PARAM_NAME_KEYWORDS
 import com.no1.taiwan.newsbasket.ext.const.DEFAULT_STR
+import kotlinx.coroutines.Deferred
 
 /**
  * The implementation of the remote data store. The responsibility is selecting a correct
@@ -44,5 +45,6 @@ class RemoteDataStore(
 
     override fun createKeyword(parameters: Parameterable) = throw UnsupportedOperationException()
 
-    override fun removeKeyword(parameters: Parameterable) = throw UnsupportedOperationException()
+    override fun removeKeyword(parameters: Parameterable, transactionBlock: (() -> Deferred<Boolean>)?) =
+        throw UnsupportedOperationException()
 }

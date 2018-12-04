@@ -11,6 +11,7 @@ import com.no1.taiwan.newsbasket.data.local.cache.AbsCache
 import com.no1.taiwan.newsbasket.domain.parameters.Parameterable
 import com.no1.taiwan.newsbasket.domain.repositories.DataRepository
 import com.no1.taiwan.newsbasket.ext.const.isDefault
+import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
 import kotlin.coroutines.CoroutineContext
 
@@ -71,8 +72,12 @@ class NewsDataRepository constructor(
         local.createKeyword(parameters).await()
     }
 
-    override fun deleteKeywordToken(parameters: Parameterable, context: CoroutineContext) = gAsync(context) {
-        local.removeKeyword(parameters).await()
+    override fun deleteKeyword(
+        parameters: Parameterable,
+        context: CoroutineContext,
+        transactionBlock: (() -> Deferred<Boolean>)?
+    ) = gAsync(context) {
+        local.removeKeyword(parameters, transactionBlock).await()
     }
 
     /**

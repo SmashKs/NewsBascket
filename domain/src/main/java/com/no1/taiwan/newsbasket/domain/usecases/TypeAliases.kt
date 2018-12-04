@@ -1,0 +1,12 @@
+package com.no1.taiwan.newsbasket.domain.usecases
+
+typealias AddKeywordRequest = AddKeywordRespUsecase.Request
+typealias AddLocalKeywordRequest = AddLocalKeywordWrapUsecase.Request
+typealias AddSubscriberRequest = AddSubscriberWrapUsecase.Request
+typealias DeleteKeywordRequest = DeleteKeywordRespUsecase.Request
+typealias DeleteLocalKeywordRequest = DeleteLocalKeywordWrapUsecase.Request
+typealias FetchLocalFirebaseTokenRequest = FetchLocalFirebaseTokenWrapUsecase.Request
+typealias FetchLocalKeywordsRequest = FetchLocalKeywordsWrapUsecase.Request
+typealias FetchRemoteNewsRequest = FetchRemoteNewsWrapUsecase.Request
+typealias UpdateRemoteKeywordsRequest = UpdateRemoteKeywordsWrapUsecase.Request
+typealias KeepNewsTokenRequest = KeepNewsTokenUsecase.Request

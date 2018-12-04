@@ -5,7 +5,7 @@ import com.no1.taiwan.newsbasket.domain.DeferredWrapUsecase
 import com.no1.taiwan.newsbasket.domain.parameters.fields.KeywordsFields
 import com.no1.taiwan.newsbasket.domain.repositories.DataRepository
 import com.no1.taiwan.newsbasket.domain.usecases.UpdateRemoteKeywordsWrapUsecase.Request
-import com.no1.taiwan.newsbasket.ext.const.takeIfDefault
+import com.no1.taiwan.newsbasket.ext.const.takeUnlessDefault
 import kotlin.coroutines.CoroutineContext
 
 class UpdateRemoteKeywordsWrapUsecase(
@@ -16,10 +16,12 @@ class UpdateRemoteKeywordsWrapUsecase(
         val firebaseToken = repository.fetchFirebaseToken(parentJob)
         val token = repository.fetchToken(parentJob)
         val keywords = repository.fetchKeywords(parentJob)
+
         val parameter = KeywordsFields(
-            it.parameters.firebaseToken.takeIfDefault() ?: firebaseToken.await(),
-            it.parameters.token.takeIfDefault() ?: token.await(),
-            it.parameters.keywords.takeIfDefault() ?: keywords.await().joinToString(","))
+            it.parameters.firebaseToken.takeUnlessDefault() ?: firebaseToken.await(),
+            it.parameters.token.takeUnlessDefault() ?: token.await(),
+            it.parameters.keywords.takeUnlessDefault() ?: keywords.await().joinToString(","),
+            it.parameters.removeKeyword)
 
         repository.updateKeywords(parameter, parentJob)
     }

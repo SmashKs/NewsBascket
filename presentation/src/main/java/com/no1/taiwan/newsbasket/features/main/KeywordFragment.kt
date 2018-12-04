@@ -70,17 +70,17 @@ class KeywordFragment : AdvFragment<MainActivity, KeywordViewModel>() {
                 logw(it)
                 showSuccessNotification()
             } happenError {
-                loge(it)
                 showFailNotification(it)
             } muteErrorDoWith this@KeywordFragment
         }
         observeNonNull(vm.removeResLiveData) {
             peel {
                 if (it) dupKeywords.removeAt(removedPosition)
+                logw(it)
             } happenError {
                 showFailNotification(it)
-                // Rollback the data we deleted.
-                vm.storeKeyword(currentDeleted)
+                // Refresh recyclerview and rollback the data we deleted.
+                keywordAdapter.add(removedPosition, KeywordEntity(currentDeleted))
             } muteErrorDoWith this@KeywordFragment
         }
     }

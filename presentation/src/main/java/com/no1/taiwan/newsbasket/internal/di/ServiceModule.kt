@@ -3,7 +3,6 @@ package com.no1.taiwan.newsbasket.internal.di
 import android.content.Context
 import com.google.firebase.database.FirebaseDatabase
 import com.no1.taiwan.newsbasket.data.local.services.NewsDatabase
-import com.no1.taiwan.newsbasket.data.local.v1.NewsDao
 import com.no1.taiwan.newsbasket.data.remote.RestfulApiFactory
 import com.no1.taiwan.newsbasket.data.remote.config.NewsConfig
 import com.no1.taiwan.newsbasket.data.remote.services.NewsFirebase
@@ -68,7 +67,7 @@ object ServiceModule {
     private fun implementationLocalProvider(context: Context) = Module("Implementation Local Module") {
         MMKV.initialize(context)
 
-        bind<NewsDao>() with instance(NewsDatabase.getDatabase(context).contactsDao())
+        bind<NewsDatabase>() with instance(NewsDatabase.getDatabase(context))
         bind<MMKV>() with singleton { defaultMMKV(SINGLE_PROCESS_MODE, TOKEN_PUBLIC_KEY) }
     }
 }

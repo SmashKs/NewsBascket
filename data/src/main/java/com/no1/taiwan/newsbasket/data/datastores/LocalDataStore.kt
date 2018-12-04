@@ -3,6 +3,7 @@ package com.no1.taiwan.newsbasket.data.datastores
 import android.database.sqlite.SQLiteConstraintException
 import com.devrapid.kotlinshaver.gAsync
 import com.no1.taiwan.newsbasket.data.datas.KeywordData
+import com.no1.taiwan.newsbasket.data.local.services.NewsDatabase
 import com.no1.taiwan.newsbasket.data.local.v1.NewsDao
 import com.no1.taiwan.newsbasket.domain.parameters.Parameterable
 import com.no1.taiwan.newsbasket.domain.parameters.params.KeywordsParams.Companion.PARAM_NAME_KEYWORD
@@ -11,13 +12,15 @@ import com.no1.taiwan.newsbasket.domain.parameters.params.TokenParams.Companion.
 import com.no1.taiwan.newsbasket.ext.const.Constants
 import com.no1.taiwan.newsbasket.ext.const.DEFAULT_STR
 import com.tencent.mmkv.MMKV
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.runBlocking
 
 /**
  * The implementation of the local data store. The responsibility is selecting a correct
  * local service(Database/Local file) to access the data.
  */
 class LocalDataStore(
+    private val newsDbInstance: NewsDatabase,  // for doing transaction if necessary.
     private val newsDb: NewsDao,
     private val mmkv: MMKV
 ) : DataStore {
@@ -65,9 +68,18 @@ class LocalDataStore(
             } ?: false
     }
 
-    override fun removeKeyword(parameters: Parameterable) = gAsync {
-        delay(2000)
-        parameters.toApiParam()[PARAM_NAME_KEYWORD]
-            ?.let { newsDb.deleteKeyword(KeywordData(it)); true } ?: false
+    override fun removeKeyword(parameters: Parameterable, transactionBlock: (() -> Deferred<Boolean>)?) = gAsync {
+        val keyword = parameters.toApiParam()[PARAM_NAME_KEYWORD] ?: return@gAsync false
+
+        newsDbInstance.runInTransaction {
+            newsDb.deleteKeyword(KeywordData(keyword))
+
+            if (null != transactionBlock) {
+                val res = runBlocking { transactionBlock().await() }
+                if (!res) throw Exception("Transaction processing fail")
+            }
+        }
+
+        true
     }
 }

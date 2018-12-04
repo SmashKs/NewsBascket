@@ -27,5 +27,9 @@ interface DataRepository {
 
     fun addKeyword(parameters: Parameterable, context: CoroutineContext): Deferred<Boolean>
 
-    fun deleteKeywordToken(parameters: Parameterable, context: CoroutineContext): Deferred<Boolean>
+    fun deleteKeyword(
+        parameters: Parameterable,
+        context: CoroutineContext,
+        transactionBlock: (() -> Deferred<Boolean>)? = null
+    ): Deferred<Boolean>
 }

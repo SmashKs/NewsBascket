@@ -6,7 +6,9 @@ import com.devrapid.kotlinshaver.ui
 import com.no1.taiwan.newsbasket.components.viewmodel.AutoViewModel
 import com.no1.taiwan.newsbasket.domain.parameters.fields.SubscriberFields
 import com.no1.taiwan.newsbasket.domain.parameters.params.TokenParams
+import com.no1.taiwan.newsbasket.domain.usecases.AddSubscriberRequest
 import com.no1.taiwan.newsbasket.domain.usecases.AddSubscriberWrapUsecase
+import com.no1.taiwan.newsbasket.domain.usecases.KeepNewsTokenRequest
 import com.no1.taiwan.newsbasket.domain.usecases.KeepNewsTokenUsecase
 import com.no1.taiwan.newsbasket.entities.PresentationTokenMapper
 import com.no1.taiwan.newsbasket.entities.TokenEntity
@@ -15,8 +17,6 @@ import com.no1.taiwan.newsbasket.ext.ResponseMutableLiveData
 import com.no1.taiwan.newsbasket.ext.const.Token
 import com.no1.taiwan.newsbasket.ext.requestData
 import com.no1.taiwan.newsbasket.ext.toRun
-import com.no1.taiwan.newsbasket.domain.usecases.AddSubscriberWrapUsecase.Request as AddSubscriberRequest
-import com.no1.taiwan.newsbasket.domain.usecases.KeepNewsTokenUsecase.Request as KeepNewsTokenRequest
 
 class IndexViewModel(
     private val addSubscriberUsecase: AddSubscriberWrapUsecase,

@@ -21,7 +21,7 @@ class AddKeywordRespUsecase(
         // 2. Update to remote server.
         val remoteRes = try {
             // !!Fails!! Mostly, happening some Internet issues.
-            UpdateRemoteKeywordsWrapUsecase(repository, UpdateRemoteKeywordsWrapUsecase.Request()).execute()
+            UpdateRemoteKeywordsWrapUsecase(repository, UpdateRemoteKeywordsRequest()).execute()
         }
         catch (e: Exception) {
             rollbackLocalDB(it.parameters.keyword)
@@ -45,8 +45,7 @@ class AddKeywordRespUsecase(
      */
     private fun rollbackLocalDB(keyword: String) {
         io {
-            DeleteLocalKeywordWrapUsecase(repository)
-                .execute(DeleteLocalKeywordWrapUsecase.Request(KeywordsParams(keyword)))
+            DeleteLocalKeywordWrapUsecase(repository).execute(DeleteLocalKeywordRequest(KeywordsParams(keyword)))
         }
     }
 }

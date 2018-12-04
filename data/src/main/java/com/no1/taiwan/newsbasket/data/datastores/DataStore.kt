@@ -26,5 +26,5 @@ interface DataStore {
 
     fun createKeyword(parameters: Parameterable): Deferred<Boolean>
 
-    fun removeKeyword(parameters: Parameterable): Deferred<Boolean>
+    fun removeKeyword(parameters: Parameterable, transactionBlock: (() -> Deferred<Boolean>)? = null): Deferred<Boolean>
 }

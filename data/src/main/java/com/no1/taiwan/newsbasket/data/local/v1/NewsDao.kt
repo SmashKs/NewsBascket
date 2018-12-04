@@ -12,12 +12,15 @@ import com.no1.taiwan.newsbasket.data.datas.Newses
 
 @Dao
 interface NewsDao {
+    //region Operations for News
     @Query("SELECT * FROM table_news")
     fun getAllData(): Newses
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertNews(news: NewsData)
+    //endregion
 
+    //region Operations for Keyword
     @Query("SELECT * FROM table_keywords")
     fun getAllKeywords(): Keywords
 
@@ -26,4 +29,5 @@ interface NewsDao {
 
     @Delete()
     fun deleteKeyword(keyword: KeywordData)
+    //endregion
 }
