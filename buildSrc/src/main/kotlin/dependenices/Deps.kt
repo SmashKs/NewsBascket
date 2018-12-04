@@ -19,6 +19,7 @@ object Deps {
         const val shaver = "com.devrapid.jieyi:kotlinshaver:${Versions.KotlinAndroidExt.shaver}"
 
         const val kodeinJVM = "org.kodein.di:kodein-di-generic-jvm:${Versions.DI.kodein}"
+        const val kodeinCore = "org.kodein.di:kodein-di-core-jvm:${Versions.DI.kodein}"
         const val kodeinAndroidX = "org.kodein.di:kodein-di-framework-android-x:${Versions.DI.kodein}"
 
         const val gson = "com.google.code.gson:gson:${Versions.Parser.gson}"
