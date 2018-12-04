@@ -6,32 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?themeColorPrimaryLight"
     tools:context=".features.main.MainActivity">
-
-    <!--<com.google.android.material.bottomnavigation.BottomNavigationView-->
-    <!--android:id="@+id/navigation"-->
-    <!--android:layout_width="@dimen/md_zero_unit"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginEnd="@dimen/md_zero_unit"-->
-    <!--android:layout_marginStart="@dimen/md_zero_unit"-->
-    <!--android:background="?themeColorPrimary"-->
-    <!--app:itemIconTint="@color/selector_bot_nav_icon"-->
-    <!--app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--app:layout_constraintLeft_toLeftOf="parent"-->
-    <!--app:layout_constraintRight_toRightOf="parent"-->
-    <!--app:menu="@menu/navigation"/>-->
-
-    <!--<androidx.recyclerview.widget.RecyclerView-->
-    <!--android:id="@+id/rv_showing"-->
-    <!--android:layout_width="@dimen/md_zero_unit"-->
-    <!--android:layout_height="@dimen/md_zero_unit"-->
-    <!--app:layout_constraintBottom_toTopOf="@+id/navigation"-->
-    <!--app:layout_constraintEnd_toEndOf="parent"-->
-    <!--app:layout_constraintStart_toStartOf="parent"-->
-    <!--app:layout_constraintTop_toTopOf="parent"-->
-    <!--tools:itemCount="3"-->
-    <!--tools:listitem="@layout/item_showing"/>-->
 
     <fragment
         android:id="@+id/frag_nav_main"

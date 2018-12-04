@@ -18,10 +18,11 @@
         <item name="themeColorPrimaryLight">@color/colorPrimaryLightV1</item>
         <item name="themeColorPrimaryDark">@color/colorPrimaryDarkV1</item>
         <item name="themeColorAccent">@color/colorAccentV1</item>
-        <item name="themeTextColorPrimary">@color/colorPrimaryTextV1</item>
-        <item name="themeTextColorSecondary">@color/colorSecondaryTextV1</item>
+        <item name="themeColorSecondary">@color/colorSecondaryV1</item>
         <item name="themeColorSecondaryLight">@color/colorSecondaryLightV1</item>
         <item name="themeColorSecondaryDark">@color/colorSecondaryDarkV1</item>
+        <item name="themeTextColorPrimary">@color/colorPrimaryTextV1</item>
+        <item name="themeTextColorSecondary">@color/colorSecondaryTextV1</item>
         <item name="themeNavigationBarColor">@color/colorNavigationBarV1</item>
         <item name="themeBackgroundColor">@color/colorBackgroundV1</item>
     </style>

@@ -4,10 +4,14 @@
         <!-- Customize your theme here. -->
         <!-- color for the app bar and other primary UI elements -->
         <item name="colorPrimary">?themeColorPrimary</item>
+        <item name="colorPrimaryVariant">?themeColorPrimaryDark</item>
         <!-- A darker variant of the primary color, used for the status bar (on Android 5.0+) and contextual app bars -->
         <item name="colorPrimaryDark">?themeColorPrimaryDark</item>
         <!-- A secondary color for controls like checkboxes and text fields -->
         <item name="colorAccent">?themeColorAccent</item>
+        <item name="colorSecondary">?themeColorSecondary</item>
+        <item name="colorSecondaryVariant">?themeColorSecondaryDark</item>
+
         <item name="android:textColorPrimary">?themeTextColorPrimary</item>
 
         <!--<item name="android:fontFamily">?themeFont</item>-->
@@ -21,6 +25,8 @@
         <!--<item name="android:windowTranslucentStatus">true</item>-->
         <!-- The view fit to until the navigation bar -->
         <!--<item name="android:windowTranslucentNavigation">true</item>-->
+
+        <item name="materialButtonStyle">@style/Btn</item>
     </style>
 
     <style name="MainTheme.Transitions">
@@ -98,14 +104,25 @@
     <style name="View.ToolBar.Bar">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">?android:attr/actionBarSize</item>
-        <item name="android:background">@color/colorPrimaryV1</item>
-        <item name="titleTextColor">@color/white</item>
+        <item name="android:background">?themeColorPrimary</item>
     </style>
 
     <style name="View.ToolBar.Shadow" parent="CustomToolBar">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/md_one_unit</item>
         <item name="android:background">@drawable/toolbar_shadow</item>
+    </style>
+
+    <!-- Material Button -->
+    <style name="Btn" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">?attr/colorSecondary</item>
+    </style>
+
+    <style name="Btn.keyword">
+    </style>
+
+    <style name="FAB" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="rippleColor">@color/white</item>
     </style>
 
     <!--  -->
