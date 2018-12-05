@@ -13,6 +13,7 @@ class DeleteLocalKeywordWrapUsecase(
 ) : DeferredWrapUsecase<Boolean, Request>() {
     override fun acquireCase(parentJob: CoroutineContext) = attachParameter {
         repository.deleteKeyword(it.parameters, parentJob)
+        TODO()
     }
 
     class Request(val parameters: KeywordsParams = KeywordsParams()) : RequestValues

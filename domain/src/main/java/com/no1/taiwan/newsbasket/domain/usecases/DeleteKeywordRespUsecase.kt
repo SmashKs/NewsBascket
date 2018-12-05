@@ -17,9 +17,6 @@ class DeleteKeywordRespUsecase(
         repository.deleteKeyword(it.parameters, parentJob) {
             gAsync {
                 try {
-                    println("=================================================")
-                    println(it.parameters.keyword)
-                    println("=================================================")
                     UpdateRemoteKeywordsWrapUsecase(repository,
                                                     UpdateRemoteKeywordsRequest(KeywordsFields(removeKeyword = it.parameters.keyword)))
                         .execute()
