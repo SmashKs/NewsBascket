@@ -59,6 +59,8 @@ allprojects {
     }
 }
 
+gradle.startParameter.excludedTaskNames.add("lint")
+
 task("clean", Delete::class) {
     delete = setOf(rootProject.buildDir)
 }

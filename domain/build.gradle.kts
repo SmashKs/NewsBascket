@@ -1,5 +1,12 @@
 import dependenices.Deps
 
+tasks.whenObjectAdded {
+    if (name.contains("lint") ||
+        name.contains("lintVitalRelease")) {
+        enabled = false
+    }
+}
+
 plugins {
     id("java-library")
     id("kotlin")

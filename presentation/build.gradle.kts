@@ -8,8 +8,9 @@ import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
 import java.util.Properties
 
 tasks.whenObjectAdded {
-    if ("lint".toRegex().containsMatchIn(this.name)) {
-        this.enabled = BuildSetting.enableLint
+    if (name.contains("lint") ||
+        name.contains("lintVitalRelease")) {
+        enabled = false
     }
 }
 
