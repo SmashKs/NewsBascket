@@ -24,15 +24,15 @@ abstract class DeferredUsecase<T : Any, R : BaseUsecase.RequestValues> : BaseUse
     internal abstract fun acquireCase(parentJob: CoroutineContext): Deferred<T>
 
     @Throws(CancellationException::class)
-    open suspend fun execute(parameter: R? = null) = withContext(parentJob) {
+    open suspend fun execute(parameter: R? = null) = withContext(coroutineContext) {
         parameter?.let { requestValues = it }
 
         // If the parent job was cancelled that will happened an exception, that's
         // why we should create a new job instead.
-        awaitRawData(this@DeferredUsecase.coroutineContext)
+        awaitRawData()
     }
 
-    private suspend fun awaitRawData(parentJob: CoroutineContext) = acquireCase(parentJob).await()
+    private suspend fun CoroutineScope.awaitRawData() = acquireCase(coroutineContext).await()
 
     protected fun attachParameter(λ: suspend (R) -> Deferred<T>) =
         runBlocking(parentJob) { requireNotNull(requestValues?.run { λ(this) }) }
