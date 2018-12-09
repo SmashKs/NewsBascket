@@ -20,6 +20,7 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:label">
         <activity
+            android:theme="@style/SplashTheme"
             android:name=".features.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
