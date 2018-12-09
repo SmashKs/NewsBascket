@@ -17,7 +17,7 @@ import kotlin.coroutines.CoroutineContext
  */
 abstract class DeferredUsecase<T : Any, R : BaseUsecase.RequestValues> : BaseUsecase<R>, CoroutineScope {
     /** The main job for the top schedule. */
-    protected val parentJob = SupervisorJob()
+    private val parentJob get() = SupervisorJob()
     /** Context of this scope. */
     override val coroutineContext get() = parentJob + IO
 
@@ -32,10 +32,10 @@ abstract class DeferredUsecase<T : Any, R : BaseUsecase.RequestValues> : BaseUse
         awaitRawData()
     }
 
-    private suspend fun CoroutineScope.awaitRawData() = acquireCase(coroutineContext).await()
+    private suspend fun awaitRawData() = acquireCase(coroutineContext).await()
 
     protected fun attachParameter(λ: suspend (R) -> Deferred<T>) =
-        runBlocking(parentJob) { requireNotNull(requestValues?.run { λ(this) }) }
+        runBlocking(coroutineContext) { requireNotNull(requestValues?.run { λ(this) }) }
 
     /**
      * Aborts the job processing when its state is active and initialized.
