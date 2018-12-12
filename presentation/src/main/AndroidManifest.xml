@@ -33,9 +33,6 @@
         </activity>
 
         <service
-            android:name="com.no1.taiwan.newsbasket.services.InitialService"
-            android:exported="false"/>
-        <service
             android:name=".services.NewsFirebaseMessaging"
             android:stopWithTask="false">
             <intent-filter>
