@@ -16,7 +16,7 @@ class FontTextView @JvmOverloads constructor(
 ) : TextView(context, attrs, defStyleAttr) {
     init {
         context.obtainStyledAttributes(attrs, R.styleable.FontTextView, defStyleAttr, 0).also {
-            it.getString(R.styleable.FontTextView_textFont).let {
+            it.getString(R.styleable.FontTextView_textFont)?.let {
                 typeface = Typeface.createFromAsset(context.assets, "fonts/$it")
             }
         }.recycle()
