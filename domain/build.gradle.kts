@@ -2,6 +2,7 @@ import dependenices.Deps
 
 tasks.whenObjectAdded {
     if (name.contains("lint") ||
+        name.contains("jacocoDebug") ||
         name.contains("lintVitalRelease")) {
         enabled = false
     }

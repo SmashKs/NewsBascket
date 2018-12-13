@@ -1,7 +1,7 @@
 import com.android.build.gradle.ProguardFiles.getDefaultProguardFile
 import dependenices.Deps
 import dependenices.Versions
-import dependenices.BuildSetting
+import org.gradle.internal.impldep.com.amazonaws.PredefinedClientConfigurations.defaultConfig
 import org.gradle.internal.impldep.org.junit.experimental.categories.Categories.CategoryFilter.exclude
 import org.jetbrains.kotlin.gradle.internal.AndroidExtensionsExtension
 import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
@@ -9,6 +9,7 @@ import java.util.Properties
 
 tasks.whenObjectAdded {
     if (name.contains("lint") ||
+        name.contains("jacocoDebug") ||
         name.contains("lintVitalRelease")) {
         enabled = false
     }

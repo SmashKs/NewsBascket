@@ -1,10 +1,9 @@
 import com.android.build.gradle.ProguardFiles.getDefaultProguardFile
-import dependenices.BuildSetting
 import dependenices.Deps
 import dependenices.Versions
-
 tasks.whenObjectAdded {
     if (name.contains("lint") ||
+        name.contains("jacocoDebug") ||
         name.contains("lintVitalRelease")) {
         enabled = false
     }

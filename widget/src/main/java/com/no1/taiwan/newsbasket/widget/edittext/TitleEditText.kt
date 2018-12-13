@@ -7,12 +7,23 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.TextView
 
 class TitleEditText @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : ViewGroup(context, attrs, defStyleAttr) {
+    private val textView = TextView(context, attrs, defStyleAttr).apply {
+        text = "231ij4io12jefriojfioerwjoe"
+    }
+    private val editText = EditText(context, attrs).apply {
+        setText("dfgiovjfiodjvfiojiojvfoisj")
+        setOnFocusChangeListener { _, hasFocus ->
+            isFocusOnEditText = hasFocus
+            this@TitleEditText.invalidate()
+        }
+    }
     private val paint = Paint().apply {
         color = Color.BLUE
         strokeWidth = 10f
@@ -20,14 +31,9 @@ class TitleEditText @JvmOverloads constructor(
     private var isFocusOnEditText = false
 
     init {
-        addView(EditText(context).apply {
-            setText("1231231231231231")
-            setOnFocusChangeListener { _, hasFocus ->
-                isFocusOnEditText = hasFocus
-                this@TitleEditText.invalidate()
-            }
-        })
-        setBackgroundColor(Color.GRAY)
+//        addView(textView)
+        addView(editText)
+        setBackgroundColor(Color.DKGRAY)
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -48,10 +54,18 @@ class TitleEditText @JvmOverloads constructor(
             val childW = view.measuredWidth
             val childH = view.measuredHeight
 
-            val (l, t, r, b) = when (it) {
+            val (l, t, r, b) = when (view) {
                 // Title
-                0 -> Rectangle(16, 0, r, childH)
+                textView -> {
+                    Rectangle(16, 8, measuredWidth - 16, 8 + childH)
+                }
                 // Column
+                editText -> {
+                    println("11111111111111111111111111111111111111")
+                    println("$measuredWidth  $childH")
+                    println("22222222222222222222222222222222222222")
+                    Rectangle(16, measuredHeight - childH, measuredWidth - 16, measuredHeight - 8)
+                }
                 else -> Rectangle(0, 0, 0, 0)
             }
 
@@ -62,7 +76,7 @@ class TitleEditText @JvmOverloads constructor(
     override fun onDraw(canvas: Canvas) {
         canvas.apply {
             if (isFocusOnEditText) {
-                drawLine(0f, 0f, measuredWidth.toFloat(), 0f, paint)
+                drawLine(0f, height.toFloat(), width.toFloat(), height.toFloat(), paint)
             }
         }
     }

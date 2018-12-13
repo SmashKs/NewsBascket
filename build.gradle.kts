@@ -1,4 +1,3 @@
-import io.gitlab.arturbosch.detekt.detekt
 import java.time.Duration
 
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
@@ -10,7 +9,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:3.4.0-alpha07")
+        classpath("com.android.tools.build:gradle:3.4.0-alpha08")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${dependenices.Versions.Kotlin.kotlinLib}")
 
         // NOTE: Do not place your application dependencies here; they belong
@@ -55,7 +54,6 @@ allprojects {
         // required to find the project's artifacts
         maven(url = "https://www.jitpack.io")
         maven(url = "https://dl.bintray.com/pokk/maven")
-//        maven(url = "https://dl.bintray.com/kodein-framework/Kodein-DI/")
     }
 }
 
