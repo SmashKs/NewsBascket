@@ -19,20 +19,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/v_header"/>
-
-    <com.no1.taiwan.newsbasket.widget.edittext.TitleEditText
-        android:layout_width="@dimen/md_zero_unit"
-        android:layout_height="@dimen/md_seven_unit"
-        android:layout_marginEnd="@dimen/md_two_unit"
-        android:layout_marginStart="@dimen/md_two_unit"
-        android:layout_marginTop="200dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
-        app:layout_constraintTop_toTopOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
