@@ -56,7 +56,7 @@ object Versions {
 
     object AndroidArchitectureComponent {
         const val aacLifecycle = "2.0.0"
-        const val navigation = "1.0.0-alpha07"
+        const val navigation = "1.0.0-alpha08"
         const val room = "2.1.0-alpha01"
     }
 
@@ -94,7 +94,7 @@ object Versions {
     object Database {
         const val debug = "1.5.0"
         const val debugDb = "1.0.4"
-        const val mmkv = "1.0.14"
+        const val mmkv = "1.0.15"
     }
 
     /**
@@ -130,7 +130,7 @@ object Versions {
      * Related Android UI lib version.
      */
     object Ui {
-        const val material = "1.1.0-alpha01"
+        const val material = "1.1.0-alpha02"
         const val dialog = "1.0.6"
         const val loading = "1.3.0"
         const val materialChip = "1.0.8"
@@ -141,16 +141,16 @@ object Versions {
      * Related Android unit test lib version.
      */
     object Test {
-        const val jUnit = "1.1.0-alpha01"
+        const val jUnit = "1.1.0"
         const val assertK = "0.12"
-        const val runner = "1.1.1-alpha01"
-        const val espresso = "3.1.1-alpha01"
+        const val runner = "1.1.1"
+        const val espresso = "3.1.1"
         const val kakao = "1.4.0"
         const val powerMockito = "1.7.4"
         const val mockitoKotlin = "2.0.0"
         const val mockitoAndroid = "2.23.0"
         const val mockk = "v1.8.9.kotlin13"
-        const val byteBuddy = "1.9.5"
+        const val byteBuddy = "1.9.6"
 
     }
 
@@ -158,7 +158,7 @@ object Versions {
      * Related extension Plugins lib version.
      */
     object Plugin {
-        const val detekt = "1.0.0-RC11"
+        const val detekt = "1.0.0-RC12"
         const val versionUpdater = "0.20.0"
     }
 }
