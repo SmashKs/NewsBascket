@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        app:constraintSetEnd="@+id/cs_end"
+        app:constraintSetStart="@+id/cs_start"
+        app:duration="150">
+        <OnClick
+            app:mode="transitionToEnd"
+            app:target="@+id/tv_title"/>
+    </Transition>
+
+    <ConstraintSet
+        android:id="@+id/cs_start">
+        <Constraint
+            android:id="@+id/tv_title"
+            android:layout_width="@dimen/md_zero_unit"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="40dp"
+            android:text="This is title"
+            android:textColor="@color/colorPrimaryDarkV1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <Constraint
+            android:id="@+id/et_context"
+            android:layout_width="@dimen/md_zero_unit"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title"/>
+    </ConstraintSet>
+
+    <ConstraintSet
+        android:id="@+id/cs_end">
+        <Constraint
+            android:id="@+id/tv_title"
+            android:layout_width="@dimen/md_zero_unit"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="48dp"
+            android:textColor="@color/colorPrimaryDarkV1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+            <CustomAttribute
+                app:attributeName="textSize"
+                app:customFloatValue="16"/>
+        </Constraint>
+
+        <Constraint
+            android:id="@+id/et_context"
+            android:layout_width="@dimen/md_zero_unit"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title"/>
+    </ConstraintSet>
+</MotionScene>

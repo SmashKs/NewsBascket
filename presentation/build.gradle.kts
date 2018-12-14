@@ -8,8 +8,8 @@ import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
 import java.util.Properties
 
 tasks.whenObjectAdded {
-    if (name.contains("lint") ||
-        name.contains("jacocoDebug") ||
+    if (name == "clean" ||
+        name.contains("lint") ||
         name.contains("lintVitalRelease")) {
         enabled = false
     }

@@ -19,6 +19,10 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:label">
         <activity
+            android:name=".features.testlayout.TestActivity"
+            android:exported="true">
+        </activity>
+        <activity
             android:theme="@style/SplashTheme"
             android:name=".features.splash.SplashActivity">
             <intent-filter>

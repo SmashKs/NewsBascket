@@ -6,6 +6,7 @@ import java.util.Properties
 
 tasks.whenObjectAdded {
     if (name.contains("lint") ||
+        name == "clean" ||
         name.contains("lintVitalRelease")) {
         enabled = false
     }
