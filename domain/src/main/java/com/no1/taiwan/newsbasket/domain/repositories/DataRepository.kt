@@ -13,6 +13,10 @@ import kotlin.coroutines.CoroutineContext
 interface DataRepository {
     fun fetchNews(parameters: Parameterable, context: CoroutineContext): Deferred<Newses>
 
+    fun addNews(parameters: Parameterable, context: CoroutineContext): Deferred<Boolean>
+
+    fun deleteNews(parameters: Parameterable, context: CoroutineContext): Deferred<Boolean>
+
     fun addSubscriber(parameters: Parameterable, context: CoroutineContext): Deferred<TokenModel>
 
     fun updateKeywords(parameters: Parameterable, context: CoroutineContext): Deferred<Boolean>

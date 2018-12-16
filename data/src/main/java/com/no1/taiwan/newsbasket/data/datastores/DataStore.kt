@@ -1,6 +1,6 @@
 package com.no1.taiwan.newsbasket.data.datastores
 
-import com.no1.taiwan.newsbasket.data.datas.NewsesData
+import com.no1.taiwan.newsbasket.data.datas.NewsesInfoData
 import com.no1.taiwan.newsbasket.data.datas.TokenData
 import com.no1.taiwan.newsbasket.domain.parameters.Parameterable
 import kotlinx.coroutines.Deferred
@@ -10,7 +10,11 @@ import kotlinx.coroutines.Deferred
  * Using prefix name (retrieve), (create), (modify), (remove), (store)
  */
 interface DataStore {
-    fun retrieveNewsData(parameters: Parameterable): Deferred<NewsesData>
+    fun retrieveNewsData(parameters: Parameterable): Deferred<NewsesInfoData>
+
+    fun createNews(parameters: Parameterable): Deferred<Boolean>
+
+    fun removeNews(parameters: Parameterable): Deferred<Boolean>
 
     fun createSubscriber(parameters: Parameterable): Deferred<TokenData>
 

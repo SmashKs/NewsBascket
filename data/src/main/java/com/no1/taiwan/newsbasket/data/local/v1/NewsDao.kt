@@ -18,6 +18,9 @@ interface NewsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertNews(news: NewsData)
+
+    @Delete
+    fun deleteNews(news: NewsData)
     //endregion
 
     //region Operations for Keyword
@@ -27,7 +30,7 @@ interface NewsDao {
     @Insert(onConflict = OnConflictStrategy.FAIL)
     fun insertKeyword(keyword: KeywordData)
 
-    @Delete()
+    @Delete
     fun deleteKeyword(keyword: KeywordData)
     //endregion
 }

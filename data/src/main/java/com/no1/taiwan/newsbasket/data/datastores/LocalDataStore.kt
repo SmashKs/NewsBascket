@@ -3,10 +3,22 @@ package com.no1.taiwan.newsbasket.data.datastores
 import android.database.sqlite.SQLiteConstraintException
 import com.devrapid.kotlinshaver.gAsync
 import com.no1.taiwan.newsbasket.data.datas.KeywordData
+import com.no1.taiwan.newsbasket.data.datas.NewsData
+import com.no1.taiwan.newsbasket.data.datas.NewsesInfoData
 import com.no1.taiwan.newsbasket.data.local.services.NewsDatabase
 import com.no1.taiwan.newsbasket.data.local.v1.NewsDao
 import com.no1.taiwan.newsbasket.domain.parameters.Parameterable
 import com.no1.taiwan.newsbasket.domain.parameters.params.KeywordsParams.Companion.PARAM_NAME_KEYWORD
+import com.no1.taiwan.newsbasket.domain.parameters.params.NewsParams.Companion.PARAM_NAME_AUTHOR
+import com.no1.taiwan.newsbasket.domain.parameters.params.NewsParams.Companion.PARAM_NAME_CONTENT
+import com.no1.taiwan.newsbasket.domain.parameters.params.NewsParams.Companion.PARAM_NAME_COUNTRY
+import com.no1.taiwan.newsbasket.domain.parameters.params.NewsParams.Companion.PARAM_NAME_CREATED
+import com.no1.taiwan.newsbasket.domain.parameters.params.NewsParams.Companion.PARAM_NAME_DESCRIPTION
+import com.no1.taiwan.newsbasket.domain.parameters.params.NewsParams.Companion.PARAM_NAME_IMAGE_URL
+import com.no1.taiwan.newsbasket.domain.parameters.params.NewsParams.Companion.PARAM_NAME_PUBLISHED
+import com.no1.taiwan.newsbasket.domain.parameters.params.NewsParams.Companion.PARAM_NAME_TITLE
+import com.no1.taiwan.newsbasket.domain.parameters.params.NewsParams.Companion.PARAM_NAME_UPDATED
+import com.no1.taiwan.newsbasket.domain.parameters.params.NewsParams.Companion.PARAM_NAME_URL
 import com.no1.taiwan.newsbasket.domain.parameters.params.TokenParams.Companion.PARAM_NAME_FIREBASE_TOKEN
 import com.no1.taiwan.newsbasket.domain.parameters.params.TokenParams.Companion.PARAM_NAME_TOKEN
 import com.no1.taiwan.newsbasket.ext.const.Constants
@@ -24,8 +36,59 @@ class LocalDataStore(
     private val newsDb: NewsDao,
     private val mmkv: MMKV
 ) : DataStore {
-    override fun retrieveNewsData(parameters: Parameterable) = throw UnsupportedOperationException()
-//        gAsync(Dispatchers.Default) { newsDb.getAllData() }
+    override fun retrieveNewsData(parameters: Parameterable) = gAsync {
+        val data = newsDb.getAllData()
+
+        NewsesInfoData(data.size, results = data)
+    }
+
+    override fun createNews(parameters: Parameterable) = gAsync {
+        parameters.toApiParam().let {
+            val news = NewsData(0,
+                                it[PARAM_NAME_AUTHOR].orEmpty(),
+                                it[PARAM_NAME_CONTENT].orEmpty(),
+                                it[PARAM_NAME_COUNTRY].orEmpty(),
+                                it[PARAM_NAME_CREATED].orEmpty(),
+                                it[PARAM_NAME_DESCRIPTION].orEmpty(),
+                                it[PARAM_NAME_PUBLISHED].orEmpty(),
+                                it[PARAM_NAME_TITLE].orEmpty(),
+                                it[PARAM_NAME_UPDATED].orEmpty(),
+                                it[PARAM_NAME_URL].orEmpty(),
+                                it[PARAM_NAME_IMAGE_URL].orEmpty())
+            try {
+                newsDb.insertNews(news)
+                true
+            }
+            catch (e: SQLiteConstraintException) {
+                e.printStackTrace()
+                false
+            }
+        }
+    }
+
+    override fun removeNews(parameters: Parameterable) = gAsync {
+        parameters.toApiParam().let {
+            val news = NewsData(0,
+                                it[PARAM_NAME_AUTHOR].orEmpty(),
+                                it[PARAM_NAME_CONTENT].orEmpty(),
+                                it[PARAM_NAME_COUNTRY].orEmpty(),
+                                it[PARAM_NAME_CREATED].orEmpty(),
+                                it[PARAM_NAME_DESCRIPTION].orEmpty(),
+                                it[PARAM_NAME_PUBLISHED].orEmpty(),
+                                it[PARAM_NAME_TITLE].orEmpty(),
+                                it[PARAM_NAME_UPDATED].orEmpty(),
+                                it[PARAM_NAME_URL].orEmpty(),
+                                it[PARAM_NAME_IMAGE_URL].orEmpty())
+            try {
+                newsDb.deleteNews(news)
+                true
+            }
+            catch (e: SQLiteConstraintException) {
+                e.printStackTrace()
+                false
+            }
+        }
+    }
 
     override fun createSubscriber(parameters: Parameterable) = throw UnsupportedOperationException()
 

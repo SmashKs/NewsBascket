@@ -35,9 +35,17 @@ class NewsDataRepository constructor(
     private val tokenMapper by lazy { digDataMapper<TokenMapper>() }
 
     override fun fetchNews(parameters: Parameterable, context: CoroutineContext) = gAsync(context) {
-        val data = remote.retrieveNewsData(parameters).await()
+        val data = local.retrieveNewsData(parameters).await()
 
         if (data.count == 0) listOf() else data.results.map(newsMapper::toModelFrom)
+    }
+
+    override fun addNews(parameters: Parameterable, context: CoroutineContext) = gAsync(context) {
+        local.createNews(parameters).await()
+    }
+
+    override fun deleteNews(parameters: Parameterable, context: CoroutineContext) = gAsync(context) {
+        local.removeNews(parameters).await()
     }
 
     override fun addSubscriber(parameters: Parameterable, context: CoroutineContext) = gAsync(context) {

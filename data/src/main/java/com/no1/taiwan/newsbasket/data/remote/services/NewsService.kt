@@ -1,6 +1,6 @@
 package com.no1.taiwan.newsbasket.data.remote.services
 
-import com.no1.taiwan.newsbasket.data.datas.NewsesData
+import com.no1.taiwan.newsbasket.data.datas.NewsesInfoData
 import com.no1.taiwan.newsbasket.data.datas.TokenData
 import com.no1.taiwan.newsbasket.data.remote.config.NewsConfig.Companion.API_REQUEST
 import com.no1.taiwan.newsbasket.data.remote.config.NewsConfig.Companion.CONTENT_TYPE_JSON
@@ -21,7 +21,7 @@ import retrofit2.http.QueryMap
  */
 interface NewsService {
     @GET("$API_REQUEST/news/")
-    fun retrieveNews(@QueryMap params: Parameters): Deferred<NewsesData>
+    fun retrieveNews(@QueryMap params: Parameters): Deferred<NewsesInfoData>
 
     @Headers(CONTENT_TYPE_JSON)
     @POST("$API_REQUEST/subscriber/")

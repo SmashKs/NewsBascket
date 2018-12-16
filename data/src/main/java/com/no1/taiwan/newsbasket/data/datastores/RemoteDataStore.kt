@@ -18,6 +18,10 @@ class RemoteDataStore(
 ) : DataStore {
     override fun retrieveNewsData(parameters: Parameterable) = newsService.retrieveNews(parameters.toApiParam())
 
+    override fun createNews(parameters: Parameterable) = throw UnsupportedOperationException()
+
+    override fun removeNews(parameters: Parameterable) = throw UnsupportedOperationException()
+
     override fun createSubscriber(parameters: Parameterable) = newsService.let {
         val fields = parameters.toApiParam()
 
