@@ -6,6 +6,7 @@
     <Transition
         app:constraintSetEnd="@+id/cs_end"
         app:constraintSetStart="@+id/cs_start"
+        app:interpolator="easeInOut"
         app:duration="150">
         <OnClick
             app:mode="transitionToEnd"

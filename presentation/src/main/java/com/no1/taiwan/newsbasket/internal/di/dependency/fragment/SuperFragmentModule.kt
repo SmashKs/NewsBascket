@@ -1,5 +1,6 @@
 package com.no1.taiwan.newsbasket.internal.di.dependency.fragment
 
+import com.no1.taiwan.newsbasket.internal.di.dependency.fragment.ArchiveModule.archiveProvider
 import com.no1.taiwan.newsbasket.internal.di.dependency.fragment.IndexModule.indexProvider
 import com.no1.taiwan.newsbasket.internal.di.dependency.fragment.KeywordModule.keywordProvider
 import org.kodein.di.Kodein.Module
@@ -12,5 +13,6 @@ object SuperFragmentModule {
         // Import all of the fragment modules.
         import(indexProvider())
         import(keywordProvider())
+        import(archiveProvider())
     }
 }
