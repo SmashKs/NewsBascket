@@ -1,9 +1,9 @@
-package com.no1.taiwan.newsbasket.domain.usecases
+package com.no1.taiwan.newsbasket.domain.usecases.keyword
 
 import com.no1.taiwan.newsbasket.domain.BaseUsecase.RequestValues
 import com.no1.taiwan.newsbasket.domain.DeferredWrapUsecase
 import com.no1.taiwan.newsbasket.domain.repositories.DataRepository
-import com.no1.taiwan.newsbasket.domain.usecases.FetchLocalKeywordsWrapUsecase.Request
+import com.no1.taiwan.newsbasket.domain.usecases.keyword.FetchLocalKeywordsWrapUsecase.Request
 import kotlin.coroutines.CoroutineContext
 
 class FetchLocalKeywordsWrapUsecase(

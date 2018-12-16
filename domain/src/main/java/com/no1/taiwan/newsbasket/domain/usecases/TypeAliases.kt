@@ -1,5 +1,13 @@
 package com.no1.taiwan.newsbasket.domain.usecases
 
+import com.no1.taiwan.newsbasket.domain.usecases.keyword.AddKeywordRespUsecase
+import com.no1.taiwan.newsbasket.domain.usecases.keyword.AddLocalKeywordWrapUsecase
+import com.no1.taiwan.newsbasket.domain.usecases.keyword.DeleteKeywordRespUsecase
+import com.no1.taiwan.newsbasket.domain.usecases.keyword.DeleteLocalKeywordWrapUsecase
+import com.no1.taiwan.newsbasket.domain.usecases.keyword.FetchLocalKeywordsWrapUsecase
+import com.no1.taiwan.newsbasket.domain.usecases.keyword.UpdateRemoteKeywordsWrapUsecase
+import com.no1.taiwan.newsbasket.domain.usecases.news.FetchRemoteNewsWrapUsecase
+
 typealias AddKeywordRequest = AddKeywordRespUsecase.Request
 typealias AddLocalKeywordRequest = AddLocalKeywordWrapUsecase.Request
 typealias AddSubscriberRequest = AddSubscriberWrapUsecase.Request

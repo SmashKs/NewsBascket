@@ -3,12 +3,12 @@ package com.no1.taiwan.newsbasket.features.main.viewmodels
 import com.no1.taiwan.newsbasket.components.viewmodel.AutoViewModel
 import com.no1.taiwan.newsbasket.domain.parameters.params.KeywordsParams
 import com.no1.taiwan.newsbasket.domain.usecases.AddKeywordRequest
-import com.no1.taiwan.newsbasket.domain.usecases.AddKeywordRespUsecase
 import com.no1.taiwan.newsbasket.domain.usecases.DeleteKeywordRequest
-import com.no1.taiwan.newsbasket.domain.usecases.DeleteKeywordRespUsecase
 import com.no1.taiwan.newsbasket.domain.usecases.FetchLocalKeywordsRequest
-import com.no1.taiwan.newsbasket.domain.usecases.FetchLocalKeywordsWrapUsecase
-import com.no1.taiwan.newsbasket.domain.usecases.UpdateRemoteKeywordsWrapUsecase
+import com.no1.taiwan.newsbasket.domain.usecases.keyword.AddKeywordRespUsecase
+import com.no1.taiwan.newsbasket.domain.usecases.keyword.DeleteKeywordRespUsecase
+import com.no1.taiwan.newsbasket.domain.usecases.keyword.FetchLocalKeywordsWrapUsecase
+import com.no1.taiwan.newsbasket.domain.usecases.keyword.UpdateRemoteKeywordsWrapUsecase
 import com.no1.taiwan.newsbasket.ext.ResponseLiveData
 import com.no1.taiwan.newsbasket.ext.ResponseMutableLiveData
 import com.no1.taiwan.newsbasket.ext.requestData

@@ -1,10 +1,10 @@
-package com.no1.taiwan.newsbasket.domain.usecases
+package com.no1.taiwan.newsbasket.domain.usecases.keyword
 
 import com.no1.taiwan.newsbasket.domain.BaseUsecase.RequestValues
 import com.no1.taiwan.newsbasket.domain.DeferredWrapUsecase
 import com.no1.taiwan.newsbasket.domain.parameters.fields.KeywordsFields
 import com.no1.taiwan.newsbasket.domain.repositories.DataRepository
-import com.no1.taiwan.newsbasket.domain.usecases.UpdateRemoteKeywordsWrapUsecase.Request
+import com.no1.taiwan.newsbasket.domain.usecases.keyword.UpdateRemoteKeywordsWrapUsecase.Request
 import com.no1.taiwan.newsbasket.ext.const.takeUnlessDefault
 import kotlin.coroutines.CoroutineContext
 

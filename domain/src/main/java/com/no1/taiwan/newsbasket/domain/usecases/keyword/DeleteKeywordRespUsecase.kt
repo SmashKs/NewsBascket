@@ -1,4 +1,4 @@
-package com.no1.taiwan.newsbasket.domain.usecases
+package com.no1.taiwan.newsbasket.domain.usecases.keyword
 
 import com.devrapid.kotlinshaver.gAsync
 import com.no1.taiwan.newsbasket.domain.BaseUsecase.RequestValues
@@ -6,7 +6,8 @@ import com.no1.taiwan.newsbasket.domain.DeferredWrapUsecase
 import com.no1.taiwan.newsbasket.domain.parameters.fields.KeywordsFields
 import com.no1.taiwan.newsbasket.domain.parameters.params.KeywordsParams
 import com.no1.taiwan.newsbasket.domain.repositories.DataRepository
-import com.no1.taiwan.newsbasket.domain.usecases.DeleteKeywordRespUsecase.Request
+import com.no1.taiwan.newsbasket.domain.usecases.UpdateRemoteKeywordsRequest
+import com.no1.taiwan.newsbasket.domain.usecases.keyword.DeleteKeywordRespUsecase.Request
 import kotlin.coroutines.CoroutineContext
 
 class DeleteKeywordRespUsecase(
@@ -18,7 +19,9 @@ class DeleteKeywordRespUsecase(
             gAsync {
                 try {
                     UpdateRemoteKeywordsWrapUsecase(repository,
-                                                    UpdateRemoteKeywordsRequest(KeywordsFields(removeKeyword = it.parameters.keyword)))
+                                                    UpdateRemoteKeywordsRequest(
+                                                        KeywordsFields(
+                                                            removeKeyword = it.parameters.keyword)))
                         .execute()
                 }
                 catch (e: Exception) {  // We don't care the result so any exception will go false.
