@@ -8,6 +8,7 @@ import com.no1.taiwan.newsbasket.App
 import com.no1.taiwan.newsbasket.R
 import com.no1.taiwan.newsbasket.bases.AdvFragment
 import com.no1.taiwan.newsbasket.features.main.viewmodels.IndexViewModel
+import kotlinx.android.synthetic.main.fragment_index.btn_archive
 import kotlinx.android.synthetic.main.fragment_index.btn_next
 import org.jetbrains.anko.sdk25.coroutines.onClick
 
@@ -61,6 +62,9 @@ class IndexFragment : AdvFragment<MainActivity, IndexViewModel>() {
     private fun eventSetting() {
         btn_next.onClick {
             findNavController().navigate(R.id.action_nav_index_to_keyword)
+        }
+        btn_archive.onClick {
+            findNavController().navigate(R.id.action_nav_index_to_archive)
         }
     }
 }

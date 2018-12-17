@@ -8,6 +8,9 @@ import com.no1.taiwan.newsbasket.domain.usecases.keyword.DeleteKeywordRespUsecas
 import com.no1.taiwan.newsbasket.domain.usecases.keyword.DeleteLocalKeywordWrapUsecase
 import com.no1.taiwan.newsbasket.domain.usecases.keyword.FetchLocalKeywordsWrapUsecase
 import com.no1.taiwan.newsbasket.domain.usecases.keyword.UpdateRemoteKeywordsWrapUsecase
+import com.no1.taiwan.newsbasket.domain.usecases.news.AddLocalNewsWrapUsecase
+import com.no1.taiwan.newsbasket.domain.usecases.news.DeleteLocalNewsWrapUsecase
+import com.no1.taiwan.newsbasket.domain.usecases.news.FetchLocalNewsWrapUsecase
 import com.no1.taiwan.newsbasket.domain.usecases.news.FetchRemoteNewsWrapUsecase
 import org.kodein.di.Kodein.Module
 import org.kodein.di.generic.bind
@@ -20,30 +23,21 @@ import org.kodein.di.generic.singleton
 object UsecaseModule {
     fun usecaseProvider() = Module("Use Cases Module") {
         //region For Fragments
-        bind<FetchRemoteNewsWrapUsecase>() with singleton {
-            FetchRemoteNewsWrapUsecase(instance())
-        }
+        bind<FetchRemoteNewsWrapUsecase>() with singleton { FetchRemoteNewsWrapUsecase(instance()) }
+        bind<FetchLocalNewsWrapUsecase>() with singleton { FetchLocalNewsWrapUsecase(instance()) }
+        bind<AddLocalNewsWrapUsecase>() with singleton { AddLocalNewsWrapUsecase(instance()) }
+        bind<DeleteLocalNewsWrapUsecase>() with singleton { DeleteLocalNewsWrapUsecase(instance()) }
+
         bind<AddSubscriberWrapUsecase>() with singleton { AddSubscriberWrapUsecase(instance()) }
-        bind<UpdateRemoteKeywordsWrapUsecase>() with singleton {
-            UpdateRemoteKeywordsWrapUsecase(instance())
-        }
+        bind<UpdateRemoteKeywordsWrapUsecase>() with singleton { UpdateRemoteKeywordsWrapUsecase(instance()) }
 
         bind<KeepNewsTokenUsecase>() with singleton { KeepNewsTokenUsecase(instance()) }
-        bind<AddLocalKeywordWrapUsecase>() with singleton {
-            AddLocalKeywordWrapUsecase(instance())
-        }
-        bind<DeleteLocalKeywordWrapUsecase>() with singleton {
-            DeleteLocalKeywordWrapUsecase(instance())
-        }
-        bind<FetchLocalKeywordsWrapUsecase>() with singleton {
-            FetchLocalKeywordsWrapUsecase(instance())
-        }
-        bind<AddKeywordRespUsecase>() with singleton {
-            AddKeywordRespUsecase(instance())
-        }
-        bind<DeleteKeywordRespUsecase>() with singleton {
-            DeleteKeywordRespUsecase(instance())
-        }
+
+        bind<AddLocalKeywordWrapUsecase>() with singleton { AddLocalKeywordWrapUsecase(instance()) }
+        bind<DeleteLocalKeywordWrapUsecase>() with singleton { DeleteLocalKeywordWrapUsecase(instance()) }
+        bind<FetchLocalKeywordsWrapUsecase>() with singleton { FetchLocalKeywordsWrapUsecase(instance()) }
+        bind<AddKeywordRespUsecase>() with singleton { AddKeywordRespUsecase(instance()) }
+        bind<DeleteKeywordRespUsecase>() with singleton { DeleteKeywordRespUsecase(instance()) }
         //endregion
     }
 }

@@ -2,19 +2,16 @@ package com.no1.taiwan.newsbasket.features.main
 
 import android.os.Bundle
 import androidx.annotation.LayoutRes
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.devrapid.kotlinshaver.cast
-import com.devrapid.kotlinshaver.isNull
+import com.devrapid.kotlinknifer.logw
 import com.no1.taiwan.newsbasket.R
 import com.no1.taiwan.newsbasket.bases.AdvFragment
 import com.no1.taiwan.newsbasket.components.recyclerview.NewsAdapter
-import com.no1.taiwan.newsbasket.components.recyclerview.helpers.NewsItemTouchHelper
 import com.no1.taiwan.newsbasket.components.recyclerview.helpers.ViewItemTouchCallback
+import com.no1.taiwan.newsbasket.ext.observeNonNull
 import com.no1.taiwan.newsbasket.features.main.viewmodels.ArchiveViewModel
 import com.no1.taiwan.newsbasket.internal.di.tags.ObjectLabel.KEYOWRD_ADAPTER
 import com.no1.taiwan.newsbasket.internal.di.tags.ObjectLabel.LINEAR_LAYOUT_VERTICAL
-import kotlinx.android.synthetic.main.fragment_archive.rv_archive_news
 import org.kodein.di.generic.instance
 
 class ArchiveFragment : AdvFragment<MainActivity, ArchiveViewModel>() {
@@ -31,6 +28,9 @@ class ArchiveFragment : AdvFragment<MainActivity, ArchiveViewModel>() {
     //region Base build-in functions
     /** The block of binding to [androidx.lifecycle.ViewModel]'s [androidx.lifecycle.LiveData]. */
     override fun bindLiveData() {
+        observeNonNull(vm.newsLiveData) {
+            logw(this)
+        }
     }
 
     /**
@@ -41,6 +41,8 @@ class ArchiveFragment : AdvFragment<MainActivity, ArchiveViewModel>() {
     override fun rendered(savedInstanceState: Bundle?) {
         componentSetting()
         eventSetting()
+
+        vm.getAllNews()
     }
 
     /**
@@ -59,14 +61,14 @@ class ArchiveFragment : AdvFragment<MainActivity, ArchiveViewModel>() {
     //endregion
 
     private fun componentSetting() {
-        ItemTouchHelper(NewsItemTouchHelper(cast(keywordAdapter), helper)).attachToRecyclerView(rv_archive_news)
-
-        rv_archive_news.apply {
-            if (layoutManager.isNull())
-                layoutManager = linearLayout
-            if (adapter.isNull())
-                adapter = keywordAdapter
-        }
+//        ItemTouchHelper(NewsItemTouchHelper(cast(keywordAdapter), helper)).attachToRecyclerView(rv_archive_news)
+//
+//        rv_archive_news.apply {
+//            if (layoutManager.isNull())
+//                layoutManager = linearLayout
+//            if (adapter.isNull())
+//                adapter = keywordAdapter
+//        }
     }
 
     private fun eventSetting() {
