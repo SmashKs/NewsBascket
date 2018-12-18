@@ -18,5 +18,6 @@ class ArchiveViewModel(
     private val _newsLiveData by lazy { ResponseMutableLiveData<Newses>() }
     val newsLiveData: ResponseLiveData<Newses> = _newsLiveData
 
-    fun getAllNews() = _newsLiveData requestData { fetchNewsCase.toRunList(newsMapper) }
+    fun getAllNews() =
+        _newsLiveData requestData { fetchNewsCase.toRunList(newsMapper, FetchLocalNewsWrapUsecase.Request()) }
 }

@@ -8,7 +8,7 @@ import com.no1.taiwan.newsbasket.R
 import com.no1.taiwan.newsbasket.bases.AdvFragment
 import com.no1.taiwan.newsbasket.components.recyclerview.NewsAdapter
 import com.no1.taiwan.newsbasket.components.recyclerview.helpers.ViewItemTouchCallback
-import com.no1.taiwan.newsbasket.ext.observeNonNull
+import com.no1.taiwan.newsbasket.ext.observeUnboxNonNull
 import com.no1.taiwan.newsbasket.features.main.viewmodels.ArchiveViewModel
 import com.no1.taiwan.newsbasket.internal.di.tags.ObjectLabel.KEYOWRD_ADAPTER
 import com.no1.taiwan.newsbasket.internal.di.tags.ObjectLabel.LINEAR_LAYOUT_VERTICAL
@@ -28,7 +28,7 @@ class ArchiveFragment : AdvFragment<MainActivity, ArchiveViewModel>() {
     //region Base build-in functions
     /** The block of binding to [androidx.lifecycle.ViewModel]'s [androidx.lifecycle.LiveData]. */
     override fun bindLiveData() {
-        observeNonNull(vm.newsLiveData) {
+        observeUnboxNonNull(vm.newsLiveData) {
             logw(this)
         }
     }
