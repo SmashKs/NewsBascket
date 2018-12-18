@@ -17,4 +17,4 @@ typealias FetchLocalFirebaseTokenRequest = FetchLocalFirebaseTokenWrapUsecase.Re
 typealias FetchLocalKeywordsRequest = FetchLocalKeywordsWrapUsecase.Request
 typealias FetchRemoteNewsRequest = FetchRemoteNewsWrapUsecase.Request
 typealias UpdateRemoteKeywordsRequest = UpdateRemoteKeywordsWrapUsecase.Request
-typealias KeepNewsTokenRequest = KeepNewsTokenUsecase.Request
+typealias KeepNewsTokenRequest = KeepNewsTokenWrapUsecase.Request

@@ -16,24 +16,27 @@ import com.devrapid.kotlinshaver.bkg
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.no1.taiwan.newsbasket.R
+import com.no1.taiwan.newsbasket.domain.parameters.params.NewsParams
 import com.no1.taiwan.newsbasket.domain.parameters.params.TokenParams
-import com.no1.taiwan.newsbasket.domain.usecases.KeepNewsTokenUsecase
+import com.no1.taiwan.newsbasket.domain.usecases.KeepNewsTokenWrapUsecase
+import com.no1.taiwan.newsbasket.domain.usecases.news.AddLocalNewsWrapUsecase
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.closestKodein
 import org.kodein.di.generic.instance
 import kotlin.random.Random
-import com.no1.taiwan.newsbasket.domain.usecases.KeepNewsTokenUsecase.Request as KeepNewsTokenRequest
+import com.no1.taiwan.newsbasket.domain.usecases.KeepNewsTokenWrapUsecase.Request as KeepNewsTokenRequest
 
 class NewsFirebaseMessaging : FirebaseMessagingService(), KodeinAware {
     /** A Kodein Aware class must be within reach of a [Kodein] object. */
     override val kodein by closestKodein()
-    private val usecase by instance<KeepNewsTokenUsecase>()
+    private val keepTokenCase by instance<KeepNewsTokenWrapUsecase>()
+    private val addNewsCase by instance<AddLocalNewsWrapUsecase>()
 
     override fun onNewToken(token: String) {
         super.onNewToken(token)
         // Keep the firebase token into mmkv storage.
-        bkg { usecase.execute(KeepNewsTokenRequest(TokenParams(firebaseToken = token))) }
+        bkg { keepTokenCase.execute(KeepNewsTokenRequest(TokenParams(firebaseToken = token))) }
     }
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
@@ -61,6 +64,15 @@ class NewsFirebaseMessaging : FirebaseMessagingService(), KodeinAware {
             .setContentIntent(pendingIntent)
 
         sendNotification(notificationBuilder)
+
+        // Insert the new news into local database.
+        bkg {
+            addNewsCase.execute(AddLocalNewsWrapUsecase.Request(NewsParams(
+                content = content,
+                url = newsUrl,
+                title = title
+            )))
+        }
     }
 
     /**

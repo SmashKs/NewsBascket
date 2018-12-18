@@ -9,7 +9,7 @@ import com.no1.taiwan.newsbasket.domain.parameters.params.TokenParams
 import com.no1.taiwan.newsbasket.domain.usecases.AddSubscriberRequest
 import com.no1.taiwan.newsbasket.domain.usecases.AddSubscriberWrapUsecase
 import com.no1.taiwan.newsbasket.domain.usecases.KeepNewsTokenRequest
-import com.no1.taiwan.newsbasket.domain.usecases.KeepNewsTokenUsecase
+import com.no1.taiwan.newsbasket.domain.usecases.KeepNewsTokenWrapUsecase
 import com.no1.taiwan.newsbasket.entities.PresentationTokenMapper
 import com.no1.taiwan.newsbasket.entities.TokenEntity
 import com.no1.taiwan.newsbasket.ext.ResponseLiveData
@@ -21,7 +21,7 @@ import com.no1.taiwan.newsbasket.ext.toRun
 class IndexViewModel(
     private val addSubscriberUsecase: AddSubscriberWrapUsecase,
     private val tokenMapper: PresentationTokenMapper,
-    private val keepNewsTokenUsecase: KeepNewsTokenUsecase
+    private val keepNewsTokenWrapUsecase: KeepNewsTokenWrapUsecase
 ) : AutoViewModel() {
     private val _tokenLiveData by lazy { ResponseMutableLiveData<TokenEntity>() }
     val tokenLiveData: ResponseLiveData<TokenEntity> = _tokenLiveData
@@ -36,7 +36,7 @@ class IndexViewModel(
 
     fun keepNewsToken(entity: TokenEntity) {
         ui {
-            _resLiveData.value = keepNewsTokenUsecase
+            _resLiveData.value = keepNewsTokenWrapUsecase
                 .execute(KeepNewsTokenRequest(TokenParams(entity.token, entity.firebaseToken)))
         }
     }
