@@ -21,6 +21,7 @@ object Versions {
         const val androidx = "1.0.0"
         const val annotation = "1.0.1"
         const val appCompat = "1.1.0-alpha01"
+        const val fragment = "1.1.0-alpha03"
         const val cardView = androidx
         const val recyclerView = appCompat
         const val constraintLayout = "2.0.0-alpha2"
@@ -47,16 +48,16 @@ object Versions {
      * Related Kotlin extensions lib version.
      */
     object KotlinAndroidExt {
-        const val dex = "2.0.0"
+        const val dex = "2.0.1"
         const val anko = "0.10.8"
-        const val ktx = "1.0.1"
+        const val ktx = "1.1.0-alpha03"
         const val kinfer = "2.1.2"
         const val shaver = "1.1.2"
     }
 
     object AndroidArchitectureComponent {
-        const val aacLifecycle = "2.0.0"
-        const val navigation = "1.0.0-alpha08"
+        const val aacLifecycle = "2.1.0-alpha01"
+        const val navigation = "1.0.0-alpha09"
         const val room = "2.1.0-alpha01"
     }
 
@@ -115,7 +116,7 @@ object Versions {
         const val rxJava2 = "2.2.1"
         const val rxKotlin2 = "2.3.0"
         const val rxPermission2 = "0.9.5@aar"
-        const val rxBus = "2.0.0"
+        const val rxBus = "2.0.1"
     }
 
     /**
