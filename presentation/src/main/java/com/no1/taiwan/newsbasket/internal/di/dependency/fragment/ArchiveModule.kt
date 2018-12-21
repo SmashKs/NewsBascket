@@ -1,8 +1,8 @@
 package com.no1.taiwan.newsbasket.internal.di.dependency.fragment
 
 import com.no1.taiwan.newsbasket.R
-import com.no1.taiwan.newsbasket.entities.KeywordEntity
-import com.no1.taiwan.newsbasket.features.main.viewholders.KeywordViewHolder
+import com.no1.taiwan.newsbasket.entities.NewsEntity
+import com.no1.taiwan.newsbasket.features.main.viewholders.ArchiveViewHolder
 import com.no1.taiwan.newsbasket.features.main.viewmodels.ArchiveViewModel
 import com.no1.taiwan.newsbasket.internal.di.ViewHolderEntry
 import com.no1.taiwan.newsbasket.internal.di.ViewModelEntry
@@ -20,7 +20,7 @@ object ArchiveModule {
         }
         // *** ViewHolder
         bind<ViewHolderEntry>().inSet() with provider {
-            KeywordEntity::class.hashCode() to Pair(R.layout.item_showing, ::KeywordViewHolder)
+            NewsEntity::class.hashCode() to Pair(R.layout.item_news, ::ArchiveViewHolder)
         }
 
         // *** Others

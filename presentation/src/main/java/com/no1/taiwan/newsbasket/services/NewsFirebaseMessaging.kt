@@ -68,9 +68,12 @@ class NewsFirebaseMessaging : FirebaseMessagingService(), KodeinAware {
         // Insert the new news into local database.
         bkg {
             addNewsCase.execute(AddLocalNewsWrapUsecase.Request(NewsParams(
-                content = content,
-                url = newsUrl,
-                title = title
+                data["news_author"].orEmpty(),
+                content,
+                newsUrl,
+                title,
+                urlToImage = data["image_url"].orEmpty(),
+                publishedAt = data["published_date"].orEmpty()
             )))
         }
     }

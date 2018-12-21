@@ -1,5 +1,7 @@
 package com.no1.taiwan.newsbasket.entities
 
+import com.no1.taiwan.newsbasket.components.recyclerview.MultiTypeFactory
+import com.no1.taiwan.newsbasket.components.recyclerview.NewsMultiVisitable
 import com.no1.taiwan.newsbasket.ext.const.DEFAULT_LONG
 import com.no1.taiwan.newsbasket.ext.const.DEFAULT_STR
 import com.no1.taiwan.newsbasket.ext.const.UniqueId
@@ -16,4 +18,6 @@ data class NewsEntity(
     val updatedAt: String = DEFAULT_STR,
     val url: String = DEFAULT_STR,
     val urlToImage: String? = DEFAULT_STR
-) : Entity
+) : Entity, NewsMultiVisitable {
+    override fun type(typeFactory: MultiTypeFactory) = typeFactory.type(this)
+}
