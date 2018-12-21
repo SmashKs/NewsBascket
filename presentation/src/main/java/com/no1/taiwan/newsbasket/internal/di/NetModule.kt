@@ -1,6 +1,7 @@
 package com.no1.taiwan.newsbasket.internal.di
 
 import android.content.Context
+import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.itkacher.okhttpprofiler.OkHttpProfilerInterceptor
 import com.no1.taiwan.newsbasket.BuildConfig
 import com.no1.taiwan.newsbasket.data.remote.hasNetwork
@@ -70,6 +71,7 @@ object NetModule {
                     if (BuildConfig.DEBUG) {
                         addInterceptor(OkHttpProfilerInterceptor())  // For OkHttp Profiler plugins.
 //                        addInterceptor(HttpLoggingInterceptor().setLevel(BODY))  // For print to logcat.
+                        addNetworkInterceptor(StethoInterceptor())
                     }
                 }
                 .build()

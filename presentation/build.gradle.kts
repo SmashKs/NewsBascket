@@ -175,7 +175,8 @@ dependencies {
     implementation(Deps.Presentation.shapeOfView)
     //endregion
 
-//    debugImplementation(Deps.GlobalDebug.steho)
+    debugImplementation(Deps.GlobalDebug.steho)
+    debugImplementation(Deps.GlobalDebug.stehoInterceptor)
     debugImplementation(Deps.GlobalDebug.debugDb)
 
     //region Android Test

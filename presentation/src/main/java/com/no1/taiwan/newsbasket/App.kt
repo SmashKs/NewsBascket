@@ -3,6 +3,7 @@ package com.no1.taiwan.newsbasket
 import android.content.Context
 import androidx.multidex.MultiDexApplication
 import com.devrapid.kotlinknifer.SharedPrefs
+import com.facebook.stetho.Stetho
 import com.no1.taiwan.newsbasket.internal.di.AppModule.appProvider
 import com.no1.taiwan.newsbasket.internal.di.RecyclerViewModule.recyclerViewProvider
 import com.no1.taiwan.newsbasket.internal.di.RepositoryModule.repositoryProvider
@@ -51,5 +52,6 @@ class App : MultiDexApplication(), KodeinAware {
 
         // key-value storage, choose one for using.
         SharedPrefs.setPrefSettings(defaultSharedPreferences)
+        Stetho.initializeWithDefaults(this)
     }
 }
