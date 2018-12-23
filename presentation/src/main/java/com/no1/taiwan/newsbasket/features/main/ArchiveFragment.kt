@@ -1,11 +1,17 @@
 package com.no1.taiwan.newsbasket.features.main
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.annotation.LayoutRes
+import androidx.core.net.toUri
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.devrapid.kotlinknifer.logw
 import com.devrapid.kotlinshaver.cast
 import com.devrapid.kotlinshaver.isNull
+import com.hwangjr.rxbus.RxBus
+import com.hwangjr.rxbus.annotation.Subscribe
+import com.hwangjr.rxbus.annotation.Tag
 import com.no1.taiwan.newsbasket.R
 import com.no1.taiwan.newsbasket.bases.AdvFragment
 import com.no1.taiwan.newsbasket.components.recyclerview.MultiData
@@ -28,6 +34,16 @@ class ArchiveFragment : AdvFragment<MainActivity, ArchiveViewModel>() {
 
         override fun onItemMoved(fromPosition: Int, toPosition: Int) {
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        RxBus.get().register(this)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        RxBus.get().unregister(this)
     }
 
     //region Base build-in functions
@@ -77,5 +93,11 @@ class ArchiveFragment : AdvFragment<MainActivity, ArchiveViewModel>() {
     }
 
     private fun eventSetting() {
+    }
+
+    @Subscribe(tags = [Tag("open browser")])
+    fun openBrowser(url: String) {
+        logw(url)
+        url.takeIf(String::isNotBlank)?.let { parent.startActivity(Intent(Intent.ACTION_VIEW, it.toUri()), null) }
     }
 }

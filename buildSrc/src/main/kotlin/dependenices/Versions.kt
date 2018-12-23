@@ -24,7 +24,7 @@ object Versions {
         const val fragment = "1.1.0-alpha03"
         const val cardView = androidx
         const val recyclerView = appCompat
-        const val constraintLayout = "2.0.0-alpha2"
+        const val constraintLayout = "2.0.0-alpha3"
         const val coordinatorLayout = appCompat
     }
 
@@ -33,7 +33,7 @@ object Versions {
      */
     object Kotlin {
         const val kotlinLib = "1.3.11"
-        const val kotlinCoroutine = "1.0.1"
+        const val kotlinCoroutine = "1.1.0"
     }
 
     /**

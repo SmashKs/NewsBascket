@@ -20,10 +20,12 @@ import com.no1.taiwan.newsbasket.domain.parameters.params.NewsParams
 import com.no1.taiwan.newsbasket.domain.parameters.params.TokenParams
 import com.no1.taiwan.newsbasket.domain.usecases.KeepNewsTokenWrapUsecase
 import com.no1.taiwan.newsbasket.domain.usecases.news.AddLocalNewsWrapUsecase
+import com.no1.taiwan.newsbasket.ext.const.DEFAULT_STR
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.closestKodein
 import org.kodein.di.generic.instance
+import java.util.Date
 import kotlin.random.Random
 import com.no1.taiwan.newsbasket.domain.usecases.KeepNewsTokenWrapUsecase.Request as KeepNewsTokenRequest
 
@@ -70,11 +72,14 @@ class NewsFirebaseMessaging : FirebaseMessagingService(), KodeinAware {
             addNewsCase.execute(AddLocalNewsWrapUsecase.Request(NewsParams(
                 data["news_author"].orEmpty(),
                 content,
-                newsUrl,
+                DEFAULT_STR,
+                Date().toString(),
+                DEFAULT_STR,
+                data["published_date"].orEmpty(),
                 title,
-                urlToImage = data["image_url"].orEmpty(),
-                publishedAt = data["published_date"].orEmpty()
-            )))
+                Date().toString(),
+                newsUrl,
+                data["image_url"].orEmpty()).apply { logw(this) }))
         }
     }
 

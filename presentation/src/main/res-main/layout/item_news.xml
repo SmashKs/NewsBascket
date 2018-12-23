@@ -6,6 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
+    android:id="@+id/ccv_news"
+    android:foreground="?android:attr/selectableItemBackgroundBorderless"
     app:shape_cutCorner_bottomRightSize="20dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout

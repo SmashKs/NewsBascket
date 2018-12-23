@@ -121,7 +121,7 @@ dependencies {
     //region Rx Bus
     implementation(Deps.Presentation.rxBus) {
         exclude(group = "com.jakewharton.timber", module = "timber")
-        exclude(group = "io.reactivex.rxjava2", module = "rxandroid")
+//        exclude(group = "io.reactivex.rxjava2", module = "rxandroid")
     }
     //endregion
 

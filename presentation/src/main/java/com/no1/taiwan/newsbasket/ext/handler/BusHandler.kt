@@ -2,8 +2,8 @@ package com.no1.taiwan.newsbasket.ext.handler
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle.Event.ON_START
-import androidx.lifecycle.Lifecycle.Event.ON_STOP
+import androidx.lifecycle.Lifecycle.Event.ON_PAUSE
+import androidx.lifecycle.Lifecycle.Event.ON_RESUME
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import com.devrapid.kotlinknifer.SoftRef
@@ -16,12 +16,12 @@ class BusFragLifeRegister(fragment: Fragment) : LifecycleObserver {
         frag?.lifecycle?.addObserver(this)
     }
 
-    @OnLifecycleEvent(ON_START)
+    @OnLifecycleEvent(ON_RESUME)
     fun registerRxBus() {
         frag?.run(RxBus.get()::register)
     }
 
-    @OnLifecycleEvent(ON_STOP)
+    @OnLifecycleEvent(ON_PAUSE)
     fun unregisterRxBus() {
         frag?.run(RxBus.get()::unregister)
     }
@@ -34,12 +34,12 @@ class BusActLifeRegister(private val activity: AppCompatActivity) : LifecycleObs
         act?.lifecycle?.addObserver(this)
     }
 
-    @OnLifecycleEvent(ON_START)
+    @OnLifecycleEvent(ON_RESUME)
     fun registerRxBus() {
         act?.run(RxBus.get()::register)
     }
 
-    @OnLifecycleEvent(ON_STOP)
+    @OnLifecycleEvent(ON_PAUSE)
     fun unregisterRxBus() {
         act?.run(RxBus.get()::unregister)
     }
