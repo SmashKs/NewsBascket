@@ -1,5 +1,4 @@
 import androidx.fragment.app.FragmentActivity
-import org.kodein.di.android.AndroidComponentsWeakScope
+import org.kodein.di.bindings.WeakContextScope
 
-val fragmentScope get() = AndroidComponentsWeakScope<FragmentActivity>()
-//val fragmentScope get() = WeakContextScope.of<FragmentActivity>()  // Kodein 6.0.0
+val fragmentScope get() = WeakContextScope.of<FragmentActivity>()  // Kodein 6.0.0

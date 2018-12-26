@@ -21,13 +21,12 @@ import org.kodein.di.Kodein.Companion.lazy
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.instance
-import org.kodein.di.generic.kcontext
 
 /**
  * The basic fragment is for the normal activity which prepares all necessary variables or functions.
  */
 abstract class BaseFragment<out A : BaseActivity> : Fragment(), KodeinAware {
-    override val kodeinContext get() = kcontext(requireActivity())
+    //    override val kodeinContext get() = kcontext(this)
     override val kodein = lazy {
         extend(parentKodein)
         /* fragment specific bindings */
