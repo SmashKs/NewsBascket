@@ -20,14 +20,14 @@ import com.no1.taiwan.newsbasket.components.recyclerview.helpers.NewsItemTouchHe
 import com.no1.taiwan.newsbasket.components.recyclerview.helpers.ViewItemTouchCallback
 import com.no1.taiwan.newsbasket.ext.observeUnboxNonNull
 import com.no1.taiwan.newsbasket.features.main.viewmodels.ArchiveViewModel
-import com.no1.taiwan.newsbasket.internal.di.tags.ObjectLabel.KEYOWRD_ADAPTER
 import com.no1.taiwan.newsbasket.internal.di.tags.ObjectLabel.LINEAR_LAYOUT_VERTICAL
+import com.no1.taiwan.newsbasket.internal.di.tags.ObjectLabel.NEWS_ADAPTER
 import kotlinx.android.synthetic.main.fragment_archive.rv_archive_news
 import org.kodein.di.generic.instance
 
 class ArchiveFragment : AdvFragment<MainActivity, ArchiveViewModel>() {
     private val linearLayout by instance<LinearLayoutManager>(LINEAR_LAYOUT_VERTICAL)
-    private val keywordAdapter by instance<NewsAdapter>(KEYOWRD_ADAPTER)
+    private val newsAdapter by instance<NewsAdapter>(NEWS_ADAPTER)
     private val helper = object : ViewItemTouchCallback {
         override fun onItemSwiped(position: Int) {
         }
@@ -50,7 +50,7 @@ class ArchiveFragment : AdvFragment<MainActivity, ArchiveViewModel>() {
     /** The block of binding to [androidx.lifecycle.ViewModel]'s [androidx.lifecycle.LiveData]. */
     override fun bindLiveData() {
         observeUnboxNonNull(vm.newsLiveData) {
-            keywordAdapter.add(0, cast<MultiData>(this).toMutableList())
+            newsAdapter.add(0, cast<MultiData>(this).toMutableList())
         }
     }
 
@@ -82,13 +82,13 @@ class ArchiveFragment : AdvFragment<MainActivity, ArchiveViewModel>() {
     //endregion
 
     private fun componentSetting() {
-        ItemTouchHelper(NewsItemTouchHelper(cast(keywordAdapter), helper)).attachToRecyclerView(rv_archive_news)
+        ItemTouchHelper(NewsItemTouchHelper(cast(newsAdapter), helper)).attachToRecyclerView(rv_archive_news)
 
         rv_archive_news.apply {
             if (layoutManager.isNull())
                 layoutManager = linearLayout
             if (adapter.isNull())
-                adapter = keywordAdapter
+                adapter = newsAdapter
         }
     }
 

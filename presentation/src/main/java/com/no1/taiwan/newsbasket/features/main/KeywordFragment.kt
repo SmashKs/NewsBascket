@@ -27,7 +27,7 @@ import com.no1.taiwan.newsbasket.ext.observeNonNull
 import com.no1.taiwan.newsbasket.ext.peel
 import com.no1.taiwan.newsbasket.ext.peelSkipLoading
 import com.no1.taiwan.newsbasket.features.main.viewmodels.KeywordViewModel
-import com.no1.taiwan.newsbasket.internal.di.tags.ObjectLabel.KEYOWRD_ADAPTER
+import com.no1.taiwan.newsbasket.internal.di.tags.ObjectLabel.KEYWORD_ADAPTER
 import com.no1.taiwan.newsbasket.internal.di.tags.ObjectLabel.LINEAR_LAYOUT_VERTICAL
 import kotlinx.android.synthetic.main.dialog_input_keyword.view.btn_send
 import kotlinx.android.synthetic.main.dialog_input_keyword.view.et_keyword
@@ -39,7 +39,7 @@ import org.kodein.di.generic.instance
 
 class KeywordFragment : AdvFragment<MainActivity, KeywordViewModel>() {
     private val linearLayout by instance<LinearLayoutManager>(LINEAR_LAYOUT_VERTICAL)
-    private val keywordAdapter by instance<NewsAdapter>(KEYOWRD_ADAPTER)
+    private val keywordAdapter by instance<NewsAdapter>(KEYWORD_ADAPTER)
     private val dupKeywords = mutableListOf<String>()
     private val helper = object : ViewItemTouchCallback {
         override fun onItemSwiped(position: Int) {
