@@ -4,12 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.annotation.LayoutRes
 import androidx.core.net.toUri
+import androidx.lifecycle.LifecycleObserver
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.devrapid.kotlinknifer.logw
 import com.devrapid.kotlinshaver.cast
 import com.devrapid.kotlinshaver.isNull
-import com.hwangjr.rxbus.RxBus
 import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.annotation.Tag
 import com.no1.taiwan.newsbasket.R
@@ -28,6 +27,7 @@ import org.kodein.di.generic.instance
 class ArchiveFragment : AdvFragment<MainActivity, ArchiveViewModel>() {
     private val linearLayout by instance<LinearLayoutManager>(LINEAR_LAYOUT_VERTICAL)
     private val newsAdapter by instance<NewsAdapter>(NEWS_ADAPTER)
+    private val busRegister: LifecycleObserver by instance("fragment", this)
     private val helper = object : ViewItemTouchCallback {
         override fun onItemSwiped(position: Int) {
         }
@@ -36,22 +36,17 @@ class ArchiveFragment : AdvFragment<MainActivity, ArchiveViewModel>() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        RxBus.get().register(this)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        RxBus.get().unregister(this)
-    }
-
     //region Base build-in functions
     /** The block of binding to [androidx.lifecycle.ViewModel]'s [androidx.lifecycle.LiveData]. */
     override fun bindLiveData() {
         observeUnboxNonNull(vm.newsLiveData) {
             newsAdapter.add(0, cast<MultiData>(this).toMutableList())
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        lifecycle.addObserver(busRegister)
     }
 
     /**
@@ -96,7 +91,6 @@ class ArchiveFragment : AdvFragment<MainActivity, ArchiveViewModel>() {
 
     @Subscribe(tags = [Tag("open browser")])
     fun openBrowser(url: String) {
-        logw(url)
         url.takeIf(String::isNotBlank)?.let { parent.startActivity(Intent(Intent.ACTION_VIEW, it.toUri()), null) }
     }
 }

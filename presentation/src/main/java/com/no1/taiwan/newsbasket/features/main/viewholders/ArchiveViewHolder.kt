@@ -21,9 +21,6 @@ class ArchiveViewHolder(view: View) : ArchiveVH(view), LayoutContainer {
         tv_title.text = model.title
         tv_context.text = model.content
         ccv_news.onClick {
-            println("=================================================")
-            println(model.url)
-            println("=================================================")
             RxBus.get().post("open browser", model.url)
         }
     }
