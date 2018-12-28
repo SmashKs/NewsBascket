@@ -15,12 +15,15 @@ import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
 import org.kodein.di.generic.provider
 import org.kodein.di.generic.setBinding
+import org.kodein.di.generic.singleton
 
 /**
  * To provide the necessary objects into the recycler view.
  */
 object RecyclerViewModule {
-    fun recyclerViewProvider(context: Context) = Module("module name") {
+    fun recyclerViewProvider(context: Context) = Module("Recycler View") {
+        import(adapterProvider(context))
+
         // Linear Layout Manager.
         bind<LinearLayoutManager>(LINEAR_LAYOUT_VERTICAL) with provider {
             LinearLayoutManager(context, RecyclerView.VERTICAL, false)
@@ -28,11 +31,13 @@ object RecyclerViewModule {
         bind<LinearLayoutManager>(LINEAR_LAYOUT_HORIZONTAL) with provider {
             LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
         }
-
-        bind<MultiTypeFactory>() with instance(MultiTypeFactory(context))
         bind<AdaptiveDiffUtil<MultiTypeFactory, NewsMultiVisitable>>() with instance(cast(NewsKeywordDiffUtil()))
 
         /** ViewModel Set for [MultiTypeFactory] */
         bind() from setBinding<ViewHolderEntry>()
+    }
+
+    fun adapterProvider(context: Context) = Module("Recycler View Adapter") {
+        bind<MultiTypeFactory>() with singleton { MultiTypeFactory(context) }
     }
 }

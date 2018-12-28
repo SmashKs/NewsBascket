@@ -3,6 +3,7 @@ package com.no1.taiwan.newsbasket.components.recyclerview
 import android.content.Context
 import android.view.ViewGroup
 import com.devrapid.adaptiverecyclerview.AdaptiveDiffUtil
+import com.devrapid.kotlinknifer.logw
 import com.no1.taiwan.newsbasket.components.recyclerview.helpers.AdapterItemTouchHelper
 import com.no1.taiwan.newsbasket.ext.const.DEFAULT_INT
 import org.kodein.di.KodeinAware
@@ -27,6 +28,10 @@ open class MultiTypeAdapter(
     override val kodein by closestKodein(context)
     protected var viewType = DEFAULT_INT
     private val multiTypeFactory by instance<MultiTypeFactory>()
+
+    init {
+        logw(multiTypeFactory)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
         this.viewType = viewType

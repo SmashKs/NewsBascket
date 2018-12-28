@@ -31,7 +31,7 @@ object KeywordModule {
 
         // *** Others
         bind<NewsAdapter>(KEYWORD_ADAPTER) with scoped(fragmentScope).singleton {
-            MultiTypeAdapter(mutableListOf(), context.requireContext(), instance())
+            MultiTypeAdapter(mutableListOf(), context.requireActivity(), instance())
         }
     }
 }

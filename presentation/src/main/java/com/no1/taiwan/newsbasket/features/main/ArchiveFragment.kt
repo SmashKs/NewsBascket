@@ -55,15 +55,28 @@ class ArchiveFragment : AdvFragment<MainActivity, ArchiveViewModel>() {
     }
 
     /**
-     * Initialize method.
+     * Initialize doing some methods or actions here.
      *
-     * @param savedInstanceState before status.
+     * @param savedInstanceState previous status.
      */
     override fun rendered(savedInstanceState: Bundle?) {
-        componentSetting()
-        eventSetting()
-
         vm.getAllNews()
+    }
+
+    /**
+     * For separating the huge function code in [rendered]. Initialize all view components here.
+     */
+    override fun viewComponentBinding() {
+        super.viewComponentBinding()
+
+        ItemTouchHelper(NewsItemTouchHelper(cast(newsAdapter), helper)).attachToRecyclerView(rv_archive_news)
+
+        rv_archive_news.apply {
+            if (layoutManager.isNull())
+                layoutManager = linearLayout
+            if (adapter.isNull())
+                adapter = newsAdapter
+        }
     }
 
     /**
@@ -80,20 +93,6 @@ class ArchiveFragment : AdvFragment<MainActivity, ArchiveViewModel>() {
      */
     override fun actionBarTitle() = getString(R.string.title_archive)
     //endregion
-
-    private fun componentSetting() {
-        ItemTouchHelper(NewsItemTouchHelper(cast(newsAdapter), helper)).attachToRecyclerView(rv_archive_news)
-
-        rv_archive_news.apply {
-            if (layoutManager.isNull())
-                layoutManager = linearLayout
-            if (adapter.isNull())
-                adapter = newsAdapter
-        }
-    }
-
-    private fun eventSetting() {
-    }
 
     @Subscribe(tags = [Tag("open browser")])
     fun openBrowser(url: String) {

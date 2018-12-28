@@ -9,7 +9,7 @@ import org.kodein.di.Kodein.Module
  * To provide the necessary objects for the specific fragments.
  */
 object SuperFragmentModule {
-    fun fragmentModule() = Module("All Fragments Module") {
+    fun fragmentModule() = Module("All Fragments") {
         // Import all of the fragment modules.
         import(indexProvider())
         import(keywordProvider())

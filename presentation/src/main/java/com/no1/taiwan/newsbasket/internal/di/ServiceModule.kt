@@ -25,7 +25,7 @@ import retrofit2.Retrofit
 object ServiceModule {
     private const val TOKEN_PUBLIC_KEY = "dG9rZW4="
 
-    fun serviceProvider(context: Context) = Module("RESTFul Service Module") {
+    fun serviceProvider(context: Context) = Module("RESTFul Service") {
         // *** For the [Remote] data module.
         import(netProvider(context))
         import(firebaseProvider())
@@ -42,7 +42,7 @@ object ServiceModule {
     /**
      * To provide the necessary objects Remote Implementation objects into the repository.
      */
-    private fun implementationRemoteProvider() = Module("Implementation Remote Module") {
+    private fun implementationRemoteProvider() = Module("Implementation Remote") {
         bind<NewsConfig>() with instance(RestfulApiFactory().createNewsConfig())
         bind<NewsService>() with singleton {
             with(instance<Retrofit.Builder>()) {
@@ -56,7 +56,7 @@ object ServiceModule {
     /**
      * To provide the necessary objects [FirebaseDatabase] into the repository.
      */
-    private fun firebaseProvider() = Module("Firebase Module") {
+    private fun firebaseProvider() = Module("Firebase") {
         bind<FirebaseDatabase>() with provider { FirebaseDatabase.getInstance() }
     }
     //endregion
@@ -64,7 +64,7 @@ object ServiceModule {
     /**
      * To provide the necessary objects Local Implementation objects into the repository.
      */
-    private fun implementationLocalProvider(context: Context) = Module("Implementation Local Module") {
+    private fun implementationLocalProvider(context: Context) = Module("Implementation Local") {
         MMKV.initialize(context)
 
         bind<NewsDatabase>() with instance(NewsDatabase.getDatabase(context))

@@ -21,9 +21,7 @@ import org.kodein.di.generic.singleton
  * To provide the necessary utility objects for the whole app.
  */
 object UtilModule {
-    fun utilProvider(context: Context) = Module("Util Module") {
-        /** ViewModel Set for [com.no1.taiwan.newsbasket.widget.viewmodel.ViewModelFactory] */
-        bind() from setBinding<ViewModelEntry>()
+    fun utilProvider(context: Context) = Module("Util") {
         /** Mapper Set for [com.no1.taiwan.newsbasket.data.datas.mappers.Mapper] */
         bind() from setBinding<DataMapperEntry>()
 
@@ -39,6 +37,11 @@ object UtilModule {
         /** Data Layer Mapper */
         bind<DataMapperEntry>().inSet() with provider { NewsMapper::class.java to NewsMapper() }
         bind<DataMapperEntry>().inSet() with provider { TokenMapper::class.java to TokenMapper() }
+    }
+
+    fun presentationUtilProvider(context: Context) = Module("Presentation Utuk") {
+        /** ViewModel Set for [com.no1.taiwan.newsbasket.widget.viewmodel.ViewModelFactory] */
+        bind() from setBinding<ViewModelEntry>()
 
         // TODO(jieyi): 2018/09/19 Doing as like the domain can find the mapper.
         /** Presentation Layer Mapper */

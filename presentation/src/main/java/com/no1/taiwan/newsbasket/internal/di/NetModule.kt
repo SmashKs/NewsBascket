@@ -24,7 +24,7 @@ object NetModule {
     private const val CacheMaxSize = 10 * 1024 * 1024L
     private const val AWeekTime = 60 * 60 * 24 * 7
 
-    fun netProvider(context: Context) = Module("Net Module") {
+    fun netProvider(context: Context) = Module("Network") {
         bind<Converter.Factory>() with singleton { GsonConverterFactory.create(instance()) }
         bind<CallAdapter.Factory>() with singleton { CoroutineCallAdapterFactory() }
         bind<Cache>() with singleton { Cache(context.cacheDir, CacheMaxSize /* 10 MiB */) }

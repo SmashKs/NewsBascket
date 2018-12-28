@@ -8,7 +8,7 @@ import org.kodein.di.generic.inSet
 import org.kodein.di.generic.provider
 
 object MainModule {
-    fun mainProvider() = Module("Main Module") {
+    fun mainProvider() = Module("Main Activity") {
         // *** ViewModel
         bind<ViewModelEntry>().inSet() with provider {
             MainViewModel::class.java to MainViewModel()

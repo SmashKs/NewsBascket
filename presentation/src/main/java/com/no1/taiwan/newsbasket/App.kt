@@ -4,10 +4,7 @@ import android.content.Context
 import androidx.multidex.MultiDexApplication
 import com.devrapid.kotlinknifer.SharedPrefs
 import com.facebook.stetho.Stetho
-import com.no1.taiwan.newsbasket.internal.di.AppModule.appProvider
-import com.no1.taiwan.newsbasket.internal.di.RecyclerViewModule.recyclerViewProvider
 import com.no1.taiwan.newsbasket.internal.di.RepositoryModule.repositoryProvider
-import com.no1.taiwan.newsbasket.internal.di.ServiceModule.serviceProvider
 import com.no1.taiwan.newsbasket.internal.di.UtilModule.utilProvider
 import com.no1.taiwan.newsbasket.internal.di.dependency.UsecaseModule.usecaseProvider
 import org.jetbrains.anko.defaultSharedPreferences
@@ -37,14 +34,10 @@ class App : MultiDexApplication(), KodeinAware {
 
         import(androidXModule(app))
         /** bindings */
-        import(appProvider())
         import(utilProvider(app))
-        /** activities or fragments */
-        import(recyclerViewProvider(app))
         /** usecases are bind here but the scope is depending on each layers.  */
         import(usecaseProvider())
-        import(repositoryProvider())
-        import(serviceProvider(app))
+        import(repositoryProvider(app))
     }
 
     override fun onCreate() {

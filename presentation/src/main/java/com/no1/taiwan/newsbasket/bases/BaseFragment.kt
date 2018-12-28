@@ -26,7 +26,6 @@ import org.kodein.di.generic.instance
  * The basic fragment is for the normal activity which prepares all necessary variables or functions.
  */
 abstract class BaseFragment<out A : BaseActivity> : Fragment(), KodeinAware {
-    //    override val kodeinContext get() = kcontext(this)
     override val kodein = lazy {
         extend(parentKodein)
         /* fragment specific bindings */
@@ -72,6 +71,9 @@ abstract class BaseFragment<out A : BaseActivity> : Fragment(), KodeinAware {
         // Set the title into the support action bar.
         parent.setSupportActionBar(findOptional(R.id.tb_header))
         actionBarTitle()?.let { parent.supportActionBar?.title = it }
+        // Before setting.
+        viewComponentBinding()
+        componentListenersBinding()
         // Action for customizing.
         rendered(savedInstanceState)
         // When the fragment has base_layout id, it'll attach the function of hiding soft keyboard.
@@ -80,9 +82,9 @@ abstract class BaseFragment<out A : BaseActivity> : Fragment(), KodeinAware {
     //endregion
 
     /**
-     * Initialize method.
+     * Initialize doing some methods or actions here.
      *
-     * @param savedInstanceState before status.
+     * @param savedInstanceState previous status.
      */
     @UiThread
     protected abstract fun rendered(savedInstanceState: Bundle?)
@@ -95,6 +97,18 @@ abstract class BaseFragment<out A : BaseActivity> : Fragment(), KodeinAware {
     @UiThread
     @LayoutRes
     protected abstract fun provideInflateView(): Int
+
+    /**
+     * For separating the huge function code in [rendered]. Initialize all view components here.
+     */
+    @UiThread
+    protected open fun viewComponentBinding() = Unit
+
+    /**
+     * For separating the huge function code in [rendered]. Initialize all component listeners here.
+     */
+    @UiThread
+    protected open fun componentListenersBinding() = Unit
 
     /**
      * Set specific theme to this fragment.

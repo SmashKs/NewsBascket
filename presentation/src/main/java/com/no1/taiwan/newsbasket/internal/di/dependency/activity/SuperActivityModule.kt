@@ -7,7 +7,7 @@ import org.kodein.di.Kodein.Module
  * To provide the necessary objects for the specific activities.
  */
 object SuperActivityModule {
-    fun activityModule() = Module("All Activities Module") {
+    fun activityModule() = Module("All Activities") {
         // Import all of the activity modules.
         import(mainProvider())
     }

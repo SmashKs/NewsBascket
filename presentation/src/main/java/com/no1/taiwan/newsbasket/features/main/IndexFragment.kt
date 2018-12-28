@@ -14,26 +14,29 @@ import org.jetbrains.anko.sdk25.coroutines.onClick
 
 class IndexFragment : AdvFragment<MainActivity, IndexViewModel>() {
     //region Base build-in functions
-    /** The block of binding to [androidx.lifecycle.ViewModel]'s [androidx.lifecycle.LiveData]. */
-    override fun bindLiveData() {
-//        observeNonNull(vm.tokenLiveData) {
-//            peelSkipLoading(vm::keepNewsToken) happenError {
-//                loge(it)
-//                // Anyway go to next keyword page.
-//                btn_next.performClick()
-//            } muteErrorDoWith this@IndexFragment
-//        }
-//        observeNonNull(vm.resLiveData) { if (this) btn_next.performClick() }  // If success doing the first register.
-    }
-
     /**
      * Initialize method.
      *
      * @param savedInstanceState before status.
      */
     override fun rendered(savedInstanceState: Bundle?) {
-        componentSetting()
-        eventSetting()
+        if (!App.isFirstTimeOpen)
+            FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener {
+                vm.addFirstSubscriber(it.token)
+                App.isFirstTimeOpen = true
+            }
+    }
+
+    /**
+     * For separating the huge function code in [rendered]. Initialize all component listeners here.
+     */
+    override fun componentListenersBinding() {
+        btn_next.onClick {
+            findNavController().navigate(R.id.action_nav_index_to_keyword)
+        }
+        btn_archive.onClick {
+            findNavController().navigate(R.id.action_nav_index_to_archive)
+        }
     }
 
     /**
@@ -50,21 +53,4 @@ class IndexFragment : AdvFragment<MainActivity, IndexViewModel>() {
      */
     override fun actionBarTitle() = getString(R.string.app_name)
     //endregion
-
-    private fun componentSetting() {
-        if (!App.isFirstTimeOpen)
-            FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener {
-                vm.addFirstSubscriber(it.token)
-                App.isFirstTimeOpen = true
-            }
-    }
-
-    private fun eventSetting() {
-        btn_next.onClick {
-            findNavController().navigate(R.id.action_nav_index_to_keyword)
-        }
-        btn_archive.onClick {
-            findNavController().navigate(R.id.action_nav_index_to_archive)
-        }
-    }
 }

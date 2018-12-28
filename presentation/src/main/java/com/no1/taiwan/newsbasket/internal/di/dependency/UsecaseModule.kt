@@ -21,7 +21,7 @@ import org.kodein.di.generic.singleton
  * To provide the necessary usecase objects for the specific activities or fragments.
  */
 object UsecaseModule {
-    fun usecaseProvider() = Module("Use Cases Module") {
+    fun usecaseProvider() = Module("Use Cases") {
         //region For Fragments
         bind<FetchRemoteNewsWrapUsecase>() with singleton { FetchRemoteNewsWrapUsecase(instance()) }
         bind<FetchLocalNewsWrapUsecase>() with singleton { FetchLocalNewsWrapUsecase(instance()) }

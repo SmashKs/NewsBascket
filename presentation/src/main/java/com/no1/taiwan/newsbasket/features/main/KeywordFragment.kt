@@ -86,15 +86,36 @@ class KeywordFragment : AdvFragment<MainActivity, KeywordViewModel>() {
     }
 
     /**
-     * Initialize method.
+     * Initialize doing some methods or actions here.
      *
-     * @param savedInstanceState before status.
+     * @param savedInstanceState previous status.
      */
     override fun rendered(savedInstanceState: Bundle?) {
-        componentSetting()
-        eventSetting()
-
         vm.fetchLocalKeywords()
+    }
+
+    /**
+     * For separating the huge function code in [rendered]. Initialize all view components here.
+     */
+    override fun viewComponentBinding() {
+        super.viewComponentBinding()
+
+        ItemTouchHelper(NewsItemTouchHelper(cast(keywordAdapter), helper)).attachToRecyclerView(rv_keywords)
+        rv_keywords.apply {
+            if (layoutManager.isNull())
+                layoutManager = linearLayout
+            if (adapter.isNull())
+                adapter = keywordAdapter
+        }
+    }
+
+    /**
+     * For separating the huge function code in [rendered]. Initialize all component listeners here.
+     */
+    override fun componentListenersBinding() {
+        fab_add.onClick {
+            createKeywordDialog()
+        }
     }
 
     /**
@@ -111,23 +132,6 @@ class KeywordFragment : AdvFragment<MainActivity, KeywordViewModel>() {
      */
     override fun actionBarTitle() = getString(R.string.title_keyword)
     //endregion
-
-    private fun componentSetting() {
-        ItemTouchHelper(NewsItemTouchHelper(cast(keywordAdapter), helper)).attachToRecyclerView(rv_keywords)
-
-        rv_keywords.apply {
-            if (layoutManager.isNull())
-                layoutManager = linearLayout
-            if (adapter.isNull())
-                adapter = keywordAdapter
-        }
-    }
-
-    private fun eventSetting() {
-        fab_add.onClick {
-            createKeywordDialog()
-        }
-    }
 
     private fun createKeywordDialog() {
         QuickDialogFragment.Builder(this) {

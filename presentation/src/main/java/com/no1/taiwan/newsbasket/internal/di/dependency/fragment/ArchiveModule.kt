@@ -31,7 +31,7 @@ object ArchiveModule {
 
         // *** Others
         bind<NewsAdapter>(NEWS_ADAPTER) with scoped(fragmentScope).singleton {
-            MultiTypeAdapter(mutableListOf(), context.requireContext())
+            MultiTypeAdapter(mutableListOf(), context.requireActivity())
         }
     }
 }
