@@ -17,6 +17,7 @@ import com.no1.taiwan.newsbasket.widget.viewmodel.ViewModelFactory
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.closestKodein
 import org.kodein.di.android.retainedKodein
+import org.kodein.di.description
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
 import org.kodein.di.generic.provider
@@ -64,9 +65,7 @@ abstract class BaseActivity : AppCompatActivity(), KodeinAware {
         componentListenersBinding()
         init(savedInstanceState)
 
-//        logw(kodein.container.tree.bindings.description())
-        logw(this)
-        logw(adapter)
+        logw(kodein.container.tree.bindings.description())
 
         // Register RxBus.
         bus.register(busEvent)

@@ -39,7 +39,7 @@ object UtilModule {
         bind<DataMapperEntry>().inSet() with provider { TokenMapper::class.java to TokenMapper() }
     }
 
-    fun presentationUtilProvider(context: Context) = Module("Presentation Utuk") {
+    fun presentationUtilProvider(context: Context) = Module("Presentation Util") {
         /** ViewModel Set for [com.no1.taiwan.newsbasket.widget.viewmodel.ViewModelFactory] */
         bind() from setBinding<ViewModelEntry>()
 

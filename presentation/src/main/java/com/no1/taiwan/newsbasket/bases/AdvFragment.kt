@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.devrapid.dialogbuilder.support.QuickDialogFragment
+import com.devrapid.kotlinknifer.logw
 import com.devrapid.kotlinshaver.cast
 import com.no1.taiwan.newsbasket.ext.const.DEFAULT_INT
 import com.no1.taiwan.newsbasket.ext.const.isDefault
@@ -57,6 +58,7 @@ abstract class AdvFragment<out A : BaseActivity, out VM : ViewModel> : BaseFragm
     //region Fragment's lifecycle.
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        logw(viewModelFactory)
         bindLiveData()
     }
     //endregion
