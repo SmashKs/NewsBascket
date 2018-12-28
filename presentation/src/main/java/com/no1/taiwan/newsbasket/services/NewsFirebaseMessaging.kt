@@ -1,5 +1,6 @@
 package com.no1.taiwan.newsbasket.services
 
+import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent.FLAG_ONE_SHOT
@@ -21,12 +22,13 @@ import com.no1.taiwan.newsbasket.domain.parameters.params.TokenParams
 import com.no1.taiwan.newsbasket.domain.usecases.KeepNewsTokenWrapUsecase
 import com.no1.taiwan.newsbasket.domain.usecases.news.AddLocalNewsWrapUsecase
 import com.no1.taiwan.newsbasket.ext.const.DEFAULT_STR
+import com.no1.taiwan.newsbasket.ext.const.Time
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.closestKodein
+import org.kodein.di.description
 import org.kodein.di.generic.instance
 import java.util.Date
-import kotlin.random.Random
 import com.no1.taiwan.newsbasket.domain.usecases.KeepNewsTokenWrapUsecase.Request as KeepNewsTokenRequest
 
 class NewsFirebaseMessaging : FirebaseMessagingService(), KodeinAware {
@@ -34,6 +36,7 @@ class NewsFirebaseMessaging : FirebaseMessagingService(), KodeinAware {
     override val kodein by closestKodein()
     private val keepTokenCase by instance<KeepNewsTokenWrapUsecase>()
     private val addNewsCase by instance<AddLocalNewsWrapUsecase>()
+    private val notificationManager by instance<NotificationManager>()
 
     override fun onNewToken(token: String) {
         super.onNewToken(token)
@@ -46,12 +49,16 @@ class NewsFirebaseMessaging : FirebaseMessagingService(), KodeinAware {
 
         // Handle data payload of FCM messages.
         remoteMessage.data?.let(::handleNotification)
+        logw(kodein.container.tree.bindings.description())
     }
 
     private fun handleNotification(data: Map<String, String>) {
         val title = data["news_title"].orEmpty()
         val content = data["news_body"].orEmpty()
         val newsUrl = data["news_url"].orEmpty()
+        val author = data["news_author"].orEmpty()
+        val publishedAt = data["published_date"].orEmpty()
+        val imageUrl = data["image_url"].orEmpty()
         val icon = R.drawable.ic_star
         val intent = Intent(Intent.ACTION_VIEW, newsUrl.toUri())
         val pendingIntent = getActivity(this, 0, intent, FLAG_ONE_SHOT)
@@ -65,31 +72,29 @@ class NewsFirebaseMessaging : FirebaseMessagingService(), KodeinAware {
             .setSound(defaultSoundUri)
             .setContentIntent(pendingIntent)
 
-        sendNotification(notificationBuilder)
+        sendNotification(Time.stringtoUnixTime(publishedAt), notificationBuilder.build())
 
         // Insert the new news into local database.
         bkg {
             addNewsCase.execute(AddLocalNewsWrapUsecase.Request(NewsParams(
-                data["news_author"].orEmpty(),
+                author,
                 content,
                 DEFAULT_STR,
                 Date().toString(),
                 DEFAULT_STR,
-                data["published_date"].orEmpty(),
+                publishedAt,
                 title,
                 Date().toString(),
                 newsUrl,
-                data["image_url"].orEmpty()).apply { logw(this) }))
+                imageUrl)))
         }
     }
 
     /**
      * Create and show a simple notification containing the received FCM message.
      */
-    private fun sendNotification(builder: NotificationCompat.Builder) {
-        val notificationId = Random.nextInt()
+    private fun sendNotification(notificationId: Long, builder: Notification) {
         val channelId = getString(R.string.gcm_defaultSenderId)
-        val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
 
         // Since android Oreo notification channel is needed.
         if (SDK_INT >= O) {
@@ -97,6 +102,6 @@ class NewsFirebaseMessaging : FirebaseMessagingService(), KodeinAware {
                 NotificationChannel(channelId, "Channel human readable title", NotificationManager.IMPORTANCE_DEFAULT)
             notificationManager.createNotificationChannel(channel)
         }
-        notificationManager.notify(notificationId, builder.build())
+        notificationManager.notify(notificationId.toInt(), builder)
     }
 }

@@ -5,7 +5,6 @@ import androidx.annotation.LayoutRes
 import androidx.annotation.UiThread
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.devrapid.kotlinknifer.logw
 import com.hwangjr.rxbus.Bus
 import com.no1.taiwan.newsbasket.components.recyclerview.MultiTypeFactory
 import com.no1.taiwan.newsbasket.internal.di.AppModule.appProvider
@@ -17,7 +16,6 @@ import com.no1.taiwan.newsbasket.widget.viewmodel.ViewModelFactory
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.closestKodein
 import org.kodein.di.android.retainedKodein
-import org.kodein.di.description
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
 import org.kodein.di.generic.provider
@@ -64,8 +62,6 @@ abstract class BaseActivity : AppCompatActivity(), KodeinAware {
         viewComponentBinding()
         componentListenersBinding()
         init(savedInstanceState)
-
-        logw(kodein.container.tree.bindings.description())
 
         // Register RxBus.
         bus.register(busEvent)
