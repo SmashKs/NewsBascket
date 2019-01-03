@@ -53,6 +53,7 @@ object Deps {
         const val stehoInterceptor = "com.facebook.stetho:stetho-okhttp3:${Versions.Database.debug}"
         const val debugDb = "com.amitshekhar.android:debug-db:${Versions.Database.debugDb}"
         const val okHttpProfiler = "com.itkacher.okhttpprofiler:okhttpprofiler:${Versions.Network.okhttpProfiler}"
+        const val activityLauncher = "io.xnc.intellij.plugin:launchanchor:${Versions.Network.activityLauncher}"
     }
     //endregion
 

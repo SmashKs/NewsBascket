@@ -107,6 +107,7 @@ object Versions {
         const val adapterCoroutine = "0.9.2"
         const val okhttp3 = "3.12.0"
         const val okhttpProfiler = "1.0.4"
+        const val activityLauncher = "1.0.2"
     }
 
     /**

@@ -178,6 +178,7 @@ dependencies {
     debugImplementation(Deps.GlobalDebug.steho)
     debugImplementation(Deps.GlobalDebug.stehoInterceptor)
     debugImplementation(Deps.GlobalDebug.debugDb)
+    debugRuntimeOnly(Deps.GlobalDebug.activityLauncher)
 
     //region Android Test
     androidTestImplementation(Deps.GlobalTest.junit)
