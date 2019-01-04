@@ -72,13 +72,15 @@ object Versions {
      * Related Firebase lib version.
      */
     object Firebase {
-        const val core = "16.0.5"
-        const val database = core
+        const val core = "16.0.6"
+        const val database = "16.0.5"
         const val auth = "16.0.3"
         const val messaging = "17.3.4"
 
         const val mlVision = "18.0.2"
         const val mlImageLabel = "17.0.2"
+
+        const val googleService = "4.2.0"
     }
 
     object TensorFlow {
@@ -105,7 +107,7 @@ object Versions {
         const val glide = "4.8.0"
         const val retrofit2 = "2.5.0"
         const val adapterCoroutine = "0.9.2"
-        const val okhttp3 = "3.12.0"
+        const val okhttp3 = "3.12.1"
         const val okhttpProfiler = "1.0.4"
         const val activityLauncher = "1.0.2"
     }
@@ -149,7 +151,7 @@ object Versions {
         const val espresso = "3.1.1"
         const val kakao = "1.4.0"
         const val powerMockito = "1.7.4"
-        const val mockitoKotlin = "2.0.0"
+        const val mockitoKotlin = "2.1.0"
         const val mockitoAndroid = "2.23.0"
         const val mockk = "v1.8.9.kotlin13"
         const val byteBuddy = "1.9.6"
