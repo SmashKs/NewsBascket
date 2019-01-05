@@ -20,8 +20,11 @@ class ArchiveViewHolder(view: View) : ArchiveVH(view), LayoutContainer {
         model.urlToImage?.takeIf(String::isNotBlank)?.let { iv_thumbnail.loadByAny(it) }
         tv_title.text = model.title
         tv_context.text = model.content
+        /** @postTo [com.no1.taiwan.newsbasket.features.main.ArchiveFragment.openBrowserAndRemoveClicked] */
         ccv_news.onClick {
-            RxBus.get().post("open browser", model.url)
+            RxBus.get().post("open browser", hashMapOf(
+                "url" to model.url,
+                "index" to position))
         }
     }
 }

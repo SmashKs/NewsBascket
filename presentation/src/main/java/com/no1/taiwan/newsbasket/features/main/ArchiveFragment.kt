@@ -89,8 +89,18 @@ class ArchiveFragment : AdvFragment<MainActivity, ArchiveViewModel>() {
     override fun actionBarTitle() = getString(R.string.title_archive)
     //endregion
 
+    /**
+     * @receiveFrom [com.no1.taiwan.newsbasket.features.main.viewholders.ArchiveViewHolder.initView]
+     */
     @Subscribe(tags = [Tag("open browser")])
-    fun openBrowser(url: String) {
+    fun openBrowserAndRemoveClicked(hashMap: HashMap<String, Any>) {
+        val url = cast<String>(hashMap["url"])
+        val newsIndex = cast<Int>(hashMap["index"])
+
+        // Start a new activity for opening the news.
         url.takeIf(String::isNotBlank)?.let { parent.startActivity(Intent(Intent.ACTION_VIEW, it.toUri()), null) }
+        // As the mean time, removing the news a user clicked from recycler view.
+        newsAdapter.dropAt(newsIndex)
+        // TODO(jieyi): 2019-01-05 Also remove the news item from the local database.
     }
 }
