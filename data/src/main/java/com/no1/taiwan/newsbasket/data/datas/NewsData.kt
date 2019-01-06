@@ -10,7 +10,7 @@ import com.no1.taiwan.newsbasket.ext.const.UniqueId
 @Entity(tableName = "table_news")
 data class NewsData(
     @PrimaryKey(autoGenerate = true)
-    val id: UniqueId = UUID.generateUniqueId(),
+    val uid: UniqueId = UUID.generateUniqueId(),
     val author: String? = DEFAULT_STR,
     val content: String? = DEFAULT_STR,
     val country: String = DEFAULT_STR,

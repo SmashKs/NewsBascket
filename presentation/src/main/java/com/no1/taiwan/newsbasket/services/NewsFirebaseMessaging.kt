@@ -64,6 +64,7 @@ class NewsFirebaseMessaging : FirebaseMessagingService(), KodeinAware {
         val pendingIntent = getActivity(this, 0, intent, FLAG_ONE_SHOT)
         val defaultSoundUri = getDefaultUri(TYPE_NOTIFICATION)
         val channelId = getString(R.string.gcm_defaultSenderId)
+        val publishAtUnixTime = Time.stringtoUnixTime(publishedAt)
         val notificationBuilder = NotificationCompat.Builder(this, channelId)
             .setSmallIcon(icon)
             .setContentTitle(title)
@@ -72,22 +73,38 @@ class NewsFirebaseMessaging : FirebaseMessagingService(), KodeinAware {
             .setSound(defaultSoundUri)
             .setContentIntent(pendingIntent)
 
-        sendNotification(Time.stringtoUnixTime(publishedAt), notificationBuilder.build())
-
-        // Insert the new news into local database.
-        bkg {
-            addNewsCase.execute(AddLocalNewsWrapUsecase.Request(NewsParams(
-                author,
-                content,
-                DEFAULT_STR,
-                Date().toString(),
-                DEFAULT_STR,
-                publishedAt,
-                title,
-                Date().toString(),
-                newsUrl,
-                imageUrl)))
+        if (!isDuplicatedNotification(publishAtUnixTime, title)) {
+            // Send a notification to Android device.
+            sendNotification(publishAtUnixTime, notificationBuilder.build())
+            // Insert the new news into local database.
+            bkg {
+                addNewsCase.execute(AddLocalNewsWrapUsecase.Request(NewsParams(
+                    author,
+                    content,
+                    DEFAULT_STR,
+                    Date().toString(),
+                    DEFAULT_STR,
+                    publishedAt,
+                    title,
+                    Date().toString(),
+                    newsUrl,
+                    imageUrl)))
+            }
         }
+    }
+
+    /**
+     * Check the received news notification is duplicated.
+     *
+     * @param publishAtUnixTime Long
+     * @param newsTitle String
+     * @return Boolean
+     */
+    private fun isDuplicatedNotification(publishAtUnixTime: Long, newsTitle: String): Boolean {
+        // Find the same id from active notifications.
+        val news = notificationManager.activeNotifications.find { it.id == publishAtUnixTime.toInt() }?.notification
+        // Check if the title is the same or not.
+        return news?.extras?.getString("android.title") == newsTitle
     }
 
     /**
@@ -102,6 +119,7 @@ class NewsFirebaseMessaging : FirebaseMessagingService(), KodeinAware {
                 NotificationChannel(channelId, "Channel human readable title", NotificationManager.IMPORTANCE_DEFAULT)
             notificationManager.createNotificationChannel(channel)
         }
+
         notificationManager.notify(notificationId.toInt(), builder)
     }
 }

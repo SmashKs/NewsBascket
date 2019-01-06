@@ -81,7 +81,7 @@ abstract class BaseFragment<out A : BaseActivity> : Fragment(), KodeinAware {
         componentListenersBinding()
         // Action for customizing.
         rendered(savedInstanceState)
-        // When the fragment has base_layout id, it'll attach the function of hiding soft keyboard.
+        // When the fragment has base_layout uid, it'll attach the function of hiding soft keyboard.
         view.findOptional<View>(R.id.base_layout)?.clickedThenHideKeyboard()
     }
     //endregion

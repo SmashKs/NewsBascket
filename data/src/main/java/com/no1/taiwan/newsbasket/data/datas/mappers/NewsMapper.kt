@@ -10,7 +10,7 @@ import com.no1.taiwan.newsbasket.domain.models.NewsModel
  */
 class NewsMapper : DataNewsMapper {
     override fun toModelFrom(data: NewsData) = data.run {
-        NewsModel(id,
+        NewsModel(uid,
                   author,
                   content,
                   country,

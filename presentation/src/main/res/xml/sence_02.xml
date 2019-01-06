@@ -10,7 +10,7 @@
         app:duration="150">
         <!--<OnClick-->
         <!--app:mode="transitionToEnd"-->
-        <!--app:target="@+id/tv_title"/>-->
+        <!--app:target="@+uid/tv_title"/>-->
     </Transition>
 
     <ConstraintSet

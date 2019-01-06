@@ -16,7 +16,7 @@ interface NewsDao {
     @Query("SELECT * FROM table_news")
     fun getAllData(): Newses
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert
     fun insertNews(news: NewsData)
 
     @Delete
