@@ -3,14 +3,14 @@ package com.no1.taiwan.newsbasket.data.datas
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
-import com.no1.taiwan.newsbasket.ext.const.DEFAULT_LONG
 import com.no1.taiwan.newsbasket.ext.const.DEFAULT_STR
+import com.no1.taiwan.newsbasket.ext.const.UUID
 import com.no1.taiwan.newsbasket.ext.const.UniqueId
 
 @Entity(tableName = "table_news")
 data class NewsData(
-    @PrimaryKey
-    var id: UniqueId = DEFAULT_LONG,
+    @PrimaryKey(autoGenerate = true)
+    val id: UniqueId = UUID.generateUniqueId(),
     val author: String? = DEFAULT_STR,
     val content: String? = DEFAULT_STR,
     val country: String = DEFAULT_STR,

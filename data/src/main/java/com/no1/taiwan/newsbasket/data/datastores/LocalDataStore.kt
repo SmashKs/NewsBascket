@@ -22,6 +22,7 @@ import com.no1.taiwan.newsbasket.domain.parameters.params.NewsParams.Companion.P
 import com.no1.taiwan.newsbasket.domain.parameters.params.TokenParams.Companion.PARAM_NAME_FIREBASE_TOKEN
 import com.no1.taiwan.newsbasket.domain.parameters.params.TokenParams.Companion.PARAM_NAME_TOKEN
 import com.no1.taiwan.newsbasket.ext.const.Constants
+import com.no1.taiwan.newsbasket.ext.const.DEFAULT_LONG
 import com.no1.taiwan.newsbasket.ext.const.DEFAULT_STR
 import com.tencent.mmkv.MMKV
 import kotlinx.coroutines.Deferred
@@ -44,7 +45,7 @@ class LocalDataStore(
 
     override fun createNews(parameters: Parameterable) = gAsync {
         parameters.toApiParam().let {
-            val news = NewsData(0,
+            val news = NewsData(DEFAULT_LONG,
                                 it[PARAM_NAME_AUTHOR].orEmpty(),
                                 it[PARAM_NAME_CONTENT].orEmpty(),
                                 it[PARAM_NAME_COUNTRY].orEmpty(),
@@ -68,7 +69,8 @@ class LocalDataStore(
 
     override fun removeNews(parameters: Parameterable) = gAsync {
         parameters.toApiParam().let {
-            val news = NewsData(0,
+            // FIXME(jieyi): 2019-01-06 always add into the same column.
+            val news = NewsData(DEFAULT_LONG,
                                 it[PARAM_NAME_AUTHOR].orEmpty(),
                                 it[PARAM_NAME_CONTENT].orEmpty(),
                                 it[PARAM_NAME_COUNTRY].orEmpty(),

@@ -95,12 +95,14 @@ class ArchiveFragment : AdvFragment<MainActivity, ArchiveViewModel>() {
     @Subscribe(tags = [Tag("open browser")])
     fun openBrowserAndRemoveClicked(hashMap: HashMap<String, Any>) {
         val url = cast<String>(hashMap["url"])
+        val title = cast<String>(hashMap["title"])
         val newsIndex = cast<Int>(hashMap["index"])
 
         // Start a new activity for opening the news.
         url.takeIf(String::isNotBlank)?.let { parent.startActivity(Intent(Intent.ACTION_VIEW, it.toUri()), null) }
         // As the mean time, removing the news a user clicked from recycler view.
         newsAdapter.dropAt(newsIndex)
-        // TODO(jieyi): 2019-01-05 Also remove the news item from the local database.
+        // Also remove the news item from the local database.
+        vm.deleteNews(title, url)
     }
 }
