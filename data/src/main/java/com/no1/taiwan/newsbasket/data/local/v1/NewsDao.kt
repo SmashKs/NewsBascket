@@ -21,6 +21,9 @@ interface NewsDao {
 
     @Delete
     fun deleteNews(news: NewsData)
+
+    @Query("DELETE FROM table_news WHERE url = :url")
+    fun deleteNewsByUrl(url: String)
     //endregion
 
     //region Operations for Keyword

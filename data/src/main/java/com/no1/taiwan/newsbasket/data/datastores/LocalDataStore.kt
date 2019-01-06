@@ -1,6 +1,7 @@
 package com.no1.taiwan.newsbasket.data.datastores
 
 import android.database.sqlite.SQLiteConstraintException
+import com.devrapid.kotlinshaver.cast
 import com.devrapid.kotlinshaver.gAsync
 import com.no1.taiwan.newsbasket.data.datas.KeywordData
 import com.no1.taiwan.newsbasket.data.datas.NewsData
@@ -69,19 +70,8 @@ class LocalDataStore(
 
     override fun removeNews(parameters: Parameterable) = gAsync {
         parameters.toApiParam().let {
-            val news = NewsData(0,
-                                it[PARAM_NAME_AUTHOR].orEmpty(),
-                                it[PARAM_NAME_CONTENT].orEmpty(),
-                                it[PARAM_NAME_COUNTRY].orEmpty(),
-                                it[PARAM_NAME_CREATED].orEmpty(),
-                                it[PARAM_NAME_DESCRIPTION].orEmpty(),
-                                it[PARAM_NAME_PUBLISHED].orEmpty(),
-                                it[PARAM_NAME_TITLE].orEmpty(),
-                                it[PARAM_NAME_UPDATED].orEmpty(),
-                                it[PARAM_NAME_URL].orEmpty(),
-                                it[PARAM_NAME_IMAGE_URL].orEmpty())
             try {
-                newsDb.deleteNews(news)
+                newsDb.deleteNewsByUrl(cast(it[PARAM_NAME_URL]))
                 true
             }
             catch (e: SQLiteConstraintException) {
