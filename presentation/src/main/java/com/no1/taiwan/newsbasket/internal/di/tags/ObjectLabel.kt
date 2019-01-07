@@ -9,4 +9,6 @@ object ObjectLabel {
 
     const val LINEAR_LAYOUT_VERTICAL = "vertical"
     const val LINEAR_LAYOUT_HORIZONTAL = "horizontal"
+
+    const val FRAGMENT = "fragment"
 }

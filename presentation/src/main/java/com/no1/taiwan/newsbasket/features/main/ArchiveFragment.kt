@@ -17,8 +17,10 @@ import com.no1.taiwan.newsbasket.components.recyclerview.MultiData
 import com.no1.taiwan.newsbasket.components.recyclerview.NewsAdapter
 import com.no1.taiwan.newsbasket.components.recyclerview.helpers.NewsItemTouchHelper
 import com.no1.taiwan.newsbasket.components.recyclerview.helpers.ViewItemTouchCallback
+import com.no1.taiwan.newsbasket.constants.RxBusConst
 import com.no1.taiwan.newsbasket.ext.observeUnboxNonNull
 import com.no1.taiwan.newsbasket.features.main.viewmodels.ArchiveViewModel
+import com.no1.taiwan.newsbasket.internal.di.tags.ObjectLabel.FRAGMENT
 import com.no1.taiwan.newsbasket.internal.di.tags.ObjectLabel.LINEAR_LAYOUT_VERTICAL
 import com.no1.taiwan.newsbasket.internal.di.tags.ObjectLabel.NEWS_ADAPTER
 import kotlinx.android.synthetic.main.fragment_archive.rv_archive_news
@@ -27,7 +29,7 @@ import org.kodein.di.generic.instance
 class ArchiveFragment : AdvFragment<MainActivity, ArchiveViewModel>() {
     private val linearLayout by instance<LinearLayoutManager>(LINEAR_LAYOUT_VERTICAL)
     private val newsAdapter by instance<NewsAdapter>(NEWS_ADAPTER)
-    private val busRegister: LifecycleObserver by instance("fragment", this)
+    private val busRegister: LifecycleObserver by instance(FRAGMENT, this)
     private val helper = object : ViewItemTouchCallback {
         override fun onItemSwiped(position: Int) {
         }
@@ -92,11 +94,11 @@ class ArchiveFragment : AdvFragment<MainActivity, ArchiveViewModel>() {
     /**
      * @receiveFrom [com.no1.taiwan.newsbasket.features.main.viewholders.ArchiveViewHolder.initView]
      */
-    @Subscribe(tags = [Tag("open browser")])
+    @Subscribe(tags = [Tag(RxBusConst.OPEN_BROWSER)])
     fun openBrowserAndRemoveClicked(hashMap: HashMap<String, Any>) {
-        val url = cast<String>(hashMap["url"])
-        val title = cast<String>(hashMap["title"])
-        val newsIndex = cast<Int>(hashMap["index"])
+        val url = cast<String>(hashMap[RxBusConst.OpenBrowser.URL])
+        val title = cast<String>(hashMap[RxBusConst.OpenBrowser.TITLE])
+        val newsIndex = cast<Int>(hashMap[RxBusConst.OpenBrowser.INDEX])
 
         // Start a new activity for opening the news.
         url.takeIf(String::isNotBlank)?.let { parent.startActivity(Intent(Intent.ACTION_VIEW, it.toUri()), null) }

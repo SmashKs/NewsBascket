@@ -26,7 +26,6 @@ import com.no1.taiwan.newsbasket.ext.const.Time
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.closestKodein
-import org.kodein.di.description
 import org.kodein.di.generic.instance
 import java.util.Date
 import com.no1.taiwan.newsbasket.domain.usecases.KeepNewsTokenWrapUsecase.Request as KeepNewsTokenRequest
@@ -49,7 +48,6 @@ class NewsFirebaseMessaging : FirebaseMessagingService(), KodeinAware {
 
         // Handle data payload of FCM messages.
         remoteMessage.data?.let(::handleNotification)
-        logw(kodein.container.tree.bindings.description())
     }
 
     private fun handleNotification(data: Map<String, String>) {

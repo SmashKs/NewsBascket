@@ -3,6 +3,7 @@ package com.no1.taiwan.newsbasket.features.main.viewholders
 import android.view.View
 import com.hwangjr.rxbus.RxBus
 import com.no1.taiwan.newsbasket.components.ArchiveVH
+import com.no1.taiwan.newsbasket.constants.RxBusConst
 import com.no1.taiwan.newsbasket.entities.NewsEntity
 import com.no1.taiwan.newsbasket.ext.loadByAny
 import kotlinx.android.extensions.LayoutContainer
@@ -23,10 +24,10 @@ class ArchiveViewHolder(view: View) : ArchiveVH(view), LayoutContainer {
 
         /** @postTo [com.no1.taiwan.newsbasket.features.main.ArchiveFragment.openBrowserAndRemoveClicked] */
         ccv_news.onClick {
-            RxBus.get().post("open browser", hashMapOf(
-                "url" to model.url,
-                "title" to model.title,
-                "index" to position))
+            RxBus.get().post(RxBusConst.OPEN_BROWSER, hashMapOf(
+                RxBusConst.OpenBrowser.URL to model.url,
+                RxBusConst.OpenBrowser.TITLE to model.title,
+                RxBusConst.OpenBrowser.INDEX to position))
         }
     }
 }
