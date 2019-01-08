@@ -38,7 +38,8 @@ class LocalDataStore(
     private val mmkv: MMKV
 ) : DataStore {
     override fun retrieveNewsData(parameters: Parameterable) = gAsync {
-        val data = newsDb.getAllData()
+        val url = parameters.toApiParam()[PARAM_NAME_URL].orEmpty()
+        val data = if (url.isBlank()) newsDb.getAllData() else newsDb.getDataByUrl(url)
 
         NewsesInfoData(data.size, results = data)
     }

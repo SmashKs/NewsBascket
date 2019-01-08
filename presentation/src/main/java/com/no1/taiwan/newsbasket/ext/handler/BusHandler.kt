@@ -27,7 +27,7 @@ class BusFragLifeRegister(fragment: Fragment) : LifecycleObserver {
     }
 }
 
-class BusActLifeRegister(private val activity: AppCompatActivity) : LifecycleObserver {
+class BusActLifeRegister(activity: AppCompatActivity) : LifecycleObserver {
     private val act by SoftRef(activity)
 
     init {

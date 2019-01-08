@@ -42,6 +42,7 @@ class ArchiveFragment : AdvFragment<MainActivity, ArchiveViewModel>() {
     /** The block of binding to [androidx.lifecycle.ViewModel]'s [androidx.lifecycle.LiveData]. */
     override fun bindLiveData() {
         observeUnboxNonNull(vm.newsLiveData) {
+            newsAdapter.clearList()
             newsAdapter.add(0, cast<MultiData>(this).toMutableList())
         }
     }
@@ -106,5 +107,13 @@ class ArchiveFragment : AdvFragment<MainActivity, ArchiveViewModel>() {
         newsAdapter.dropAt(newsIndex)
         // Also remove the news item from the local database.
         vm.deleteNews(title, url)
+    }
+
+    /**
+     *
+     */
+    @Subscribe(tags = [Tag(RxBusConst.REFRESH_ARCHIVE_LIST)])
+    fun refreshAdapter(switch: Number) {
+        vm.getAllNews()
     }
 }

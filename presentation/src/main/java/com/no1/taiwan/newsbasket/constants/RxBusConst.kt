@@ -8,4 +8,6 @@ object RxBusConst {
         const val URL = "url"
         const val INDEX = "index"
     }
+
+    const val REFRESH_ARCHIVE_LIST = "refresh archive list"
 }

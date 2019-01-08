@@ -16,6 +16,9 @@ interface NewsDao {
     @Query("SELECT * FROM table_news")
     fun getAllData(): Newses
 
+    @Query("SELECT * FROM table_news WHERE url = :url")
+    fun getDataByUrl(url: String): Newses
+
     @Insert
     fun insertNews(news: NewsData)
 

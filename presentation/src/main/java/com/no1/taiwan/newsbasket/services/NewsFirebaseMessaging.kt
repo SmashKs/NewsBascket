@@ -10,17 +10,21 @@ import android.media.RingtoneManager.TYPE_NOTIFICATION
 import android.media.RingtoneManager.getDefaultUri
 import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES.O
+import androidx.annotation.WorkerThread
 import androidx.core.app.NotificationCompat
 import androidx.core.net.toUri
 import com.devrapid.kotlinknifer.logw
 import com.devrapid.kotlinshaver.bkg
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import com.hwangjr.rxbus.RxBus
 import com.no1.taiwan.newsbasket.R
+import com.no1.taiwan.newsbasket.constants.RxBusConst
 import com.no1.taiwan.newsbasket.domain.parameters.params.NewsParams
 import com.no1.taiwan.newsbasket.domain.parameters.params.TokenParams
 import com.no1.taiwan.newsbasket.domain.usecases.KeepNewsTokenWrapUsecase
 import com.no1.taiwan.newsbasket.domain.usecases.news.AddLocalNewsWrapUsecase
+import com.no1.taiwan.newsbasket.ext.const.DEFAULT_INT
 import com.no1.taiwan.newsbasket.ext.const.DEFAULT_STR
 import com.no1.taiwan.newsbasket.ext.const.Time
 import org.kodein.di.Kodein
@@ -71,38 +75,19 @@ class NewsFirebaseMessaging : FirebaseMessagingService(), KodeinAware {
             .setSound(defaultSoundUri)
             .setContentIntent(pendingIntent)
 
-        if (!isDuplicatedNotification(publishAtUnixTime, title)) {
-            // Send a notification to Android device.
-            sendNotification(publishAtUnixTime, notificationBuilder.build())
-            // Insert the new news into local database.
-            bkg {
-                addNewsCase.execute(AddLocalNewsWrapUsecase.Request(NewsParams(
-                    author,
-                    content,
-                    DEFAULT_STR,
-                    Date().toString(),
-                    DEFAULT_STR,
-                    publishedAt,
-                    title,
-                    Date().toString(),
-                    newsUrl,
-                    imageUrl)))
-            }
-        }
-    }
-
-    /**
-     * Check the received news notification is duplicated.
-     *
-     * @param publishAtUnixTime Long
-     * @param newsTitle String
-     * @return Boolean
-     */
-    private fun isDuplicatedNotification(publishAtUnixTime: Long, newsTitle: String): Boolean {
-        // Find the same id from active notifications.
-        val news = notificationManager.activeNotifications.find { it.id == publishAtUnixTime.toInt() }?.notification
-        // Check if the title is the same or not.
-        return news?.extras?.getString("android.title") == newsTitle
+        // Send a notification to Android device.
+        sendNotification(publishAtUnixTime, notificationBuilder.build())
+        // Insert the new news into local database.
+        addNotificationIntoDatabase(NewsParams(author,
+                                               content,
+                                               DEFAULT_STR,
+                                               Date().toString(),
+                                               DEFAULT_STR,
+                                               publishedAt,
+                                               title,
+                                               Date().toString(),
+                                               newsUrl,
+                                               imageUrl))
     }
 
     /**
@@ -119,5 +104,32 @@ class NewsFirebaseMessaging : FirebaseMessagingService(), KodeinAware {
         }
 
         notificationManager.notify(notificationId.toInt(), builder)
+    }
+
+    @WorkerThread
+    private fun addNotificationIntoDatabase(parameter: NewsParams) {
+        bkg {
+            // Check is there same
+            val res = addNewsCase
+                .executeWrap(AddLocalNewsWrapUsecase.Request(parameter))
+            if (true == res.data) RxBus.get().post(RxBusConst.REFRESH_ARCHIVE_LIST, DEFAULT_INT)
+        }
+    }
+
+    /**
+     * Check the received news notification is duplicated.
+     *
+     * @Deprecated Remain this one for remaindering how to code.
+     *
+     * @param publishAtUnixTime Long
+     * @param newsTitle String
+     * @return Boolean
+     */
+    @Deprecated("We don't check duplicate notification. Instead, check the news from local database.")
+    private fun isDuplicatedNotification(publishAtUnixTime: Long, newsTitle: String): Boolean {
+        // Find the same id from active notifications.
+        val news = notificationManager.activeNotifications.find { it.id == publishAtUnixTime.toInt() }?.notification
+        // Check if the title is the same or not.
+        return news?.extras?.getString("android.title") == newsTitle
     }
 }
