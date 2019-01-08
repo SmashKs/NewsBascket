@@ -13,8 +13,11 @@ class AddSubscriberWrapUsecase(
     override var requestValues: Request? = null
 ) : DeferredWrapUsecase<TokenModel, Request>() {
     override fun acquireCase(parentJob: CoroutineContext) = attachParameter {
-        // Retrieve the firebase token first.
-        val firebaseToken = repository.fetchFirebaseToken(parentJob).await()
+        // Retrieve the firebase token first. If the first time can't get from database then from the parameter.
+        val firebaseToken = repository
+                                .fetchFirebaseToken(parentJob)
+                                .await()
+                                .takeIf(String::isNotBlank) ?: it.parameters.firebaseToken
 
         repository.addSubscriber(SubscriberFields(firebaseToken, it.parameters.keywords), parentJob)
     }
