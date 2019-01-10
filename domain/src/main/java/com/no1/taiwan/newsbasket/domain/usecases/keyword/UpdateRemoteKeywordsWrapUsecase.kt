@@ -18,8 +18,8 @@ class UpdateRemoteKeywordsWrapUsecase(
         val keywords = repository.fetchKeywords(parentJob)
 
         val parameter = KeywordsFields(
-            it.parameters.firebaseToken.takeUnlessDefault() ?: firebaseToken.await(),
             it.parameters.token.takeUnlessDefault() ?: token.await(),
+            it.parameters.firebaseToken.takeUnlessDefault() ?: firebaseToken.await(),
             it.parameters.keywords.takeUnlessDefault() ?: keywords.await().joinToString(","),
             it.parameters.removeKeyword)
 

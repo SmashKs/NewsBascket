@@ -19,9 +19,7 @@ class DeleteKeywordRespUsecase(
             gAsync {
                 try {
                     UpdateRemoteKeywordsWrapUsecase(repository,
-                                                    UpdateRemoteKeywordsRequest(
-                                                        KeywordsFields(
-                                                            removeKeyword = it.parameters.keyword)))
+                                                    UpdateRemoteKeywordsRequest(KeywordsFields(removeKeyword = it.parameters.keyword)))
                         .execute()
                 }
                 catch (e: Exception) {  // We don't care the result so any exception will go false.

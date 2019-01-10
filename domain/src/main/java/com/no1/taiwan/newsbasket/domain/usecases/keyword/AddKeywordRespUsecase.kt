@@ -23,9 +23,7 @@ class AddKeywordRespUsecase(
         // 2. Update to remote server.
         val remoteRes = try {
             // !!Fails!! Mostly, happening some Internet issues.
-            UpdateRemoteKeywordsWrapUsecase(repository,
-                                            UpdateRemoteKeywordsRequest())
-                .execute()
+            UpdateRemoteKeywordsWrapUsecase(repository, UpdateRemoteKeywordsRequest()).execute()
         }
         catch (e: Exception) {
             rollbackLocalDB(it.parameters.keyword)
