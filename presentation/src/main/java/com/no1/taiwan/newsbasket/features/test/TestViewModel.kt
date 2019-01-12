@@ -1,6 +1,7 @@
 package com.no1.taiwan.newsbasket.features.test
 
 import com.no1.taiwan.newsbasket.components.viewmodel.AutoViewModel
+import com.no1.taiwan.newsbasket.domain.parameters.params.googlenews.NewsParameter.Country.JP
 import com.no1.taiwan.newsbasket.domain.parameters.params.googlenews.TopParams
 import com.no1.taiwan.newsbasket.domain.usecases.FetchTopNewsRequest
 import com.no1.taiwan.newsbasket.domain.usecases.googlenews.FetchTopNewsWrapUsecase
@@ -18,7 +19,7 @@ class TestViewModel(
 
     fun fetchTopNews() {
         topNewses requestData {
-            fetchTopNewsWrapUsecase.toRunList(articleMapper, FetchTopNewsRequest(TopParams(country = "jp")))
+            fetchTopNewsWrapUsecase.toRunList(articleMapper, FetchTopNewsRequest(TopParams(country = JP)))
         }
     }
 }
