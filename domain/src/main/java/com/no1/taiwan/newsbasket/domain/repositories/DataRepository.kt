@@ -1,6 +1,8 @@
 package com.no1.taiwan.newsbasket.domain.repositories
 
+import com.no1.taiwan.newsbasket.domain.Articles
 import com.no1.taiwan.newsbasket.domain.Newses
+import com.no1.taiwan.newsbasket.domain.Sources
 import com.no1.taiwan.newsbasket.domain.models.TokenModel
 import com.no1.taiwan.newsbasket.domain.parameters.Parameterable
 import kotlinx.coroutines.Deferred
@@ -11,7 +13,13 @@ import kotlin.coroutines.CoroutineContext
  * Using prefix name (fetch), (add), (update), (delete), (keep)
  */
 interface DataRepository {
-    fun fetchNews(parameters: Parameterable, context: CoroutineContext): Deferred<Newses>
+    fun fetchTopNewses(parameters: Parameterable, context: CoroutineContext): Deferred<Articles>
+
+    fun fetchEverything(parameters: Parameterable, context: CoroutineContext): Deferred<Articles>
+
+    fun fetchNewsSources(parameters: Parameterable, context: CoroutineContext): Deferred<Sources>
+
+    fun fetchNewses(parameters: Parameterable, context: CoroutineContext): Deferred<Newses>
 
     fun addNews(parameters: Parameterable, context: CoroutineContext): Deferred<Boolean>
 

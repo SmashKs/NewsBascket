@@ -13,7 +13,7 @@ class FetchRemoteNewsWrapUsecase(
     override var requestValues: Request? = null
 ) : DeferredWrapUsecase<Newses, Request>() {
     override fun acquireCase(parentJob: CoroutineContext) = attachParameter {
-        repository.fetchNews(it.parameters, parentJob)
+        repository.fetchNewses(it.parameters, parentJob)
     }
 
     class Request(val parameters: NewsQueries = NewsQueries()) : RequestValues

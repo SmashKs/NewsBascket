@@ -14,7 +14,7 @@ class AddLocalNewsWrapUsecase(
     override var requestValues: Request? = null
 ) : DeferredWrapUsecase<Boolean, Request>() {
     override fun acquireCase(parentJob: CoroutineContext) = attachParameter {
-        val newses = repository.fetchNews(it.parameters, parentJob).await()
+        val newses = repository.fetchNewses(it.parameters, parentJob).await()
 
         if (newses.isEmpty())
             repository.addNews(it.parameters, parentJob)

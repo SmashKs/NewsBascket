@@ -4,7 +4,9 @@ import com.devrapid.kotlinshaver.cast
 import com.devrapid.kotlinshaver.gAsync
 import com.no1.taiwan.newsbasket.data.datas.DataMapper
 import com.no1.taiwan.newsbasket.data.datas.MapperPool
+import com.no1.taiwan.newsbasket.data.datas.mappers.ArticleMapper
 import com.no1.taiwan.newsbasket.data.datas.mappers.NewsMapper
+import com.no1.taiwan.newsbasket.data.datas.mappers.SourceMapper
 import com.no1.taiwan.newsbasket.data.datas.mappers.TokenMapper
 import com.no1.taiwan.newsbasket.data.datastores.DataStore
 import com.no1.taiwan.newsbasket.data.local.cache.AbsCache
@@ -31,10 +33,38 @@ class NewsDataRepository constructor(
     private val remote: DataStore,
     private val mapperPool: MapperPool
 ) : DataRepository {
+    //region Mapper
     private val newsMapper by lazy { digDataMapper<NewsMapper>() }
     private val tokenMapper by lazy { digDataMapper<TokenMapper>() }
+    private val articleMapper by lazy { digDataMapper<ArticleMapper>() }
+    private val sourceMapper by lazy { digDataMapper<SourceMapper>() }
+    //endregion
 
-    override fun fetchNews(parameters: Parameterable, context: CoroutineContext) = gAsync(context) {
+    override fun fetchTopNewses(parameters: Parameterable, context: CoroutineContext) = gAsync(context) {
+        val data = remote.retrieveTopNews(parameters).await()
+
+        if (0 == data.totalResults || data.message.isNotBlank())  // Fail fetching.
+            listOf()
+        else
+            data.articles.map(articleMapper::toModelFrom)
+    }
+
+    override fun fetchEverything(parameters: Parameterable, context: CoroutineContext) = gAsync(context) {
+        val data = remote.retrieveEverythingNews(parameters).await()
+
+        if (0 == data.totalResults || data.message.isNotBlank())  // Fail fetching.
+            listOf()
+        else
+            data.articles.map(articleMapper::toModelFrom)
+    }
+
+    override fun fetchNewsSources(parameters: Parameterable, context: CoroutineContext) = gAsync(context) {
+        val data = remote.retrieveNewsSources(parameters).await()
+
+        data.sources.map(sourceMapper::toModelFrom)
+    }
+
+    override fun fetchNewses(parameters: Parameterable, context: CoroutineContext) = gAsync(context) {
         val data = local.retrieveNewsData(parameters).await()
 
         if (data.count == 0) listOf() else data.results.map(newsMapper::toModelFrom)
