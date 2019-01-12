@@ -19,7 +19,7 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:label">
         <activity
-            android:name=".features.testlayout.TestActivity"
+            android:name=".features.test.TestActivity"
             android:exported="true">
         </activity>
         <activity
