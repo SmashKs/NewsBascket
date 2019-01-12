@@ -6,7 +6,7 @@ data class GoogleNewsInfoData(
     // No matter error or success, there must have [status].
     val status: String = DEFAULT_STR,
     // Success Response.
-    val articles: List<GoogleNewsArticle> = listOf(),
+    val articles: Articles = listOf(),
     val totalResults: Int = 0,
     // Failure Response.
     val code: String = DEFAULT_STR,

@@ -5,7 +5,7 @@ import com.devrapid.kotlinshaver.cast
 import com.devrapid.kotlinshaver.gAsync
 import com.no1.taiwan.newsbasket.data.datas.KeywordData
 import com.no1.taiwan.newsbasket.data.datas.NewsData
-import com.no1.taiwan.newsbasket.data.datas.NewsesInfoData
+import com.no1.taiwan.newsbasket.data.datas.RemoteNewsInfoData
 import com.no1.taiwan.newsbasket.data.local.services.NewsDatabase
 import com.no1.taiwan.newsbasket.data.local.v1.NewsDao
 import com.no1.taiwan.newsbasket.domain.parameters.Parameterable
@@ -41,7 +41,7 @@ class LocalDataStore(
         val url = parameters.toApiParam()[PARAM_NAME_URL].orEmpty()
         val data = if (url.isBlank()) newsDb.getAllData() else newsDb.getDataByUrl(url)
 
-        NewsesInfoData(data.size, results = data)
+        RemoteNewsInfoData(data.size, results = data)
     }
 
     override fun createNews(parameters: Parameterable) = gAsync {
