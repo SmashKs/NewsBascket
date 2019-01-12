@@ -29,18 +29,24 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        val (URL_SERVER, remote) = "URL_SERVER" to "remote_url"
+        val (API_REQUEST, remoteDomain) = "API_REQUEST" to "remote_api_domain"
+        val (GOOGLE_NEWS_API_KEY, apiKeyOfGoogleNews) = "GOOGLE_NEWS_API_KEY" to "google_new_api_key"
+
         getByName("release") {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), file("proguard-rules.pro"))
-            buildConfigField("String", "URL_SERVER", getProps("remote_url"))
-            buildConfigField("String", "API_REQUEST", getProps("remote_api_domain"))
+            buildConfigField("String", URL_SERVER, getProps(remote))
+            buildConfigField("String", API_REQUEST, getProps(remoteDomain))
+            buildConfigField("String", GOOGLE_NEWS_API_KEY, getProps(apiKeyOfGoogleNews))
         }
         getByName("debug") {
             isMinifyEnabled = false
             isTestCoverageEnabled = true
-            buildConfigField("String", "URL_SERVER", "\"http://${getLocalIp("en0")}:55667\"")
-//            buildConfigField("String", "URL_SERVER", getProps("remote_url"))
-            buildConfigField("String", "API_REQUEST", getProps("remote_api_domain"))
+//            buildConfigField("String", URL_SERVER, getProps(remote))
+            buildConfigField("String", URL_SERVER, "\"http://${getLocalIp("en0")}:55667\"")
+            buildConfigField("String", API_REQUEST, getProps(remoteDomain))
+            buildConfigField("String", GOOGLE_NEWS_API_KEY, getProps(apiKeyOfGoogleNews))
         }
     }
     lintOptions { isAbortOnError = false }
