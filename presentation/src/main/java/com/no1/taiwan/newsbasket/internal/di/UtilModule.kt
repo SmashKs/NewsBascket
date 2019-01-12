@@ -4,11 +4,17 @@ import android.content.Context
 import com.google.gson.FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.no1.taiwan.newsbasket.data.datas.mappers.ArticleMapper
 import com.no1.taiwan.newsbasket.data.datas.mappers.NewsMapper
+import com.no1.taiwan.newsbasket.data.datas.mappers.SourceMapper
 import com.no1.taiwan.newsbasket.data.datas.mappers.TokenMapper
+import com.no1.taiwan.newsbasket.entities.PresentationArticleMapper
 import com.no1.taiwan.newsbasket.entities.PresentationNewsMapper
+import com.no1.taiwan.newsbasket.entities.PresentationSourceMapper
 import com.no1.taiwan.newsbasket.entities.PresentationTokenMapper
+import com.no1.taiwan.newsbasket.entities.mappers.NewsArticleEntityMapper
 import com.no1.taiwan.newsbasket.entities.mappers.NewsEntityMapper
+import com.no1.taiwan.newsbasket.entities.mappers.NewsSourceEntityMapper
 import com.no1.taiwan.newsbasket.entities.mappers.TokenEntityMapper
 import org.kodein.di.Kodein.Module
 import org.kodein.di.generic.bind
@@ -37,6 +43,9 @@ object UtilModule {
         /** Data Layer Mapper */
         bind<DataMapperEntry>().inSet() with provider { NewsMapper::class.java to NewsMapper() }
         bind<DataMapperEntry>().inSet() with provider { TokenMapper::class.java to TokenMapper() }
+        // TODO(jieyi): 2019-01-12 SourceMapper should be injected.
+        bind<DataMapperEntry>().inSet() with provider { ArticleMapper::class.java to ArticleMapper(SourceMapper()) }
+        bind<DataMapperEntry>().inSet() with provider { SourceMapper::class.java to SourceMapper() }
     }
 
     fun presentationUtilProvider(context: Context) = Module("Presentation Util") {
@@ -47,5 +56,7 @@ object UtilModule {
         /** Presentation Layer Mapper */
         bind<PresentationNewsMapper>() with singleton { NewsEntityMapper() }
         bind<PresentationTokenMapper>() with singleton { TokenEntityMapper() }
+        bind<PresentationArticleMapper>() with singleton { NewsArticleEntityMapper(NewsSourceEntityMapper()) }
+        bind<PresentationSourceMapper>() with singleton { NewsSourceEntityMapper() }
     }
 }
