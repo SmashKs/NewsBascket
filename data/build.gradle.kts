@@ -1,6 +1,5 @@
 import dependenices.Deps
 import dependenices.Versions
-import dependenices.BuildSetting
 import java.net.NetworkInterface
 import java.util.Properties
 
@@ -73,6 +72,8 @@ dependencies {
         exclude(group = "org.jetbrains.kotlinx", module = "kotlinx-coroutines-core")
     }
     //endregion
+
+    implementation(Deps.Data.firebaseDB)
 }
 
 apply {

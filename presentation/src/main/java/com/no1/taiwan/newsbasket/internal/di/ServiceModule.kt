@@ -4,7 +4,10 @@ import android.content.Context
 import com.google.firebase.database.FirebaseDatabase
 import com.no1.taiwan.newsbasket.data.local.services.NewsDatabase
 import com.no1.taiwan.newsbasket.data.remote.RestfulApiFactory
+import com.no1.taiwan.newsbasket.data.remote.config.ApiConfig
+import com.no1.taiwan.newsbasket.data.remote.config.GoogleNewsConfig
 import com.no1.taiwan.newsbasket.data.remote.config.NewsConfig
+import com.no1.taiwan.newsbasket.data.remote.services.GoogleNewsService
 import com.no1.taiwan.newsbasket.data.remote.services.NewsFirebase
 import com.no1.taiwan.newsbasket.data.remote.services.NewsService
 import com.no1.taiwan.newsbasket.data.remote.v1.NewsFirebaseImpl
@@ -29,6 +32,7 @@ object ServiceModule {
         // *** For the [Remote] data module.
         import(netProvider(context))
         import(firebaseProvider())
+        import(retrofitConfigProvider())
 
         import(implementationRemoteProvider())
 
@@ -40,27 +44,41 @@ object ServiceModule {
 
     //region Remote Providers
     /**
-     * To provide the necessary objects Remote Implementation objects into the repository.
+     * To provide the necessary objects [FirebaseDatabase] into the repository.
+     */
+    private fun firebaseProvider() = Module("Firebase") {
+        bind<FirebaseDatabase>() with provider { FirebaseDatabase.getInstance() }
+    }
+
+    /**
+     * To provide the necessary objects [ApiConfig] into the repository.
+     */
+    private fun retrofitConfigProvider() = Module("Retrofit Configuration") {
+        bind<NewsConfig>() with instance(RestfulApiFactory().createNewsConfig())
+        bind<GoogleNewsConfig>() with instance(RestfulApiFactory().createGoogleNewsConfig())
+    }
+
+    /**
+     * To provide the necessary objects Remote Implementation into the repository.
      */
     private fun implementationRemoteProvider() = Module("Implementation Remote") {
-        bind<NewsConfig>() with instance(RestfulApiFactory().createNewsConfig())
         bind<NewsService>() with singleton {
             with(instance<Retrofit.Builder>()) {
                 baseUrl(instance<NewsConfig>().apiBaseUrl)
                 build()
             }.create(NewsService::class.java)
         }
-        bind<NewsFirebase>() with singleton { NewsFirebaseImpl() }
-    }
-
-    /**
-     * To provide the necessary objects [FirebaseDatabase] into the repository.
-     */
-    private fun firebaseProvider() = Module("Firebase") {
-        bind<FirebaseDatabase>() with provider { FirebaseDatabase.getInstance() }
+        bind<GoogleNewsService>() with singleton {
+            with(instance<Retrofit.Builder>()) {
+                baseUrl(instance<GoogleNewsConfig>().apiBaseUrl)
+                build()
+            }.create(GoogleNewsService::class.java)
+        }
+        bind<NewsFirebase>() with singleton { NewsFirebaseImpl(instance()) }
     }
     //endregion
 
+    //region Local Providers
     /**
      * To provide the necessary objects Local Implementation objects into the repository.
      */
@@ -70,4 +88,5 @@ object ServiceModule {
         bind<NewsDatabase>() with instance(NewsDatabase.getDatabase(context))
         bind<MMKV>() with singleton { defaultMMKV(SINGLE_PROCESS_MODE, TOKEN_PUBLIC_KEY) }
     }
+    //endregion
 }

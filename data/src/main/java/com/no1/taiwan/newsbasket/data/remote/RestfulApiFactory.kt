@@ -1,5 +1,6 @@
 package com.no1.taiwan.newsbasket.data.remote
 
+import com.no1.taiwan.newsbasket.data.remote.config.GoogleNewsConfig
 import com.no1.taiwan.newsbasket.data.remote.config.NewsConfig
 
 /**
@@ -7,4 +8,5 @@ import com.no1.taiwan.newsbasket.data.remote.config.NewsConfig
  */
 class RestfulApiFactory {
     fun createNewsConfig() = NewsConfig()
+    fun createGoogleNewsConfig() = GoogleNewsConfig()
 }
