@@ -37,6 +37,7 @@ class LocalDataStore(
     private val newsDb: NewsDao,
     private val mmkv: MMKV
 ) : DataStore {
+    //region News
     override fun retrieveNewsData(parameters: Parameterable) = gAsync {
         val url = parameters.toApiParam()[PARAM_NAME_URL].orEmpty()
         val data = if (url.isBlank()) newsDb.getAllData() else newsDb.getDataByUrl(url)
@@ -81,11 +82,9 @@ class LocalDataStore(
             }
         }
     }
+    //endregion
 
-    override fun createSubscriber(parameters: Parameterable) = throw UnsupportedOperationException()
-
-    override fun modifyKeywords(parameters: Parameterable) = throw UnsupportedOperationException()
-
+    //region Register Token
     override fun storeNewsToken(parameters: Parameterable) = gAsync {
         parameters.toApiParam().run {
             val resToken = this[PARAM_NAME_TOKEN]
@@ -104,7 +103,9 @@ class LocalDataStore(
     override fun retrieveToken() = gAsync {
         mmkv.decodeString(Constants.MmkvKey.TOKEN, DEFAULT_STR)
     }
+    //endregion
 
+    //region Keywords
     override fun retrieveKeywords() = gAsync {
         newsDb.getAllKeywords().map(KeywordData::keyword)
     }
@@ -137,4 +138,17 @@ class LocalDataStore(
 
         true
     }
+    //endregion
+
+    //region Unsupported Operation Methods
+    override fun retrieveTopNews(parameters: Parameterable) = throw UnsupportedOperationException()
+
+    override fun retrieveEverythingNews(parameters: Parameterable) = throw UnsupportedOperationException()
+
+    override fun retrieveNewsSources(parameters: Parameterable) = throw UnsupportedOperationException()
+
+    override fun createSubscriber(parameters: Parameterable) = throw UnsupportedOperationException()
+
+    override fun modifyKeywords(parameters: Parameterable) = throw UnsupportedOperationException()
+    //endregion
 }

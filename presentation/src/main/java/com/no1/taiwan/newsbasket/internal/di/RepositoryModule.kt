@@ -28,7 +28,7 @@ object RepositoryModule {
         import(serviceProvider(context))
 
         bind<AbsCache>(LOCAL) with singleton { NewsMemoryCache() }
-        bind<DataStore>(REMOTE) with singleton { RemoteDataStore(instance(), instance()) }
+        bind<DataStore>(REMOTE) with singleton { RemoteDataStore(instance(), instance(), instance()) }
         bind<DataStore>(LOCAL) with singleton {
             LocalDataStore(instance(),
                            instance<NewsDatabase>().contactsDao(),

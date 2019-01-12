@@ -1,5 +1,6 @@
 package com.no1.taiwan.newsbasket.data.datastores
 
+import com.no1.taiwan.newsbasket.data.remote.services.GoogleNewsService
 import com.no1.taiwan.newsbasket.data.remote.services.NewsFirebase
 import com.no1.taiwan.newsbasket.data.remote.services.NewsService
 import com.no1.taiwan.newsbasket.domain.parameters.Parameterable
@@ -14,14 +15,23 @@ import kotlinx.coroutines.Deferred
  */
 class RemoteDataStore(
     private val newsService: NewsService,
+    private val googleNewsService: GoogleNewsService,
     private val newsFirebase: NewsFirebase
 ) : DataStore {
+    //region Google News Service
+    override fun retrieveTopNews(parameters: Parameterable) =
+        googleNewsService.retrieveTopNews(parameters.toApiParam())
+
+    override fun retrieveEverythingNews(parameters: Parameterable) =
+        googleNewsService.retrieveEverything(parameters.toApiParam())
+
+    override fun retrieveNewsSources(parameters: Parameterable) =
+        googleNewsService.retrieveSources(parameters.toApiParam())
+    //endregion
+
     override fun retrieveNewsData(parameters: Parameterable) = newsService.retrieveNews(parameters.toApiParam())
 
-    override fun createNews(parameters: Parameterable) = throw UnsupportedOperationException()
-
-    override fun removeNews(parameters: Parameterable) = throw UnsupportedOperationException()
-
+    //region Subscribe
     override fun createSubscriber(parameters: Parameterable) = newsService.let {
         val fields = parameters.toApiParam()
 
@@ -38,6 +48,12 @@ class RemoteDataStore(
 
         it.replaceSubscriber(token, fields)
     }
+    //endregion
+
+    //region Unsupported Operation Methods
+    override fun createNews(parameters: Parameterable) = throw UnsupportedOperationException()
+
+    override fun removeNews(parameters: Parameterable) = throw UnsupportedOperationException()
 
     override fun storeNewsToken(parameters: Parameterable) = throw UnsupportedOperationException()
 
@@ -51,4 +67,5 @@ class RemoteDataStore(
 
     override fun removeKeyword(parameters: Parameterable, transactionBlock: (() -> Deferred<Boolean>)?) =
         throw UnsupportedOperationException()
+    //endregion
 }

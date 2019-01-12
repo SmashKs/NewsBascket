@@ -1,5 +1,7 @@
 package com.no1.taiwan.newsbasket.data.datastores
 
+import com.no1.taiwan.newsbasket.data.datas.GoogleNewsInfoData
+import com.no1.taiwan.newsbasket.data.datas.GoogleNewsSourceInfoData
 import com.no1.taiwan.newsbasket.data.datas.RemoteNewsInfoData
 import com.no1.taiwan.newsbasket.data.datas.TokenData
 import com.no1.taiwan.newsbasket.domain.parameters.Parameterable
@@ -10,6 +12,12 @@ import kotlinx.coroutines.Deferred
  * Using prefix name (retrieve), (create), (modify), (remove), (store)
  */
 interface DataStore {
+    fun retrieveTopNews(parameters: Parameterable): Deferred<GoogleNewsInfoData>
+
+    fun retrieveEverythingNews(parameters: Parameterable): Deferred<GoogleNewsInfoData>
+
+    fun retrieveNewsSources(parameters: Parameterable): Deferred<GoogleNewsSourceInfoData>
+
     fun retrieveNewsData(parameters: Parameterable): Deferred<RemoteNewsInfoData>
 
     fun createNews(parameters: Parameterable): Deferred<Boolean>
