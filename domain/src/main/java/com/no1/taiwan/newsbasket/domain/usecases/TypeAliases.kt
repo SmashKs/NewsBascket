@@ -1,5 +1,8 @@
 package com.no1.taiwan.newsbasket.domain.usecases
 
+import com.no1.taiwan.newsbasket.domain.usecases.googlenews.FetchEverythingWrapUsecase
+import com.no1.taiwan.newsbasket.domain.usecases.googlenews.FetchNewsSourcesWrapUsecase
+import com.no1.taiwan.newsbasket.domain.usecases.googlenews.FetchTopNewsWrapUsecase
 import com.no1.taiwan.newsbasket.domain.usecases.keyword.AddKeywordRespUsecase
 import com.no1.taiwan.newsbasket.domain.usecases.keyword.AddLocalKeywordWrapUsecase
 import com.no1.taiwan.newsbasket.domain.usecases.keyword.DeleteKeywordRespUsecase
@@ -18,3 +21,7 @@ typealias FetchLocalKeywordsRequest = FetchLocalKeywordsWrapUsecase.Request
 typealias FetchRemoteNewsRequest = FetchRemoteNewsWrapUsecase.Request
 typealias UpdateRemoteKeywordsRequest = UpdateRemoteKeywordsWrapUsecase.Request
 typealias KeepNewsTokenRequest = KeepNewsTokenWrapUsecase.Request
+
+typealias FetchTopNewsRequest = FetchTopNewsWrapUsecase.Request
+typealias FetchEverythingRequest = FetchEverythingWrapUsecase.Request
+typealias FetchNewsSourcesRequest = FetchNewsSourcesWrapUsecase.Request

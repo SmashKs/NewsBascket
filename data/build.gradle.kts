@@ -31,7 +31,7 @@ android {
     buildTypes {
         val (URL_SERVER, remote) = "URL_SERVER" to "remote_url"
         val (API_REQUEST, remoteDomain) = "API_REQUEST" to "remote_api_domain"
-        val (GOOGLE_NEWS_API_KEY, apiKeyOfGoogleNews) = "GOOGLE_NEWS_API_KEY" to "google_new_api_key"
+        val (GOOGLE_NEWS_API_KEY, apiKeyOfGoogleNews) = "GOOGLE_NEWS_API_KEY" to "google_news_api_key"
 
         getByName("release") {
             isMinifyEnabled = false

@@ -13,14 +13,14 @@ abstract class BasePagingParams : Parameterable {
         const val PARAM_Q = "q"
         const val PARAM_LANGUAGE = "language"
         const val PARAM_DOMAIN = "domain"
-        const val PARAM_EXCLUDE_DOMAIN = "exclude domain"
+        const val PARAM_EXCLUDE_DOMAIN = "excludeDomain"
         const val PARAM_FROM = "from"
         const val PARAM_TO = "to"
-        const val PARAM_SORT_BY = "sort by"
+        const val PARAM_SORT_BY = "sortBy"
         // Common Params
-        const val PARAM_PAGE_SIZE = "page size"
+        const val PARAM_PAGE_SIZE = "pageSize"
         const val PARAM_PAGE = "page"
-        const val PARAM_API_KEY = "api key"
+        const val PARAM_API_KEY = "apiKey"
     }
 
     val pageSize = DEFAULT_INT

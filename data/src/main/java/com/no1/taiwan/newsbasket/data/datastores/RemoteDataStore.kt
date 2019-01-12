@@ -1,5 +1,6 @@
 package com.no1.taiwan.newsbasket.data.datastores
 
+import com.no1.taiwan.newsbasket.data.BuildConfig
 import com.no1.taiwan.newsbasket.data.remote.services.GoogleNewsService
 import com.no1.taiwan.newsbasket.data.remote.services.NewsFirebase
 import com.no1.taiwan.newsbasket.data.remote.services.NewsService
@@ -20,13 +21,19 @@ class RemoteDataStore(
 ) : DataStore {
     //region Google News Service
     override fun retrieveTopNews(parameters: Parameterable) =
-        googleNewsService.retrieveTopNews(parameters.toApiParam())
+        googleNewsService.retrieveTopNews(parameters.toApiParam().apply {
+            put("apiKey", BuildConfig.GOOGLE_NEWS_API_KEY)
+        })
 
     override fun retrieveEverythingNews(parameters: Parameterable) =
-        googleNewsService.retrieveEverything(parameters.toApiParam())
+        googleNewsService.retrieveEverything(parameters.toApiParam().apply {
+            put("apiKey", BuildConfig.GOOGLE_NEWS_API_KEY)
+        })
 
     override fun retrieveNewsSources(parameters: Parameterable) =
-        googleNewsService.retrieveSources(parameters.toApiParam())
+        googleNewsService.retrieveSources(parameters.toApiParam().apply {
+            put("apiKey", BuildConfig.GOOGLE_NEWS_API_KEY)
+        })
     //endregion
 
     override fun retrieveNewsData(parameters: Parameterable) = newsService.retrieveNews(parameters.toApiParam())
