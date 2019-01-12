@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/base_layout"
+    style="@style/Constraint.MatchParent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".features.main.IndexFragment">
+
+    <ImageView
+        android:id="@+id/iv_cover"
+        style="@style/Constraint.MatchParent"/>
+
+    <com.no1.taiwan.newsbasket.widget.textview.FontTextView
+        android:id="@+id/ftv_news_title"
+        style="@style/Constraint.Any.MatchHorParent"
+        android:layout_marginBottom="@dimen/md_two_unit"
+        android:layout_marginEnd="@dimen/md_two_unit"
+        android:layout_marginStart="@dimen/md_two_unit"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/ftv_news_brief"
+        tools:text="We had no idea this patient was pregnant,' nurse tells 911 operator after woman in vegetative state gave birth - CNN"/>
+
+    <com.no1.taiwan.newsbasket.widget.textview.FontTextView
+        android:id="@+id/ftv_news_brief"
+        style="@style/Constraint.Any.MatchHorParent"
+        android:layout_marginBottom="@dimen/md_three_unit"
+        android:layout_marginEnd="@dimen/md_two_unit"
+        android:layout_marginStart="@dimen/md_two_unit"
+        app:layout_constraintBottom_toTopOf="@id/ftv_author"
+        tools:text="When a woman who has been in a vegetative state for years suddenly gave birth at an Arizona care facility last month, caregivers were taken completely by surprise, telling 911 dispatchers"/>
+
+    <com.no1.taiwan.newsbasket.widget.textview.FontTextView
+        android:id="@+id/ftv_author"
+        style="@style/Constraint.Wrap"
+        android:layout_margin="@dimen/md_two_unit"
+        android:drawablePadding="@dimen/md_one_unit"
+        android:drawableStart="@drawable/ic_account"
+        android:drawableTint="@color/white"
+        android:gravity="center"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="Dakin Andone, CNN"/>
+
+    <com.no1.taiwan.newsbasket.widget.textview.FontTextView
+        android:id="@+id/ftv_published_at"
+        style="@style/Constraint.Wrap"
+        android:layout_margin="@dimen/md_two_unit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="2019-01-12T11:33:00Z"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
