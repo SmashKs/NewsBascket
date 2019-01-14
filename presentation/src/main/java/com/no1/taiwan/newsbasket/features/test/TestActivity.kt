@@ -7,11 +7,11 @@ import com.no1.taiwan.newsbasket.bases.AdvActivity
 import com.no1.taiwan.newsbasket.entities.NewsArticleEntity
 import com.no1.taiwan.newsbasket.ext.loadByAny
 import com.no1.taiwan.newsbasket.ext.observeUnboxNonNull
-import kotlinx.android.synthetic.main.part_list_news.ftv_author
-import kotlinx.android.synthetic.main.part_list_news.ftv_news_brief
-import kotlinx.android.synthetic.main.part_list_news.ftv_news_title
-import kotlinx.android.synthetic.main.part_list_news.ftv_published_at
-import kotlinx.android.synthetic.main.part_list_news.iv_cover
+import kotlinx.android.synthetic.main.viewpager_news.ftv_author
+import kotlinx.android.synthetic.main.viewpager_news.ftv_news_brief
+import kotlinx.android.synthetic.main.viewpager_news.ftv_news_title
+import kotlinx.android.synthetic.main.viewpager_news.ftv_published_at
+import kotlinx.android.synthetic.main.viewpager_news.iv_cover
 
 class TestActivity : AdvActivity<TestViewModel>() {
     override fun init(savedInstanceState: Bundle?) {
@@ -22,7 +22,7 @@ class TestActivity : AdvActivity<TestViewModel>() {
         vm.fetchTopNews()
     }
 
-    override fun provideLayoutId() = R.layout.part_list_news
+    override fun provideLayoutId() = R.layout.viewpager_news
 
     private fun showAnEntity(article: NewsArticleEntity) {
         article.apply {

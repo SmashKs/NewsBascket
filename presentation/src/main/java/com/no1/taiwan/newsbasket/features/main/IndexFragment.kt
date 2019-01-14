@@ -6,8 +6,12 @@ import com.google.firebase.iid.FirebaseInstanceId
 import com.no1.taiwan.newsbasket.App
 import com.no1.taiwan.newsbasket.R
 import com.no1.taiwan.newsbasket.bases.AdvFragment
+import com.no1.taiwan.newsbasket.components.viewpager.FragmentViewPagerAdapter
+import com.no1.taiwan.newsbasket.entities.Articles
 import com.no1.taiwan.newsbasket.ext.observeUnboxNonNull
+import com.no1.taiwan.newsbasket.features.main.subfragments.ArticleFragment
 import com.no1.taiwan.newsbasket.features.main.viewmodels.IndexViewModel
+import kotlinx.android.synthetic.main.fragment_news.vp_news
 
 class IndexFragment : AdvFragment<MainActivity, IndexViewModel>() {
     //region Base build-in functions
@@ -15,6 +19,9 @@ class IndexFragment : AdvFragment<MainActivity, IndexViewModel>() {
     override fun bindLiveData() {
         observeUnboxNonNull(vm.tokenLiveData) {
             App.isFirstTimeOpen = true
+        }
+        observeUnboxNonNull(vm.topNewses) {
+            setViewPagerAdapter(this)
         }
     }
 
@@ -29,6 +36,7 @@ class IndexFragment : AdvFragment<MainActivity, IndexViewModel>() {
                 vm.addFirstSubscriber(it.token)
             }
         }
+        vm.fetchTopNews()
     }
 
     /**
@@ -57,4 +65,10 @@ class IndexFragment : AdvFragment<MainActivity, IndexViewModel>() {
      */
     override fun actionBarTitle() = getString(R.string.app_name)
     //endregion
+
+    private fun setViewPagerAdapter(articles: Articles) {
+        val adapter = FragmentViewPagerAdapter(requireFragmentManager(),
+                                               articles.map(ArticleFragment.Factory::newInstance))
+        vp_news.adapter = adapter
+    }
 }

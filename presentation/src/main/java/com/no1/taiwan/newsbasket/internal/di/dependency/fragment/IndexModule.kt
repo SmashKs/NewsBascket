@@ -12,7 +12,7 @@ object IndexModule {
     fun indexProvider() = Module("Index Fragment") {
         // *** ViewModel
         bind<ViewModelEntry>().inSet() with provider {
-            IndexViewModel::class.java to IndexViewModel(instance(), instance(), instance())
+            IndexViewModel::class.java to IndexViewModel(instance(), instance(), instance(), instance(), instance())
         }
     }
 }
