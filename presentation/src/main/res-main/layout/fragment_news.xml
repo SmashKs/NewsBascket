@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <androidx.viewpager.widget.ViewPager
+
+    <com.no1.taiwan.newsbasket.widget.viewpager.OrientViewPager
         android:id="@+id/vp_news"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
