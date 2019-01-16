@@ -7,10 +7,9 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tb_header"
-        android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
+        android:layout_width="match_parent"
         android:minHeight="?attr/actionBarSize"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="News">
-    </androidx.appcompat.widget.Toolbar>
+        app:title="News"></androidx.appcompat.widget.Toolbar>
 </merge>
