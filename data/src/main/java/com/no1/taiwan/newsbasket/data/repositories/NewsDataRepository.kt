@@ -3,7 +3,7 @@ package com.no1.taiwan.newsbasket.data.repositories
 import com.devrapid.kotlinshaver.cast
 import com.devrapid.kotlinshaver.gAsync
 import com.no1.taiwan.newsbasket.data.datas.DataMapper
-import com.no1.taiwan.newsbasket.data.datas.MapperPool
+import com.no1.taiwan.newsbasket.data.datas.DataMapperPool
 import com.no1.taiwan.newsbasket.data.datas.mappers.ArticleMapper
 import com.no1.taiwan.newsbasket.data.datas.mappers.NewsMapper
 import com.no1.taiwan.newsbasket.data.datas.mappers.SourceMapper
@@ -31,7 +31,7 @@ class NewsDataRepository constructor(
     private val cache: AbsCache,
     private val local: DataStore,
     private val remote: DataStore,
-    private val mapperPool: MapperPool
+    private val mapperPool: DataMapperPool
 ) : DataRepository {
     //region Mapper
     private val newsMapper by lazy { digDataMapper<NewsMapper>() }

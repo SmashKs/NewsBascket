@@ -1,6 +1,7 @@
 package com.no1.taiwan.newsbasket.features.main.viewholders
 
 import android.view.View
+import com.devrapid.adaptiverecyclerview.AdaptiveAdapter
 import com.hwangjr.rxbus.RxBus
 import com.no1.taiwan.newsbasket.components.ArchiveVH
 import com.no1.taiwan.newsbasket.constants.RxBusConst
@@ -17,7 +18,7 @@ class ArchiveViewHolder(view: View) : ArchiveVH(view), LayoutContainer {
     /** Returns the root holder view. */
     override val containerView get() = itemView
 
-    override fun initView(model: NewsEntity, position: Int, adapter: Any) {
+    override fun initView(model: NewsEntity, position: Int, adapter: AdaptiveAdapter<*, *, *>) {
         model.urlToImage?.takeIf(String::isNotBlank)?.let { iv_thumbnail.loadByAny(it) }
         tv_title.text = model.title
         tv_context.text = model.content

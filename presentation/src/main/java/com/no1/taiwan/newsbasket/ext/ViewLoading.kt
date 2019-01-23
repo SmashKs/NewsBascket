@@ -80,7 +80,6 @@ internal inline infix fun <D> LoadingBuilder<D>.finally(noinline completedBlock:
     this.completedBlock = completedBlock
 }
 
-
 /**
  * Execute the checking [NewsResponse]'s process with the triggering [LoadView].
  */

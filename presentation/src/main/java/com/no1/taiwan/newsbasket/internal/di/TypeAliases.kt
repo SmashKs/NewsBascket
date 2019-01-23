@@ -4,6 +4,7 @@ import android.view.View
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
 import com.no1.taiwan.newsbasket.data.datas.DataMapper
+import com.no1.taiwan.newsbasket.entities.PresentationMapper
 
 typealias ViewModelEntry = Pair<Class<out ViewModel>, ViewModel>
 typealias ViewModelEntries = Set<ViewModelEntry>
@@ -13,3 +14,6 @@ typealias ViewHolderEntries = Set<ViewHolderEntry>
 
 typealias DataMapperEntry = Pair<Class<out DataMapper>, DataMapper>
 typealias DataMapperEntries = Set<DataMapperEntry>
+
+typealias PresentationMapperEntry = Pair<Class<out PresentationMapper>, PresentationMapper>
+typealias PresentationMapperEntries = Set<PresentationMapperEntry>

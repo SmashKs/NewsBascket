@@ -5,6 +5,7 @@ import androidx.multidex.MultiDexApplication
 import com.devrapid.kotlinknifer.SharedPrefs
 import com.facebook.stetho.Stetho
 import com.no1.taiwan.newsbasket.internal.di.RepositoryModule.repositoryProvider
+import com.no1.taiwan.newsbasket.internal.di.UtilModule.dataUtilProvider
 import com.no1.taiwan.newsbasket.internal.di.UtilModule.utilProvider
 import com.no1.taiwan.newsbasket.internal.di.dependency.UsecaseModule.usecaseProvider
 import org.jetbrains.anko.defaultSharedPreferences
@@ -38,6 +39,7 @@ class App : MultiDexApplication(), KodeinAware {
         /** usecases are bind here but the scope is depending on each layers.  */
         import(usecaseProvider())
         import(repositoryProvider(app))
+        import(dataUtilProvider())
     }
 
     override fun onCreate() {

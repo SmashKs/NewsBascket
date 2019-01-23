@@ -6,6 +6,9 @@ import com.no1.taiwan.newsbasket.domain.models.NewsSourceModel
 import com.no1.taiwan.newsbasket.domain.models.TokenModel
 import com.no1.taiwan.newsbasket.entities.mappers.Mapper
 
+typealias PresentationMapper = Mapper<*, *>
+typealias PresentationMapperPool = Map<Class<out PresentationMapper>, PresentationMapper>
+
 // Mapper
 
 typealias PresentationNewsMapper = Mapper<NewsModel, NewsEntity>

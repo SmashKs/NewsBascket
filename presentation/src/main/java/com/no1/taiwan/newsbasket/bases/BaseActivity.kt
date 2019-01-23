@@ -6,7 +6,6 @@ import androidx.annotation.UiThread
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.hwangjr.rxbus.Bus
-import com.no1.taiwan.newsbasket.components.recyclerview.MultiTypeFactory
 import com.no1.taiwan.newsbasket.internal.di.AppModule.appProvider
 import com.no1.taiwan.newsbasket.internal.di.RecyclerViewModule.recyclerViewProvider
 import com.no1.taiwan.newsbasket.internal.di.UtilModule.presentationUtilProvider
@@ -30,7 +29,7 @@ abstract class BaseActivity : AppCompatActivity(), KodeinAware {
         import(appProvider())
         /** activities or fragments */
         import(presentationUtilProvider(this@BaseActivity))
-        import(recyclerViewProvider(this@BaseActivity))
+        import(recyclerViewProvider())
         /* activity specific bindings */
         import(activityModule())
 
@@ -42,15 +41,12 @@ abstract class BaseActivity : AppCompatActivity(), KodeinAware {
     protected val bus by instance<Bus>()
 
     //region RxBus Example
-    // OPTIMIZE(jieyi): 2018/04/19 This's a simple example for RxBus.
     // Register it in the parent class that it will be not reflected.
     protected var busEvent = object {
 //        @Subscribe(tags = [Tag(RxbusTag.NAVIGATOR)])
 //        fun test(test: String) { }
     }
     //endregion
-
-    private val adapter by instance<MultiTypeFactory>()
 
     //region Activity lifecycle
     override fun onCreate(savedInstanceState: Bundle?) {
