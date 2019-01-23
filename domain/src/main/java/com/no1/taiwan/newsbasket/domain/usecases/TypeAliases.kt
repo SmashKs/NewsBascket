@@ -1,27 +1,27 @@
 package com.no1.taiwan.newsbasket.domain.usecases
 
-import com.no1.taiwan.newsbasket.domain.usecases.googlenews.FetchEverythingWrapUsecase
-import com.no1.taiwan.newsbasket.domain.usecases.googlenews.FetchNewsSourcesWrapUsecase
-import com.no1.taiwan.newsbasket.domain.usecases.googlenews.FetchTopNewsWrapUsecase
+import com.no1.taiwan.newsbasket.domain.usecases.googlenews.FetchEverythingRespCase
+import com.no1.taiwan.newsbasket.domain.usecases.googlenews.FetchNewsSourcesRespCase
+import com.no1.taiwan.newsbasket.domain.usecases.googlenews.FetchTopNewsRespCase
 import com.no1.taiwan.newsbasket.domain.usecases.keyword.AddKeywordRespUsecase
-import com.no1.taiwan.newsbasket.domain.usecases.keyword.AddLocalKeywordWrapUsecase
+import com.no1.taiwan.newsbasket.domain.usecases.keyword.AddLocalKeywordRespCase
 import com.no1.taiwan.newsbasket.domain.usecases.keyword.DeleteKeywordRespUsecase
-import com.no1.taiwan.newsbasket.domain.usecases.keyword.DeleteLocalKeywordWrapUsecase
-import com.no1.taiwan.newsbasket.domain.usecases.keyword.FetchLocalKeywordsWrapUsecase
-import com.no1.taiwan.newsbasket.domain.usecases.keyword.UpdateRemoteKeywordsWrapUsecase
-import com.no1.taiwan.newsbasket.domain.usecases.news.FetchRemoteNewsWrapUsecase
+import com.no1.taiwan.newsbasket.domain.usecases.keyword.DeleteLocalKeywordRespCase
+import com.no1.taiwan.newsbasket.domain.usecases.keyword.FetchLocalKeywordsRespCase
+import com.no1.taiwan.newsbasket.domain.usecases.keyword.UpdateRemoteKeywordsRespCase
+import com.no1.taiwan.newsbasket.domain.usecases.news.FetchRemoteNewsRespCase
 
-typealias AddKeywordRequest = AddKeywordRespUsecase.Request
-typealias AddLocalKeywordRequest = AddLocalKeywordWrapUsecase.Request
-typealias AddSubscriberRequest = AddSubscriberWrapUsecase.Request
-typealias DeleteKeywordRequest = DeleteKeywordRespUsecase.Request
-typealias DeleteLocalKeywordRequest = DeleteLocalKeywordWrapUsecase.Request
-typealias FetchLocalFirebaseTokenRequest = FetchLocalFirebaseTokenWrapUsecase.Request
-typealias FetchLocalKeywordsRequest = FetchLocalKeywordsWrapUsecase.Request
-typealias FetchRemoteNewsRequest = FetchRemoteNewsWrapUsecase.Request
-typealias UpdateRemoteKeywordsRequest = UpdateRemoteKeywordsWrapUsecase.Request
-typealias KeepNewsTokenRequest = KeepNewsTokenWrapUsecase.Request
+typealias AddKeywordReq = AddKeywordRespUsecase.Request
+typealias AddLocalKeywordReq = AddLocalKeywordRespCase.Request
+typealias AddSubscriberReq = AddSubscriberRespCase.Request
+typealias DeleteKeywordReq = DeleteKeywordRespUsecase.Request
+typealias DeleteLocalKeywordReq = DeleteLocalKeywordRespCase.Request
+typealias FetchLocalFirebaseTokenReq = FetchLocalFirebaseTokenRespCase.Request
+typealias FetchLocalKeywordsReq = FetchLocalKeywordsRespCase.Request
+typealias FetchRemoteNewsReq = FetchRemoteNewsRespCase.Request
+typealias UpdateRemoteKeywordsReq = UpdateRemoteKeywordsRespCase.Request
+typealias KeepNewsTokenReq = KeepNewsTokenRespCase.Request
 
-typealias FetchTopNewsRequest = FetchTopNewsWrapUsecase.Request
-typealias FetchEverythingRequest = FetchEverythingWrapUsecase.Request
-typealias FetchNewsSourcesRequest = FetchNewsSourcesWrapUsecase.Request
+typealias FetchTopNewsReq = FetchTopNewsRespCase.Request
+typealias FetchEverythingReq = FetchEverythingRespCase.Request
+typealias FetchNewsSourcesReq = FetchNewsSourcesRespCase.Request

@@ -6,8 +6,8 @@ import com.no1.taiwan.newsbasket.domain.BaseUsecase.RequestValues
 import com.no1.taiwan.newsbasket.domain.DeferredWrapUsecase
 import com.no1.taiwan.newsbasket.domain.parameters.params.KeywordsParams
 import com.no1.taiwan.newsbasket.domain.repositories.DataRepository
-import com.no1.taiwan.newsbasket.domain.usecases.DeleteLocalKeywordRequest
-import com.no1.taiwan.newsbasket.domain.usecases.UpdateRemoteKeywordsRequest
+import com.no1.taiwan.newsbasket.domain.usecases.DeleteLocalKeywordReq
+import com.no1.taiwan.newsbasket.domain.usecases.UpdateRemoteKeywordsReq
 import kotlin.coroutines.CoroutineContext
 
 class AddKeywordRespUsecase(
@@ -23,7 +23,7 @@ class AddKeywordRespUsecase(
         // 2. Update to remote server.
         val remoteRes = try {
             // !!Fails!! Mostly, happening some Internet issues.
-            UpdateRemoteKeywordsWrapUsecase(repository, UpdateRemoteKeywordsRequest()).execute()
+            UpdateRemoteKeywordsRespCase(repository, UpdateRemoteKeywordsReq()).execute()
         }
         catch (e: Exception) {
             rollbackLocalDB(it.parameters.keyword)
@@ -47,8 +47,8 @@ class AddKeywordRespUsecase(
      */
     private fun rollbackLocalDB(keyword: String) {
         io {
-            DeleteLocalKeywordWrapUsecase(repository)
-                .execute(DeleteLocalKeywordRequest(KeywordsParams(keyword)))
+            DeleteLocalKeywordRespCase(repository)
+                .execute(DeleteLocalKeywordReq(KeywordsParams(keyword)))
         }
     }
 }

@@ -1,20 +1,20 @@
 package com.no1.taiwan.newsbasket.internal.di.dependency
 
-import com.no1.taiwan.newsbasket.domain.usecases.AddSubscriberWrapUsecase
-import com.no1.taiwan.newsbasket.domain.usecases.KeepNewsTokenWrapUsecase
-import com.no1.taiwan.newsbasket.domain.usecases.googlenews.FetchEverythingWrapUsecase
-import com.no1.taiwan.newsbasket.domain.usecases.googlenews.FetchNewsSourcesWrapUsecase
-import com.no1.taiwan.newsbasket.domain.usecases.googlenews.FetchTopNewsWrapUsecase
+import com.no1.taiwan.newsbasket.domain.usecases.AddSubscriberRespCase
+import com.no1.taiwan.newsbasket.domain.usecases.KeepNewsTokenRespCase
+import com.no1.taiwan.newsbasket.domain.usecases.googlenews.FetchEverythingRespCase
+import com.no1.taiwan.newsbasket.domain.usecases.googlenews.FetchNewsSourcesRespCase
+import com.no1.taiwan.newsbasket.domain.usecases.googlenews.FetchTopNewsRespCase
 import com.no1.taiwan.newsbasket.domain.usecases.keyword.AddKeywordRespUsecase
-import com.no1.taiwan.newsbasket.domain.usecases.keyword.AddLocalKeywordWrapUsecase
+import com.no1.taiwan.newsbasket.domain.usecases.keyword.AddLocalKeywordRespCase
 import com.no1.taiwan.newsbasket.domain.usecases.keyword.DeleteKeywordRespUsecase
-import com.no1.taiwan.newsbasket.domain.usecases.keyword.DeleteLocalKeywordWrapUsecase
-import com.no1.taiwan.newsbasket.domain.usecases.keyword.FetchLocalKeywordsWrapUsecase
-import com.no1.taiwan.newsbasket.domain.usecases.keyword.UpdateRemoteKeywordsWrapUsecase
-import com.no1.taiwan.newsbasket.domain.usecases.news.AddLocalNewsWrapUsecase
-import com.no1.taiwan.newsbasket.domain.usecases.news.DeleteLocalNewsWrapUsecase
-import com.no1.taiwan.newsbasket.domain.usecases.news.FetchLocalNewsWrapUsecase
-import com.no1.taiwan.newsbasket.domain.usecases.news.FetchRemoteNewsWrapUsecase
+import com.no1.taiwan.newsbasket.domain.usecases.keyword.DeleteLocalKeywordRespCase
+import com.no1.taiwan.newsbasket.domain.usecases.keyword.FetchLocalKeywordsRespCase
+import com.no1.taiwan.newsbasket.domain.usecases.keyword.UpdateRemoteKeywordsRespCase
+import com.no1.taiwan.newsbasket.domain.usecases.news.AddLocalNewsRespCase
+import com.no1.taiwan.newsbasket.domain.usecases.news.DeleteLocalNewsRespCase
+import com.no1.taiwan.newsbasket.domain.usecases.news.FetchLocalNewsRespCase
+import com.no1.taiwan.newsbasket.domain.usecases.news.FetchRemoteNewsRespCase
 import org.kodein.di.Kodein.Module
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
@@ -26,23 +26,23 @@ import org.kodein.di.generic.singleton
 object UsecaseModule {
     fun usecaseProvider() = Module("Use Cases") {
         //region For Fragments
-        bind<FetchTopNewsWrapUsecase>() with singleton { FetchTopNewsWrapUsecase(instance()) }
-        bind<FetchEverythingWrapUsecase>() with singleton { FetchEverythingWrapUsecase(instance()) }
-        bind<FetchNewsSourcesWrapUsecase>() with singleton { FetchNewsSourcesWrapUsecase(instance()) }
+        bind<FetchTopNewsRespCase>() with singleton { FetchTopNewsRespCase(instance()) }
+        bind<FetchEverythingRespCase>() with singleton { FetchEverythingRespCase(instance()) }
+        bind<FetchNewsSourcesRespCase>() with singleton { FetchNewsSourcesRespCase(instance()) }
 
-        bind<FetchRemoteNewsWrapUsecase>() with singleton { FetchRemoteNewsWrapUsecase(instance()) }
-        bind<FetchLocalNewsWrapUsecase>() with singleton { FetchLocalNewsWrapUsecase(instance()) }
-        bind<AddLocalNewsWrapUsecase>() with singleton { AddLocalNewsWrapUsecase(instance()) }
-        bind<DeleteLocalNewsWrapUsecase>() with singleton { DeleteLocalNewsWrapUsecase(instance()) }
+        bind<FetchRemoteNewsRespCase>() with singleton { FetchRemoteNewsRespCase(instance()) }
+        bind<FetchLocalNewsRespCase>() with singleton { FetchLocalNewsRespCase(instance()) }
+        bind<AddLocalNewsRespCase>() with singleton { AddLocalNewsRespCase(instance()) }
+        bind<DeleteLocalNewsRespCase>() with singleton { DeleteLocalNewsRespCase(instance()) }
 
-        bind<AddSubscriberWrapUsecase>() with singleton { AddSubscriberWrapUsecase(instance()) }
-        bind<UpdateRemoteKeywordsWrapUsecase>() with singleton { UpdateRemoteKeywordsWrapUsecase(instance()) }
+        bind<AddSubscriberRespCase>() with singleton { AddSubscriberRespCase(instance()) }
+        bind<UpdateRemoteKeywordsRespCase>() with singleton { UpdateRemoteKeywordsRespCase(instance()) }
 
-        bind<KeepNewsTokenWrapUsecase>() with singleton { KeepNewsTokenWrapUsecase(instance()) }
+        bind<KeepNewsTokenRespCase>() with singleton { KeepNewsTokenRespCase(instance()) }
 
-        bind<AddLocalKeywordWrapUsecase>() with singleton { AddLocalKeywordWrapUsecase(instance()) }
-        bind<DeleteLocalKeywordWrapUsecase>() with singleton { DeleteLocalKeywordWrapUsecase(instance()) }
-        bind<FetchLocalKeywordsWrapUsecase>() with singleton { FetchLocalKeywordsWrapUsecase(instance()) }
+        bind<AddLocalKeywordRespCase>() with singleton { AddLocalKeywordRespCase(instance()) }
+        bind<DeleteLocalKeywordRespCase>() with singleton { DeleteLocalKeywordRespCase(instance()) }
+        bind<FetchLocalKeywordsRespCase>() with singleton { FetchLocalKeywordsRespCase(instance()) }
         bind<AddKeywordRespUsecase>() with singleton { AddKeywordRespUsecase(instance()) }
         bind<DeleteKeywordRespUsecase>() with singleton { DeleteKeywordRespUsecase(instance()) }
         //endregion

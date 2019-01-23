@@ -22,8 +22,8 @@ import com.no1.taiwan.newsbasket.R
 import com.no1.taiwan.newsbasket.constants.RxBusConst
 import com.no1.taiwan.newsbasket.domain.parameters.params.NewsParams
 import com.no1.taiwan.newsbasket.domain.parameters.params.TokenParams
-import com.no1.taiwan.newsbasket.domain.usecases.KeepNewsTokenWrapUsecase
-import com.no1.taiwan.newsbasket.domain.usecases.news.AddLocalNewsWrapUsecase
+import com.no1.taiwan.newsbasket.domain.usecases.KeepNewsTokenRespCase
+import com.no1.taiwan.newsbasket.domain.usecases.news.AddLocalNewsRespCase
 import com.no1.taiwan.newsbasket.ext.const.DEFAULT_INT
 import com.no1.taiwan.newsbasket.ext.const.DEFAULT_STR
 import com.no1.taiwan.newsbasket.ext.const.Time
@@ -32,13 +32,13 @@ import org.kodein.di.KodeinAware
 import org.kodein.di.android.closestKodein
 import org.kodein.di.generic.instance
 import java.util.Date
-import com.no1.taiwan.newsbasket.domain.usecases.KeepNewsTokenWrapUsecase.Request as KeepNewsTokenRequest
+import com.no1.taiwan.newsbasket.domain.usecases.KeepNewsTokenRespCase.Request as KeepNewsTokenRequest
 
 class NewsFirebaseMessaging : FirebaseMessagingService(), KodeinAware {
     /** A Kodein Aware class must be within reach of a [Kodein] object. */
     override val kodein by closestKodein()
-    private val keepTokenCase by instance<KeepNewsTokenWrapUsecase>()
-    private val addNewsCase by instance<AddLocalNewsWrapUsecase>()
+    private val keepTokenCase by instance<KeepNewsTokenRespCase>()
+    private val addNewsCase by instance<AddLocalNewsRespCase>()
     private val notificationManager by instance<NotificationManager>()
 
     override fun onNewToken(token: String) {
@@ -111,7 +111,7 @@ class NewsFirebaseMessaging : FirebaseMessagingService(), KodeinAware {
         bkg {
             // Check is there same
             val res = addNewsCase
-                .executeWrap(AddLocalNewsWrapUsecase.Request(parameter))
+                .executeWrap(AddLocalNewsRespCase.Request(parameter))
             if (true == res.data) RxBus.get().post(RxBusConst.REFRESH_ARCHIVE_LIST, DEFAULT_INT)
         }
     }

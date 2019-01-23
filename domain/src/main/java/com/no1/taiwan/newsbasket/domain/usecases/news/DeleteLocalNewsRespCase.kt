@@ -5,21 +5,15 @@ import com.no1.taiwan.newsbasket.domain.DeferredWrapUsecase
 import com.no1.taiwan.newsbasket.domain.parameters.Parameterable
 import com.no1.taiwan.newsbasket.domain.parameters.params.NewsParams
 import com.no1.taiwan.newsbasket.domain.repositories.DataRepository
-import com.no1.taiwan.newsbasket.domain.usecases.news.AddLocalNewsWrapUsecase.Request
-import kotlinx.coroutines.async
+import com.no1.taiwan.newsbasket.domain.usecases.news.DeleteLocalNewsRespCase.Request
 import kotlin.coroutines.CoroutineContext
 
-class AddLocalNewsWrapUsecase(
+class DeleteLocalNewsRespCase(
     private val repository: DataRepository,
     override var requestValues: Request? = null
 ) : DeferredWrapUsecase<Boolean, Request>() {
     override fun acquireCase(parentJob: CoroutineContext) = attachParameter {
-        val newses = repository.fetchNewses(it.parameters, parentJob).await()
-
-        if (newses.isEmpty())
-            repository.addNews(it.parameters, parentJob)
-        else
-            async { false }
+        repository.deleteNews(it.parameters, parentJob)
     }
 
     class Request(val parameters: Parameterable = NewsParams()) : RequestValues

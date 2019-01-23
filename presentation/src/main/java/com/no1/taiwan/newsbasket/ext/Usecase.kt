@@ -13,36 +13,35 @@ import kotlinx.coroutines.Deferred
 
 //region Observable
 /**
- * Connected [com.no1.taiwan.newsbasket.domain.BaseUsecase] and unwrapping and letting the usecase become a await
- * [Deferred] object without the mapper (Because the
- * variables should be primitive variable).
+ * Connected [com.no1.taiwan.newsbasket.domain.BaseUsecase] and unwrapping and letting the usecase
+ * become a await [Deferred] object without the mapper (Because the variables should be primitive variable).
  *
  * @param parameter the usecase's parameter.
  */
-suspend fun <M : Any, V : RequestValues> ObservableCaseWithResponse<M, V>.toRun(
+suspend fun <M : Any, V : RequestValues> AsyncCaseWithResp<M, V>.toRun(
     parameter: V? = null
 ) = executeWrap(parameter)
 
 /**
- * Connected [ObservableUseCase] and unwrapping and letting the usecase become a await
- * [Deferred] object with the mapper.
+ * Connected [com.no1.taiwan.newsbasket.domain.DeferredWrapUsecase] and unwrapping and letting the
+ * usecase become a await [Deferred] object with the mapper.
  *
  * @param mapper the mapper for translating from [Model] to [Entity].
  * @param parameter the usecase's parameter.
  */
-suspend fun <M : Model, E : Entity, V : RequestValues> ObservableCaseWithResponse<M, V>.toRun(
+suspend fun <M : Model, E : Entity, V : RequestValues> AsyncCaseWithResp<M, V>.toRun(
     mapper: Mapper<M, E>,
     parameter: V? = null
 ) = executeWrap(parameter).run { mapToEntity(mapper) }
 
 /**
- * Connected [ObservableUseCase] and unwrapping and letting the usecase become a await
- * [Deferred] object. with the mapper.
+ * Connected [com.no1.taiwan.newsbasket.domain.DeferredWrapUsecase] and unwrapping and letting the
+ * usecase become a await [Deferred] object. with the mapper.
  *
  * @param mapper the mapper for translating from List<[Model]> to List<[Entity]>.
  * @param parameter the usecase's parameter.
  */
-suspend fun <M : Model, E : Entity, V : RequestValues, MS : List<M>> ObservableCaseWithResponse<MS, V>.toRunList(
+suspend fun <M : Model, E : Entity, V : RequestValues, MS : List<M>> AsyncCaseWithResp<MS, V>.toRunList(
     mapper: Mapper<M, E>,
     parameter: V? = null
 ) = executeWrap(parameter).run { mapToEntities(mapper) }

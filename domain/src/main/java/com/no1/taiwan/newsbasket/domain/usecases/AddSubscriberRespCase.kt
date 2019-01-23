@@ -5,10 +5,10 @@ import com.no1.taiwan.newsbasket.domain.DeferredWrapUsecase
 import com.no1.taiwan.newsbasket.domain.models.TokenModel
 import com.no1.taiwan.newsbasket.domain.parameters.fields.SubscriberFields
 import com.no1.taiwan.newsbasket.domain.repositories.DataRepository
-import com.no1.taiwan.newsbasket.domain.usecases.AddSubscriberWrapUsecase.Request
+import com.no1.taiwan.newsbasket.domain.usecases.AddSubscriberRespCase.Request
 import kotlin.coroutines.CoroutineContext
 
-class AddSubscriberWrapUsecase(
+class AddSubscriberRespCase(
     private val repository: DataRepository,
     override var requestValues: Request? = null
 ) : DeferredWrapUsecase<TokenModel, Request>() {

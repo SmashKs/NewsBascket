@@ -1,19 +1,19 @@
-package com.no1.taiwan.newsbasket.domain.usecases.keyword
+package com.no1.taiwan.newsbasket.domain.usecases
 
 import com.no1.taiwan.newsbasket.domain.BaseUsecase.RequestValues
 import com.no1.taiwan.newsbasket.domain.DeferredWrapUsecase
-import com.no1.taiwan.newsbasket.domain.parameters.params.KeywordsParams
+import com.no1.taiwan.newsbasket.domain.parameters.params.TokenParams
 import com.no1.taiwan.newsbasket.domain.repositories.DataRepository
-import com.no1.taiwan.newsbasket.domain.usecases.keyword.AddLocalKeywordWrapUsecase.Request
+import com.no1.taiwan.newsbasket.domain.usecases.KeepNewsTokenRespCase.Request
 import kotlin.coroutines.CoroutineContext
 
-class AddLocalKeywordWrapUsecase(
+class KeepNewsTokenRespCase(
     private val repository: DataRepository,
     override var requestValues: Request? = null
 ) : DeferredWrapUsecase<Boolean, Request>() {
     override fun acquireCase(parentJob: CoroutineContext) = attachParameter {
-        repository.addKeyword(it.parameters, parentJob)
+        repository.keepNewsToken(it.parameters, parentJob)
     }
 
-    class Request(val parameters: KeywordsParams = KeywordsParams()) : RequestValues
+    class Request(val parameters: TokenParams = TokenParams()) : RequestValues
 }

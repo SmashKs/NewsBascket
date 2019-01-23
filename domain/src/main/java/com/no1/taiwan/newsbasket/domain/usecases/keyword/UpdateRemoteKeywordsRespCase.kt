@@ -4,11 +4,11 @@ import com.no1.taiwan.newsbasket.domain.BaseUsecase.RequestValues
 import com.no1.taiwan.newsbasket.domain.DeferredWrapUsecase
 import com.no1.taiwan.newsbasket.domain.parameters.fields.KeywordsFields
 import com.no1.taiwan.newsbasket.domain.repositories.DataRepository
-import com.no1.taiwan.newsbasket.domain.usecases.keyword.UpdateRemoteKeywordsWrapUsecase.Request
+import com.no1.taiwan.newsbasket.domain.usecases.keyword.UpdateRemoteKeywordsRespCase.Request
 import com.no1.taiwan.newsbasket.ext.const.takeUnlessDefault
 import kotlin.coroutines.CoroutineContext
 
-class UpdateRemoteKeywordsWrapUsecase(
+class UpdateRemoteKeywordsRespCase(
     private val repository: DataRepository,
     override var requestValues: Request? = null
 ) : DeferredWrapUsecase<Boolean, Request>() {

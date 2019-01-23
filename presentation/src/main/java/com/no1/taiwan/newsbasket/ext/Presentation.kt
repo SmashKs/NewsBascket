@@ -8,18 +8,18 @@ import com.no1.taiwan.newsbasket.domain.NewsResponse.Success
 import kotlinx.coroutines.CoroutineScope
 
 /**
- * A transformer wrapper for encapsulating the [ResponseMutableLiveData]'s state
+ * A transformer wrapper for encapsulating the [RespMutableLiveData]'s state
  * changing and the state becomes [Success] when retrieving a data from Data layer by Kotlin coroutine.
  *
  * Also, unboxing the [NewsResponse] and obtaining the data inside of the [NewsResponse], then return the
- * data to [ResponseMutableLiveData].
+ * data to [RespMutableLiveData].
  */
-suspend fun <E, R> ResponseMutableLiveData<R>.requestDataMap(
+suspend fun <E, R> RespMutableLiveData<R>.reqDataMap(
     usecaseRes: suspend CoroutineScope.() -> NewsResponse<E>,
     transformBlock: (E) -> R
-) = preProcess {
+) = preProc {
     // Fetching the data from the data layer.
-    postValue(tryResponse {
+    postValue(tryResp {
         val entity = usecaseRes()
 
         entity.data?.let(transformBlock)?.let { Success(it) } ?: Error<R>(msg = "Don't have any response.")
@@ -27,19 +27,19 @@ suspend fun <E, R> ResponseMutableLiveData<R>.requestDataMap(
 }
 
 /**
- * A transformer wrapper for encapsulating the [ResponseMutableLiveData]'s state
+ * A transformer wrapper for encapsulating the [RespMutableLiveData]'s state
  * changing and the state becomes [Success] when retrieving a data from Data layer by Kotlin coroutine.
  */
-infix fun <E> ResponseMutableLiveData<E>.requestData(usecaseRes: suspend CoroutineScope.() -> NewsResponse<E>) =
-    preProcess {
+infix fun <E> RespMutableLiveData<E>.reqData(usecaseRes: suspend CoroutineScope.() -> NewsResponse<E>) =
+    preProc {
         // Fetching the data from the data layer.
-        postValue(tryResponse { usecaseRes() })
+        postValue(tryResp { usecaseRes() })
     }
 
 /**
  * Pre-process does that showing the loading view.
  */
-private fun <E> ResponseMutableLiveData<E>.preProcess(block: suspend CoroutineScope.() -> Unit) = gLaunch {
+private fun <E> RespMutableLiveData<E>.preProc(block: suspend CoroutineScope.() -> Unit) = gLaunch {
     apply {
         // Opening the loading view.
         postValue(Loading())
@@ -51,7 +51,7 @@ private fun <E> ResponseMutableLiveData<E>.preProcess(block: suspend CoroutineSc
 /**
  * Wrapping the `try catch` and ignoring the return value.
  */
-private inline fun <E> tryResponse(block: () -> NewsResponse<E>) = try {
+private inline fun <E> tryResp(block: () -> NewsResponse<E>) = try {
     block()
 }
 catch (e: Exception) {

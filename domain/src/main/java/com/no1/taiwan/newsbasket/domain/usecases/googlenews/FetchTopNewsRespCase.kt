@@ -6,10 +6,10 @@ import com.no1.taiwan.newsbasket.domain.DeferredWrapUsecase
 import com.no1.taiwan.newsbasket.domain.parameters.Parameterable
 import com.no1.taiwan.newsbasket.domain.parameters.params.googlenews.TopParams
 import com.no1.taiwan.newsbasket.domain.repositories.DataRepository
-import com.no1.taiwan.newsbasket.domain.usecases.googlenews.FetchTopNewsWrapUsecase.Request
+import com.no1.taiwan.newsbasket.domain.usecases.googlenews.FetchTopNewsRespCase.Request
 import kotlin.coroutines.CoroutineContext
 
-class FetchTopNewsWrapUsecase(
+class FetchTopNewsRespCase(
     private val repository: DataRepository,
     override var requestValues: Request? = null
 ) : DeferredWrapUsecase<Articles, Request>() {
