@@ -3,7 +3,7 @@ package com.no1.taiwan.newsbasket.features.main.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.devrapid.kotlinshaver.cast
-import com.devrapid.kotlinshaver.ui
+import com.devrapid.kotlinshaver.gLaunch
 import com.no1.taiwan.newsbasket.components.viewmodel.AutoViewModel
 import com.no1.taiwan.newsbasket.domain.parameters.fields.SubscriberFields
 import com.no1.taiwan.newsbasket.domain.parameters.params.TokenParams
@@ -42,22 +42,16 @@ class IndexViewModel(
     private val tokenMapper by lazy { cast<TokenEntityMapper>(mapperPool[TokenEntityMapper::class.java]) }
     private val articleMapper by lazy { cast<NewsArticleEntityMapper>(mapperPool[NewsArticleEntityMapper::class.java]) }
 
-    fun addFirstSubscriber(firebaseToken: Token) {
-        _tokenLiveData requestData {
-            addSubscriberUsecase.toRun(tokenMapper, AddSubscriberRequest(SubscriberFields(firebaseToken)))
-        }
+    fun addFirstSubscriber(firebaseToken: Token) = _tokenLiveData requestData {
+        addSubscriberUsecase.toRun(tokenMapper, AddSubscriberRequest(SubscriberFields(firebaseToken)))
     }
 
-    fun keepNewsToken(entity: TokenEntity) {
-        ui {
-            _resLiveData.value = keepNewsTokenWrapUsecase
-                .execute(KeepNewsTokenRequest(TokenParams(entity.token, entity.firebaseToken)))
-        }
+    fun keepNewsToken(entity: TokenEntity) = gLaunch {
+        _resLiveData.postValue(keepNewsTokenWrapUsecase.execute(KeepNewsTokenRequest(TokenParams(entity.token,
+                                                                                                 entity.firebaseToken))))
     }
 
-    fun fetchTopNews() {
-        _topNewses requestData {
-            fetchTopNewsWrapUsecase.toRunList(articleMapper, FetchTopNewsRequest(TopParams(country = JP)))
-        }
+    fun fetchTopNews() = _topNewses requestData {
+        fetchTopNewsWrapUsecase.toRunList(articleMapper, FetchTopNewsRequest(TopParams(country = JP)))
     }
 }

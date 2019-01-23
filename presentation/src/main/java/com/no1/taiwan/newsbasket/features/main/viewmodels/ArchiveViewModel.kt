@@ -24,12 +24,11 @@ class ArchiveViewModel(
     private val _deleteResult by lazy { ResponseMutableLiveData<Boolean>() }
     private val newsMapper by lazy { cast<NewsEntityMapper>(mapperPool[NewsEntityMapper::class.java]) }
 
-    fun getAllNews() =
-        _newsLiveData requestData { fetchNewsCase.toRunList(newsMapper, FetchLocalNewsWrapUsecase.Request()) }
+    fun getAllNews() = _newsLiveData requestData {
+        fetchNewsCase.toRunList(newsMapper, FetchLocalNewsWrapUsecase.Request())
+    }
 
-    fun deleteNews(title: String, url: String) =
-        _deleteResult requestData {
-            deleteNewsCase.toRun(DeleteLocalNewsWrapUsecase.Request(NewsParams(title = title,
-                                                                               url = url)))
-        }
+    fun deleteNews(title: String, url: String) = _deleteResult requestData {
+        deleteNewsCase.toRun(DeleteLocalNewsWrapUsecase.Request(NewsParams(title = title, url = url)))
+    }
 }

@@ -5,8 +5,6 @@ import com.no1.taiwan.newsbasket.domain.NewsResponse
 import com.no1.taiwan.newsbasket.domain.NewsResponse.Error
 import com.no1.taiwan.newsbasket.domain.NewsResponse.Loading
 import com.no1.taiwan.newsbasket.domain.NewsResponse.Success
-import com.no1.taiwan.newsbasket.domain.NewsResponse.Translating
-import com.no1.taiwan.newsbasket.entities.Entity
 import kotlinx.coroutines.CoroutineScope
 
 /**
@@ -38,19 +36,8 @@ infix fun <E> ResponseMutableLiveData<E>.requestData(usecaseRes: suspend Corouti
         postValue(tryResponse { usecaseRes() })
     }
 
-// TODO(jieyi): 2018/09/12 Finish the map extensions.
 /**
- * A transformer wrapper for encapsulating the [ResponseMutableLiveData]'s state
- * changing and the state becomes [Success] when retrieving a data from Data layer by Kotlin coroutine.
- */
-infix fun <E : Entity> ResponseMutableLiveData<E>.requestDataTo(usecaseRes: suspend CoroutineScope.() -> NewsResponse<E>) =
-    preProcess {
-        // Fetching the data from the data layer.
-        postValue(Translating<E, Any>(tryResponse { usecaseRes() }.data))
-    }
-
-/**
- * Pre-process doing the loading view.
+ * Pre-process does that showing the loading view.
  */
 private fun <E> ResponseMutableLiveData<E>.preProcess(block: suspend CoroutineScope.() -> Unit) = gLaunch {
     apply {

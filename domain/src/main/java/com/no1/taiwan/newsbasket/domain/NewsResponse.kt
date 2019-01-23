@@ -21,11 +21,6 @@ sealed class NewsResponse<T> constructor(val data: T? = null) {
     class Success<T>(data: T? = null) : NewsResponse<T>(data)
 
     /**
-     * A request success in translating getting a result from a remote/local service.
-     */
-    class Translating<T, R>(data: T? = null, var newData: R? = null) : NewsResponse<T>(data)
-
-    /**
      * A request sent then a remote/local service has happened an error.
      */
     class Error<T>(data: T? = null, val msg: String = DEFAULT_STR) : NewsResponse<T>(data)

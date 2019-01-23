@@ -20,9 +20,7 @@ class TestViewModel(
     private val articleMapper by lazy { cast<NewsArticleEntityMapper>(mapperPool[NewsArticleEntityMapper::class.java]) }
     val topNewses by lazy { ResponseMutableLiveData<Articles>() }
 
-    fun fetchTopNews() {
-        topNewses requestData {
-            fetchTopNewsWrapUsecase.toRunList(articleMapper, FetchTopNewsRequest(TopParams(country = JP)))
-        }
+    fun fetchTopNews() = topNewses requestData {
+        fetchTopNewsWrapUsecase.toRunList(articleMapper, FetchTopNewsRequest(TopParams(country = JP)))
     }
 }

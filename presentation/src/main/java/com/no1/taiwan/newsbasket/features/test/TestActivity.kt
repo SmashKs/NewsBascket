@@ -31,7 +31,6 @@ class TestActivity : AdvActivity<TestViewModel>() {
         }
 //        vm.fetchTopNews()
 //        cv_card.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
-
     }
 
     /**
