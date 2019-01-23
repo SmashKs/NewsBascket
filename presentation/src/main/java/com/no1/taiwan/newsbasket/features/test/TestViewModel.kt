@@ -10,7 +10,7 @@ import com.no1.taiwan.newsbasket.entities.Articles
 import com.no1.taiwan.newsbasket.entities.PresentationMapperPool
 import com.no1.taiwan.newsbasket.entities.mappers.NewsArticleEntityMapper
 import com.no1.taiwan.newsbasket.ext.RespMutableLiveData
-import com.no1.taiwan.newsbasket.ext.reqData
+import com.no1.taiwan.newsbasket.ext.reqDataWrap
 import com.no1.taiwan.newsbasket.ext.toRunList
 
 class TestViewModel(
@@ -20,7 +20,7 @@ class TestViewModel(
     private val articleMapper by lazy { cast<NewsArticleEntityMapper>(mapperPool[NewsArticleEntityMapper::class.java]) }
     val topNewses by lazy { RespMutableLiveData<Articles>() }
 
-    fun fetchTopNews() = topNewses reqData {
+    fun fetchTopNews() = topNewses reqDataWrap {
         fetchTopNewsRespCase.toRunList(articleMapper, FetchTopNewsReq(TopParams(country = JP)))
     }
 }

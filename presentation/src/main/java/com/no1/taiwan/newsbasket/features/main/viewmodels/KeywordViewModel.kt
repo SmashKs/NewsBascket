@@ -11,7 +11,7 @@ import com.no1.taiwan.newsbasket.domain.usecases.keyword.FetchLocalKeywordsRespC
 import com.no1.taiwan.newsbasket.domain.usecases.keyword.UpdateRemoteKeywordsRespCase
 import com.no1.taiwan.newsbasket.ext.RespLiveData
 import com.no1.taiwan.newsbasket.ext.RespMutableLiveData
-import com.no1.taiwan.newsbasket.ext.reqData
+import com.no1.taiwan.newsbasket.ext.reqDataWrap
 import com.no1.taiwan.newsbasket.ext.toRun
 
 class KeywordViewModel(
@@ -27,16 +27,16 @@ class KeywordViewModel(
     private val _removeResLiveData by lazy { RespMutableLiveData<Boolean>() }
     val removeResLiveData: RespLiveData<Boolean> = _removeResLiveData
 
-    fun fetchLocalKeywords() = _keywordsLiveData reqData {
+    fun fetchLocalKeywords() = _keywordsLiveData reqDataWrap {
         fetchLocalCase.execute()
         fetchLocalCase.toRun(FetchLocalKeywordsReq())
     }
 
-    fun storeKeyword(keyword: String) = _storeResLiveData reqData {
+    fun storeKeyword(keyword: String) = _storeResLiveData reqDataWrap {
         addKeywordCase.toRun(AddKeywordReq(KeywordsParams(keyword)))
     }
 
-    fun removeKeyword(keyword: String) = _removeResLiveData reqData {
+    fun removeKeyword(keyword: String) = _removeResLiveData reqDataWrap {
         mix.toRun(DeleteKeywordReq(KeywordsParams(keyword)))
     }
 }

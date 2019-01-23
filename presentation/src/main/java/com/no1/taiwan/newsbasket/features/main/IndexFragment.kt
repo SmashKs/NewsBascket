@@ -3,12 +3,14 @@ package com.no1.taiwan.newsbasket.features.main
 import android.os.Bundle
 import androidx.annotation.LayoutRes
 import androidx.navigation.fragment.findNavController
+import com.devrapid.kotlinknifer.logw
 import com.google.firebase.iid.FirebaseInstanceId
 import com.no1.taiwan.newsbasket.App
 import com.no1.taiwan.newsbasket.R
 import com.no1.taiwan.newsbasket.bases.AdvFragment
 import com.no1.taiwan.newsbasket.components.viewpager.FragmentViewPagerAdapter
 import com.no1.taiwan.newsbasket.entities.Articles
+import com.no1.taiwan.newsbasket.ext.observe
 import com.no1.taiwan.newsbasket.ext.observeUnboxNonNull
 import com.no1.taiwan.newsbasket.features.main.subfragments.ArticleFragment
 import com.no1.taiwan.newsbasket.features.main.viewmodels.IndexViewModel
@@ -31,7 +33,10 @@ class IndexFragment : AdvFragment<MainActivity, IndexViewModel>() {
             App.isFirstTimeOpen = true
         }
         observeUnboxNonNull(vm.topNewses) {
-            setViewPagerAdapter(this)
+            //            setViewPagerAdapter(this)
+        }
+        observe(vm.topNewses) {
+            logw(this)
         }
     }
 
@@ -47,6 +52,7 @@ class IndexFragment : AdvFragment<MainActivity, IndexViewModel>() {
             }
         }
 //        vm.fetchTopNews()
+        vm.test()
     }
 
     /**

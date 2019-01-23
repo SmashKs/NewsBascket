@@ -8,6 +8,7 @@ import com.no1.taiwan.newsbasket.components.viewmodel.AutoViewModel
 import com.no1.taiwan.newsbasket.domain.parameters.fields.SubscriberFields
 import com.no1.taiwan.newsbasket.domain.parameters.params.TokenParams
 import com.no1.taiwan.newsbasket.domain.parameters.params.googlenews.NewsParameter.Country.JP
+import com.no1.taiwan.newsbasket.domain.parameters.params.googlenews.NewsParameter.Country.US
 import com.no1.taiwan.newsbasket.domain.parameters.params.googlenews.TopParams
 import com.no1.taiwan.newsbasket.domain.usecases.AddSubscriberReq
 import com.no1.taiwan.newsbasket.domain.usecases.AddSubscriberRespCase
@@ -24,8 +25,9 @@ import com.no1.taiwan.newsbasket.ext.RespLiveData
 import com.no1.taiwan.newsbasket.ext.RespMutableLiveData
 import com.no1.taiwan.newsbasket.ext.const.Token
 import com.no1.taiwan.newsbasket.ext.reqData
+import com.no1.taiwan.newsbasket.ext.reqDataWrap
+import com.no1.taiwan.newsbasket.ext.toRaws
 import com.no1.taiwan.newsbasket.ext.toRun
-import com.no1.taiwan.newsbasket.ext.toRunList
 
 class IndexViewModel(
     private val addSubscriberUsecase: AddSubscriberRespCase,
@@ -42,7 +44,7 @@ class IndexViewModel(
     private val tokenMapper by lazy { cast<TokenEntityMapper>(mapperPool[TokenEntityMapper::class.java]) }
     private val articleMapper by lazy { cast<NewsArticleEntityMapper>(mapperPool[NewsArticleEntityMapper::class.java]) }
 
-    fun addFirstSubscriber(firebaseToken: Token) = _tokenLiveData reqData {
+    fun addFirstSubscriber(firebaseToken: Token) = _tokenLiveData reqDataWrap {
         addSubscriberUsecase.toRun(tokenMapper, AddSubscriberReq(SubscriberFields(firebaseToken)))
     }
 
@@ -52,14 +54,14 @@ class IndexViewModel(
     }
 
     fun fetchTopNews() = _topNewses reqData {
-        fetchTopNewsRespCase.toRunList(articleMapper, FetchTopNewsReq(TopParams(country = JP)))
+        fetchTopNewsRespCase.toRaws(articleMapper, FetchTopNewsReq(TopParams(country = JP)))
     }
 
     fun test() {
-        val d = MutableLiveData<Any>()
-        gLaunch {
-            val a = fetchTopNewsRespCase.execute()
-            d.postValue(a)
+        _topNewses.reqData {
+            fetchTopNewsRespCase.toRaws(articleMapper, FetchTopNewsReq(TopParams(country = US)))
+                .subList(0, 3)
+                .filter { it.author.isNotBlank() }
         }
     }
 }

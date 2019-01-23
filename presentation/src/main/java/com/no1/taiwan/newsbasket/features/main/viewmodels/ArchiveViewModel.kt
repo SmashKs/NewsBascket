@@ -10,7 +10,7 @@ import com.no1.taiwan.newsbasket.entities.PresentationMapperPool
 import com.no1.taiwan.newsbasket.entities.mappers.NewsEntityMapper
 import com.no1.taiwan.newsbasket.ext.RespLiveData
 import com.no1.taiwan.newsbasket.ext.RespMutableLiveData
-import com.no1.taiwan.newsbasket.ext.reqData
+import com.no1.taiwan.newsbasket.ext.reqDataWrap
 import com.no1.taiwan.newsbasket.ext.toRun
 import com.no1.taiwan.newsbasket.ext.toRunList
 
@@ -24,11 +24,11 @@ class ArchiveViewModel(
     private val _deleteResult by lazy { RespMutableLiveData<Boolean>() }
     private val newsMapper by lazy { cast<NewsEntityMapper>(mapperPool[NewsEntityMapper::class.java]) }
 
-    fun getAllNews() = _newsLiveData reqData {
+    fun getAllNews() = _newsLiveData reqDataWrap {
         fetchNewsCase.toRunList(newsMapper, FetchLocalNewsRespCase.Request())
     }
 
-    fun deleteNews(title: String, url: String) = _deleteResult reqData {
+    fun deleteNews(title: String, url: String) = _deleteResult reqDataWrap {
         deleteNewsCase.toRun(DeleteLocalNewsRespCase.Request(NewsParams(title = title, url = url)))
     }
 }
