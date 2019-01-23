@@ -27,6 +27,7 @@ import com.no1.taiwan.newsbasket.ext.observeNonNull
 import com.no1.taiwan.newsbasket.ext.peel
 import com.no1.taiwan.newsbasket.ext.peelSkipLoading
 import com.no1.taiwan.newsbasket.features.main.viewmodels.KeywordViewModel
+import com.no1.taiwan.newsbasket.internal.di.dependency.fragment.KeywordModule
 import com.no1.taiwan.newsbasket.internal.di.tags.ObjectLabel.KEYWORD_ADAPTER
 import com.no1.taiwan.newsbasket.internal.di.tags.ObjectLabel.LINEAR_LAYOUT_VERTICAL
 import kotlinx.android.synthetic.main.dialog_input_keyword.view.btn_send
@@ -35,9 +36,14 @@ import kotlinx.android.synthetic.main.fragment_keyword.fab_add
 import kotlinx.android.synthetic.main.fragment_keyword.rv_keywords
 import org.jetbrains.anko.sdk25.coroutines.onClick
 import org.jetbrains.anko.sdk25.coroutines.onKey
+import org.kodein.di.Kodein.Companion.lazy
 import org.kodein.di.generic.instance
 
 class KeywordFragment : AdvFragment<MainActivity, KeywordViewModel>() {
+    override val kodein = lazy {
+        extend(super.kodein)
+        import(KeywordModule.keywordProvider())
+    }
     private val linearLayout by instance<LinearLayoutManager>(LINEAR_LAYOUT_VERTICAL)
     private val keywordAdapter by instance<NewsAdapter>(KEYWORD_ADAPTER)
     private val dupKeywords = mutableListOf<String>()

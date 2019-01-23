@@ -38,7 +38,6 @@ abstract class BaseActivity : AppCompatActivity(), KodeinAware {
             ViewModelFactory(instance(), instance<ViewModelEntries>().toMap().toMutableMap())
         }
     }
-    // OPTIMIZE(jieyi): 2018/11/21 This might reduce some redundant injected objects.
     private val parentKodein by closestKodein()
     protected val bus by instance<Bus>()
 

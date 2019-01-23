@@ -20,13 +20,19 @@ import com.no1.taiwan.newsbasket.components.recyclerview.helpers.ViewItemTouchCa
 import com.no1.taiwan.newsbasket.constants.RxBusConst
 import com.no1.taiwan.newsbasket.ext.observeUnboxNonNull
 import com.no1.taiwan.newsbasket.features.main.viewmodels.ArchiveViewModel
+import com.no1.taiwan.newsbasket.internal.di.dependency.fragment.ArchiveModule
 import com.no1.taiwan.newsbasket.internal.di.tags.ObjectLabel.FRAGMENT
 import com.no1.taiwan.newsbasket.internal.di.tags.ObjectLabel.LINEAR_LAYOUT_VERTICAL
 import com.no1.taiwan.newsbasket.internal.di.tags.ObjectLabel.NEWS_ADAPTER
 import kotlinx.android.synthetic.main.fragment_archive.rv_archive_news
+import org.kodein.di.Kodein
 import org.kodein.di.generic.instance
 
 class ArchiveFragment : AdvFragment<MainActivity, ArchiveViewModel>() {
+    override val kodein = Kodein.lazy {
+        extend(super.kodein)
+        import(ArchiveModule.archiveProvider())
+    }
     private val linearLayout by instance<LinearLayoutManager>(LINEAR_LAYOUT_VERTICAL)
     private val newsAdapter by instance<NewsAdapter>(NEWS_ADAPTER)
     private val busRegister: LifecycleObserver by instance(FRAGMENT, this)

@@ -15,7 +15,7 @@ import com.devrapid.kotlinknifer.hideSoftKeyboard
 import com.devrapid.kotlinshaver.castOrNull
 import com.no1.taiwan.newsbasket.R
 import com.no1.taiwan.newsbasket.ext.handler.BusFragLifeRegister
-import com.no1.taiwan.newsbasket.internal.di.dependency.fragment.SuperFragmentModule.fragmentModule
+import com.no1.taiwan.newsbasket.internal.di.dependency.fragment.SuperFragmentModule
 import com.no1.taiwan.newsbasket.internal.di.tags.ObjectLabel.FRAGMENT
 import org.jetbrains.anko.findOptional
 import org.jetbrains.anko.sdk25.coroutines.onClick
@@ -34,7 +34,7 @@ abstract class BaseFragment<out A : BaseActivity> : Fragment(), KodeinAware {
     override val kodein = lazy {
         extend(parentKodein)
         /* fragment specific bindings */
-        import(fragmentModule())
+        import(SuperFragmentModule.fragmentModule())
         bind<LifecycleObserver>(FRAGMENT) with multiton { fragment: Fragment -> BusFragLifeRegister(fragment) }
     }
     @Suppress("UNCHECKED_CAST")

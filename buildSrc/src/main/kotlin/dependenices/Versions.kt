@@ -40,7 +40,7 @@ object Versions {
      * Related view component lib version.
      */
     object ViewComponent {
-        const val adaptiveRecyclerView = "1.0.6"
+        const val adaptiveRecyclerView = "1.0.7"
         const val shapeOfView = "1.4.6"
     }
 
@@ -51,8 +51,8 @@ object Versions {
         const val dex = "2.0.1"
         const val anko = "0.10.8"
         const val ktx = "1.1.0-alpha03"
-        const val kinfer = "2.1.2"
-        const val shaver = "1.1.2"
+        const val kinfer = "2.1.4"
+        const val shaver = "1.1.4"
     }
 
     object AndroidArchitectureComponent {
@@ -97,7 +97,7 @@ object Versions {
     object Database {
         const val debug = "1.5.0"
         const val debugDb = "1.0.4"
-        const val mmkv = "1.0.15"
+        const val mmkv = "1.0.16"
     }
 
     /**
@@ -146,7 +146,7 @@ object Versions {
      */
     object Test {
         const val jUnit = "1.1.0"
-        const val assertK = "0.12"
+        const val assertK = "0.13"
         const val runner = "1.1.1"
         const val espresso = "3.1.1"
         const val kakao = "1.4.0"
@@ -154,7 +154,7 @@ object Versions {
         const val mockitoKotlin = "2.1.0"
         const val mockitoAndroid = "2.23.0"
         const val mockk = "v1.8.9.kotlin13"
-        const val byteBuddy = "1.9.6"
+        const val byteBuddy = "1.9.7"
 
     }
 

@@ -11,4 +11,6 @@ object ObjectLabel {
     const val LINEAR_LAYOUT_HORIZONTAL = "horizontal"
 
     const val FRAGMENT = "fragment"
+
+    const val UTIL_DIFF_KEYWORD = "recycler diff util keyword"
 }

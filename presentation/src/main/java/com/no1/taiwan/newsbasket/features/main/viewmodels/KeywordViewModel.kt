@@ -28,7 +28,10 @@ class KeywordViewModel(
     val removeResLiveData: ResponseLiveData<Boolean> = _removeResLiveData
 
     fun fetchLocalKeywords() {
-        _keywordsLiveData requestData { fetchLocalCase.toRun(FetchLocalKeywordsRequest()) }
+        _keywordsLiveData requestData {
+            fetchLocalCase.execute()
+            fetchLocalCase.toRun(FetchLocalKeywordsRequest())
+        }
     }
 
     fun storeKeyword(keyword: String) {

@@ -1,6 +1,6 @@
 package com.no1.taiwan.newsbasket.ext
 
-import com.devrapid.kotlinshaver.ui
+import com.devrapid.kotlinshaver.gLaunch
 import com.no1.taiwan.newsbasket.domain.NewsResponse
 import com.no1.taiwan.newsbasket.domain.NewsResponse.Error
 import com.no1.taiwan.newsbasket.domain.NewsResponse.Loading
@@ -16,16 +16,16 @@ import kotlinx.coroutines.CoroutineScope
  * Also, unboxing the [NewsResponse] and obtaining the data inside of the [NewsResponse], then return the
  * data to [ResponseMutableLiveData].
  */
-fun <E, R> ResponseMutableLiveData<R>.requestDataMap(
+suspend fun <E, R> ResponseMutableLiveData<R>.requestDataMap(
     usecaseRes: suspend CoroutineScope.() -> NewsResponse<E>,
     transformBlock: (E) -> R
 ) = preProcess {
     // Fetching the data from the data layer.
-    value = tryResponse {
+    postValue(tryResponse {
         val entity = usecaseRes()
 
         entity.data?.let(transformBlock)?.let { Success(it) } ?: Error<R>(msg = "Don't have any response.")
-    }
+    })
 }
 
 /**
@@ -35,7 +35,7 @@ fun <E, R> ResponseMutableLiveData<R>.requestDataMap(
 infix fun <E> ResponseMutableLiveData<E>.requestData(usecaseRes: suspend CoroutineScope.() -> NewsResponse<E>) =
     preProcess {
         // Fetching the data from the data layer.
-        value = tryResponse { usecaseRes() }
+        postValue(tryResponse { usecaseRes() })
     }
 
 // TODO(jieyi): 2018/09/12 Finish the map extensions.
@@ -46,16 +46,16 @@ infix fun <E> ResponseMutableLiveData<E>.requestData(usecaseRes: suspend Corouti
 infix fun <E : Entity> ResponseMutableLiveData<E>.requestDataTo(usecaseRes: suspend CoroutineScope.() -> NewsResponse<E>) =
     preProcess {
         // Fetching the data from the data layer.
-        value = Translating<E, Any>(tryResponse { usecaseRes() }.data)
+        postValue(Translating<E, Any>(tryResponse { usecaseRes() }.data))
     }
 
 /**
  * Pre-process doing the loading view.
  */
-private fun <E> ResponseMutableLiveData<E>.preProcess(block: suspend CoroutineScope.() -> Unit) = apply {
-    ui {
+private fun <E> ResponseMutableLiveData<E>.preProcess(block: suspend CoroutineScope.() -> Unit) = gLaunch {
+    apply {
         // Opening the loading view.
-        value = Loading()
+        postValue(Loading())
         // Fetching the data from the data layer.
         block()
     }
