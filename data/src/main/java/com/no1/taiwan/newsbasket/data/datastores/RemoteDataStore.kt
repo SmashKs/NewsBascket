@@ -8,7 +8,6 @@ import com.no1.taiwan.newsbasket.domain.parameters.Parameterable
 import com.no1.taiwan.newsbasket.domain.parameters.fields.KeywordsFields.Companion.PARAM_NAME_TOKEN
 import com.no1.taiwan.newsbasket.domain.parameters.fields.SubscriberFields.Companion.PARAM_NAME_KEYWORDS
 import com.no1.taiwan.newsbasket.ext.const.DEFAULT_STR
-import kotlinx.coroutines.Deferred
 
 /**
  * The implementation of the remote data store. The responsibility is selecting a correct
@@ -20,59 +19,60 @@ class RemoteDataStore(
     private val newsFirebase: NewsFirebase
 ) : DataStore {
     //region Google News Service
-    override fun retrieveTopNews(parameters: Parameterable) =
+    override suspend fun retrieveTopNews(parameters: Parameterable) =
         googleNewsService.retrieveTopNews(parameters.toApiParam().apply {
             put("apiKey", BuildConfig.GOOGLE_NEWS_API_KEY)
-        })
+        }).await()
 
-    override fun retrieveEverythingNews(parameters: Parameterable) =
+    override suspend fun retrieveEverythingNews(parameters: Parameterable) =
         googleNewsService.retrieveEverything(parameters.toApiParam().apply {
             put("apiKey", BuildConfig.GOOGLE_NEWS_API_KEY)
-        })
+        }).await()
 
-    override fun retrieveNewsSources(parameters: Parameterable) =
+    override suspend fun retrieveNewsSources(parameters: Parameterable) =
         googleNewsService.retrieveSources(parameters.toApiParam().apply {
             put("apiKey", BuildConfig.GOOGLE_NEWS_API_KEY)
-        })
+        }).await()
     //endregion
 
-    override fun retrieveNewsData(parameters: Parameterable) = newsService.retrieveNews(parameters.toApiParam())
+    override suspend fun retrieveNewsData(parameters: Parameterable) =
+        newsService.retrieveNews(parameters.toApiParam()).await()
 
     //region Subscribe
-    override fun createSubscriber(parameters: Parameterable) = newsService.let {
+    override suspend fun createSubscriber(parameters: Parameterable) = newsService.let {
         val fields = parameters.toApiParam()
 
         if (fields[PARAM_NAME_KEYWORDS] == DEFAULT_STR)
             fields.remove(PARAM_NAME_KEYWORDS)
 
         it.newSubscriber(fields)
-    }
+    }.await()
 
-    override fun modifyKeywords(parameters: Parameterable) = newsService.let {
+    override suspend fun modifyKeywords(parameters: Parameterable) = newsService.let {
         // Separate the queries and fields variables.
         val fields = parameters.toApiParam().apply { remove(PARAM_NAME_TOKEN) }
         val token = parameters.toApiParam()[PARAM_NAME_TOKEN].orEmpty()  // For the query parameter.
 
         it.replaceSubscriber(token, fields)
-    }
+    }.await()
     //endregion
 
     //region Unsupported Operation Methods
-    override fun createNews(parameters: Parameterable) = throw UnsupportedOperationException()
+    override suspend fun createNews(parameters: Parameterable) = throw UnsupportedOperationException()
 
-    override fun removeNews(parameters: Parameterable) = throw UnsupportedOperationException()
+    override suspend fun removeNews(parameters: Parameterable) = throw UnsupportedOperationException()
 
-    override fun storeNewsToken(parameters: Parameterable) = throw UnsupportedOperationException()
+    override suspend fun storeNewsToken(parameters: Parameterable) = throw UnsupportedOperationException()
 
-    override fun retrieveFirebaseToken() = throw UnsupportedOperationException()
+    override suspend fun retrieveFirebaseToken() = throw UnsupportedOperationException()
 
-    override fun retrieveToken() = throw UnsupportedOperationException()
+    override suspend fun retrieveToken() = throw UnsupportedOperationException()
 
-    override fun retrieveKeywords() = throw UnsupportedOperationException()
+    override suspend fun retrieveKeywords() = throw UnsupportedOperationException()
 
-    override fun createKeyword(parameters: Parameterable) = throw UnsupportedOperationException()
+    override suspend fun createKeyword(parameters: Parameterable) = throw UnsupportedOperationException()
 
-    override fun removeKeyword(parameters: Parameterable, transactionBlock: (() -> Deferred<Boolean>)?) =
+    override suspend fun removeKeyword(parameters: Parameterable, transactionBlock: (() -> Boolean)?) =
         throw UnsupportedOperationException()
     //endregion
 }

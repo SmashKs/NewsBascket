@@ -1,6 +1,6 @@
 package com.no1.taiwan.newsbasket.features.main.viewmodels
 
-import com.no1.taiwan.newsbasket.components.viewmodel.AutoViewModel
+import androidx.lifecycle.ViewModel
 import com.no1.taiwan.newsbasket.domain.parameters.params.KeywordsParams
 import com.no1.taiwan.newsbasket.domain.usecases.AddKeywordReq
 import com.no1.taiwan.newsbasket.domain.usecases.DeleteKeywordReq
@@ -11,15 +11,15 @@ import com.no1.taiwan.newsbasket.domain.usecases.keyword.FetchLocalKeywordsRespC
 import com.no1.taiwan.newsbasket.domain.usecases.keyword.UpdateRemoteKeywordsRespCase
 import com.no1.taiwan.newsbasket.ext.RespLiveData
 import com.no1.taiwan.newsbasket.ext.RespMutableLiveData
-import com.no1.taiwan.newsbasket.ext.reqDataWrap
-import com.no1.taiwan.newsbasket.ext.toRun
+import com.no1.taiwan.newsbasket.ext.exec
+import com.no1.taiwan.newsbasket.ext.reqData
 
 class KeywordViewModel(
     private val fetchLocalCase: FetchLocalKeywordsRespCase,
     private val updateRemoteCase: UpdateRemoteKeywordsRespCase,
     private val addKeywordCase: AddKeywordRespUsecase,
     private val mix: DeleteKeywordRespUsecase
-) : AutoViewModel() {
+) : ViewModel() {
     private val _keywordsLiveData by lazy { RespMutableLiveData<List<String>>() }
     val keywordsLiveData: RespLiveData<List<String>> = _keywordsLiveData
     private val _storeResLiveData by lazy { RespMutableLiveData<Boolean>() }
@@ -27,16 +27,16 @@ class KeywordViewModel(
     private val _removeResLiveData by lazy { RespMutableLiveData<Boolean>() }
     val removeResLiveData: RespLiveData<Boolean> = _removeResLiveData
 
-    fun fetchLocalKeywords() = _keywordsLiveData reqDataWrap {
+    fun fetchLocalKeywords() = _keywordsLiveData reqData {
         fetchLocalCase.execute()
-        fetchLocalCase.toRun(FetchLocalKeywordsReq())
+        fetchLocalCase.exec(FetchLocalKeywordsReq())
     }
 
-    fun storeKeyword(keyword: String) = _storeResLiveData reqDataWrap {
-        addKeywordCase.toRun(AddKeywordReq(KeywordsParams(keyword)))
+    fun storeKeyword(keyword: String) = _storeResLiveData reqData {
+        addKeywordCase.exec(AddKeywordReq(KeywordsParams(keyword)))
     }
 
-    fun removeKeyword(keyword: String) = _removeResLiveData reqDataWrap {
-        mix.toRun(DeleteKeywordReq(KeywordsParams(keyword)))
+    fun removeKeyword(keyword: String) = _removeResLiveData reqData {
+        mix.exec(DeleteKeywordReq(KeywordsParams(keyword)))
     }
 }

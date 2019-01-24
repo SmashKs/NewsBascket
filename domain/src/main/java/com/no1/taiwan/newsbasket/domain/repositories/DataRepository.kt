@@ -5,43 +5,40 @@ import com.no1.taiwan.newsbasket.domain.Newses
 import com.no1.taiwan.newsbasket.domain.Sources
 import com.no1.taiwan.newsbasket.domain.models.TokenModel
 import com.no1.taiwan.newsbasket.domain.parameters.Parameterable
-import kotlinx.coroutines.Deferred
-import kotlin.coroutines.CoroutineContext
 
 /**
  * This interface will be the similar to [com.no1.taiwan.newsbasket.data.datastores.DataStore].
  * Using prefix name (fetch), (add), (update), (delete), (keep)
  */
 interface DataRepository {
-    fun fetchTopNewses(parameters: Parameterable, context: CoroutineContext): Deferred<Articles>
+    suspend fun fetchTopNewses(parameters: Parameterable): Articles
 
-    fun fetchEverything(parameters: Parameterable, context: CoroutineContext): Deferred<Articles>
+    suspend fun fetchEverything(parameters: Parameterable): Articles
 
-    fun fetchNewsSources(parameters: Parameterable, context: CoroutineContext): Deferred<Sources>
+    suspend fun fetchNewsSources(parameters: Parameterable): Sources
 
-    fun fetchNewses(parameters: Parameterable, context: CoroutineContext): Deferred<Newses>
+    suspend fun fetchNewses(parameters: Parameterable): Newses
 
-    fun addNews(parameters: Parameterable, context: CoroutineContext): Deferred<Boolean>
+    suspend fun addNews(parameters: Parameterable): Boolean
 
-    fun deleteNews(parameters: Parameterable, context: CoroutineContext): Deferred<Boolean>
+    suspend fun deleteNews(parameters: Parameterable): Boolean
 
-    fun addSubscriber(parameters: Parameterable, context: CoroutineContext): Deferred<TokenModel>
+    suspend fun addSubscriber(parameters: Parameterable): TokenModel
 
-    fun updateKeywords(parameters: Parameterable, context: CoroutineContext): Deferred<Boolean>
+    suspend fun updateKeywords(parameters: Parameterable): Boolean
 
-    fun keepNewsToken(parameters: Parameterable, context: CoroutineContext): Deferred<Boolean>
+    suspend fun keepNewsToken(parameters: Parameterable): Boolean
 
-    fun fetchFirebaseToken(context: CoroutineContext): Deferred<String>
+    suspend fun fetchFirebaseToken(): String
 
-    fun fetchToken(context: CoroutineContext): Deferred<String>
+    suspend fun fetchToken(): String
 
-    fun fetchKeywords(context: CoroutineContext): Deferred<List<String>>
+    suspend fun fetchKeywords(): List<String>
 
-    fun addKeyword(parameters: Parameterable, context: CoroutineContext): Deferred<Boolean>
+    suspend fun addKeyword(parameters: Parameterable): Boolean
 
-    fun deleteKeyword(
+    suspend fun deleteKeyword(
         parameters: Parameterable,
-        context: CoroutineContext,
-        transactionBlock: (() -> Deferred<Boolean>)? = null
-    ): Deferred<Boolean>
+        transactionBlock: (() -> Boolean)? = null
+    ): Boolean
 }

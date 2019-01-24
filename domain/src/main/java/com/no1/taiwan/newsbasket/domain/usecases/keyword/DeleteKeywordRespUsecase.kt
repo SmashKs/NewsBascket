@@ -1,30 +1,29 @@
 package com.no1.taiwan.newsbasket.domain.usecases.keyword
 
-import com.devrapid.kotlinshaver.gAsync
 import com.no1.taiwan.newsbasket.domain.BaseUsecase.RequestValues
-import com.no1.taiwan.newsbasket.domain.DeferredWrapUsecase
+import com.no1.taiwan.newsbasket.domain.DeferredUsecase
 import com.no1.taiwan.newsbasket.domain.parameters.fields.KeywordsFields
 import com.no1.taiwan.newsbasket.domain.parameters.params.KeywordsParams
 import com.no1.taiwan.newsbasket.domain.repositories.DataRepository
 import com.no1.taiwan.newsbasket.domain.usecases.UpdateRemoteKeywordsReq
 import com.no1.taiwan.newsbasket.domain.usecases.keyword.DeleteKeywordRespUsecase.Request
-import kotlin.coroutines.CoroutineContext
+import kotlinx.coroutines.runBlocking
 
 class DeleteKeywordRespUsecase(
     private val repository: DataRepository,
     override var requestValues: Request? = null
-) : DeferredWrapUsecase<Boolean, Request>() {
-    override fun acquireCase(parentJob: CoroutineContext) = attachParameter {
-        repository.deleteKeyword(it.parameters, parentJob) {
-            gAsync {
-                try {
+) : DeferredUsecase<Boolean, Request>() {
+    override suspend fun acquireCase() = attachParameter {
+        repository.deleteKeyword(it.parameters) {
+            try {
+                runBlocking {
                     UpdateRemoteKeywordsRespCase(repository,
                                                  UpdateRemoteKeywordsReq(KeywordsFields(removeKeyword = it.parameters.keyword)))
                         .execute()
                 }
-                catch (e: Exception) {  // We don't care the result so any exception will go false.
-                    false
-                }
+            }
+            catch (e: Exception) {  // We don't care the result so any exception will go false.
+                false
             }
         }
     }

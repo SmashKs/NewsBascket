@@ -2,13 +2,12 @@ package com.no1.taiwan.newsbasket.features.main.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.devrapid.kotlinshaver.cast
 import com.devrapid.kotlinshaver.gLaunch
-import com.no1.taiwan.newsbasket.components.viewmodel.AutoViewModel
 import com.no1.taiwan.newsbasket.domain.parameters.fields.SubscriberFields
 import com.no1.taiwan.newsbasket.domain.parameters.params.TokenParams
 import com.no1.taiwan.newsbasket.domain.parameters.params.googlenews.NewsParameter.Country.JP
-import com.no1.taiwan.newsbasket.domain.parameters.params.googlenews.NewsParameter.Country.US
 import com.no1.taiwan.newsbasket.domain.parameters.params.googlenews.TopParams
 import com.no1.taiwan.newsbasket.domain.usecases.AddSubscriberReq
 import com.no1.taiwan.newsbasket.domain.usecases.AddSubscriberRespCase
@@ -24,17 +23,16 @@ import com.no1.taiwan.newsbasket.entities.mappers.TokenEntityMapper
 import com.no1.taiwan.newsbasket.ext.RespLiveData
 import com.no1.taiwan.newsbasket.ext.RespMutableLiveData
 import com.no1.taiwan.newsbasket.ext.const.Token
+import com.no1.taiwan.newsbasket.ext.execListMapping
+import com.no1.taiwan.newsbasket.ext.execMapping
 import com.no1.taiwan.newsbasket.ext.reqData
-import com.no1.taiwan.newsbasket.ext.reqDataWrap
-import com.no1.taiwan.newsbasket.ext.toRaws
-import com.no1.taiwan.newsbasket.ext.toRun
 
 class IndexViewModel(
     private val addSubscriberUsecase: AddSubscriberRespCase,
     private val keepNewsTokenRespCase: KeepNewsTokenRespCase,
     private val fetchTopNewsRespCase: FetchTopNewsRespCase,
     private val mapperPool: PresentationMapperPool
-) : AutoViewModel() {
+) : ViewModel() {
     private val _tokenLiveData by lazy { RespMutableLiveData<TokenEntity>() }
     val tokenLiveData: RespLiveData<TokenEntity> = _tokenLiveData
     private val _resLiveData by lazy { MutableLiveData<Boolean>() }
@@ -44,8 +42,8 @@ class IndexViewModel(
     private val tokenMapper by lazy { cast<TokenEntityMapper>(mapperPool[TokenEntityMapper::class.java]) }
     private val articleMapper by lazy { cast<NewsArticleEntityMapper>(mapperPool[NewsArticleEntityMapper::class.java]) }
 
-    fun addFirstSubscriber(firebaseToken: Token) = _tokenLiveData reqDataWrap {
-        addSubscriberUsecase.toRun(tokenMapper, AddSubscriberReq(SubscriberFields(firebaseToken)))
+    fun addFirstSubscriber(firebaseToken: Token) = _tokenLiveData reqData {
+        addSubscriberUsecase.execMapping(tokenMapper, AddSubscriberReq(SubscriberFields(firebaseToken)))
     }
 
     fun keepNewsToken(entity: TokenEntity) = gLaunch {
@@ -54,14 +52,6 @@ class IndexViewModel(
     }
 
     fun fetchTopNews() = _topNewses reqData {
-        fetchTopNewsRespCase.toRaws(articleMapper, FetchTopNewsReq(TopParams(country = JP)))
-    }
-
-    fun test() {
-        _topNewses.reqData {
-            fetchTopNewsRespCase.toRaws(articleMapper, FetchTopNewsReq(TopParams(country = US)))
-                .subList(0, 3)
-                .filter { it.author.isNotBlank() }
-        }
+        fetchTopNewsRespCase.execListMapping(articleMapper, FetchTopNewsReq(TopParams(country = JP)))
     }
 }

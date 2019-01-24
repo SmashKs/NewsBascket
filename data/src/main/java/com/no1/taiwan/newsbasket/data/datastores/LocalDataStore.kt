@@ -2,7 +2,6 @@ package com.no1.taiwan.newsbasket.data.datastores
 
 import android.database.sqlite.SQLiteConstraintException
 import com.devrapid.kotlinshaver.cast
-import com.devrapid.kotlinshaver.gAsync
 import com.no1.taiwan.newsbasket.data.datas.KeywordData
 import com.no1.taiwan.newsbasket.data.datas.NewsData
 import com.no1.taiwan.newsbasket.data.datas.RemoteNewsInfoData
@@ -25,8 +24,6 @@ import com.no1.taiwan.newsbasket.domain.parameters.params.TokenParams.Companion.
 import com.no1.taiwan.newsbasket.ext.const.Constants
 import com.no1.taiwan.newsbasket.ext.const.DEFAULT_STR
 import com.tencent.mmkv.MMKV
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.runBlocking
 
 /**
  * The implementation of the local data store. The responsibility is selecting a correct
@@ -38,14 +35,14 @@ class LocalDataStore(
     private val mmkv: MMKV
 ) : DataStore {
     //region News
-    override fun retrieveNewsData(parameters: Parameterable) = gAsync {
+    override suspend fun retrieveNewsData(parameters: Parameterable) = let {
         val url = parameters.toApiParam()[PARAM_NAME_URL].orEmpty()
         val data = if (url.isBlank()) newsDb.getAllData() else newsDb.getDataByUrl(url)
 
         RemoteNewsInfoData(data.size, results = data)
     }
 
-    override fun createNews(parameters: Parameterable) = gAsync {
+    override suspend fun createNews(parameters: Parameterable) = let {
         parameters.toApiParam().let {
             val news = NewsData(0,
                                 it[PARAM_NAME_AUTHOR].orEmpty(),
@@ -70,7 +67,7 @@ class LocalDataStore(
         }
     }
 
-    override fun removeNews(parameters: Parameterable) = gAsync {
+    override suspend fun removeNews(parameters: Parameterable) = let {
         parameters.toApiParam().let {
             try {
                 newsDb.deleteNewsByUrl(cast(it[PARAM_NAME_URL]))
@@ -85,7 +82,7 @@ class LocalDataStore(
     //endregion
 
     //region Register Token
-    override fun storeNewsToken(parameters: Parameterable) = gAsync {
+    override suspend fun storeNewsToken(parameters: Parameterable) = let {
         parameters.toApiParam().run {
             val resToken = this[PARAM_NAME_TOKEN]
                                ?.let { mmkv.encode(Constants.MmkvKey.TOKEN, it) } ?: false
@@ -96,21 +93,21 @@ class LocalDataStore(
         }
     }
 
-    override fun retrieveFirebaseToken() = gAsync {
+    override suspend fun retrieveFirebaseToken() = let {
         mmkv.decodeString(Constants.MmkvKey.FIREBASE_TOKEN, DEFAULT_STR)
     }
 
-    override fun retrieveToken() = gAsync {
+    override suspend fun retrieveToken() = let {
         mmkv.decodeString(Constants.MmkvKey.TOKEN, DEFAULT_STR)
     }
     //endregion
 
     //region Keywords
-    override fun retrieveKeywords() = gAsync {
+    override suspend fun retrieveKeywords() = let {
         newsDb.getAllKeywords().map(KeywordData::keyword)
     }
 
-    override fun createKeyword(parameters: Parameterable) = gAsync {
+    override suspend fun createKeyword(parameters: Parameterable) = let {
         parameters.toApiParam()[PARAM_NAME_KEYWORD]
             ?.let {
                 try {
@@ -124,14 +121,14 @@ class LocalDataStore(
             } ?: false
     }
 
-    override fun removeKeyword(parameters: Parameterable, transactionBlock: (() -> Deferred<Boolean>)?) = gAsync {
-        val keyword = parameters.toApiParam()[PARAM_NAME_KEYWORD] ?: return@gAsync false
+    override suspend fun removeKeyword(parameters: Parameterable, transactionBlock: (() -> Boolean)?) = let {
+        val keyword = parameters.toApiParam()[PARAM_NAME_KEYWORD] ?: return@let false
 
         newsDbInstance.runInTransaction {
             newsDb.deleteKeyword(KeywordData(keyword))
 
             if (null != transactionBlock) {
-                val res = runBlocking { transactionBlock().await() }
+                val res = transactionBlock()
                 if (!res) throw Exception("Transaction processing fail")
             }
         }
@@ -141,14 +138,14 @@ class LocalDataStore(
     //endregion
 
     //region Unsupported Operation Methods
-    override fun retrieveTopNews(parameters: Parameterable) = throw UnsupportedOperationException()
+    override suspend fun retrieveTopNews(parameters: Parameterable) = throw UnsupportedOperationException()
 
-    override fun retrieveEverythingNews(parameters: Parameterable) = throw UnsupportedOperationException()
+    override suspend fun retrieveEverythingNews(parameters: Parameterable) = throw UnsupportedOperationException()
 
-    override fun retrieveNewsSources(parameters: Parameterable) = throw UnsupportedOperationException()
+    override suspend fun retrieveNewsSources(parameters: Parameterable) = throw UnsupportedOperationException()
 
-    override fun createSubscriber(parameters: Parameterable) = throw UnsupportedOperationException()
+    override suspend fun createSubscriber(parameters: Parameterable) = throw UnsupportedOperationException()
 
-    override fun modifyKeywords(parameters: Parameterable) = throw UnsupportedOperationException()
+    override suspend fun modifyKeywords(parameters: Parameterable) = throw UnsupportedOperationException()
     //endregion
 }

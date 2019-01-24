@@ -1,24 +1,22 @@
 package com.no1.taiwan.newsbasket.domain.usecases.keyword
 
-import com.devrapid.kotlinshaver.gAsync
 import com.devrapid.kotlinshaver.io
 import com.no1.taiwan.newsbasket.domain.BaseUsecase.RequestValues
-import com.no1.taiwan.newsbasket.domain.DeferredWrapUsecase
+import com.no1.taiwan.newsbasket.domain.DeferredUsecase
 import com.no1.taiwan.newsbasket.domain.parameters.params.KeywordsParams
 import com.no1.taiwan.newsbasket.domain.repositories.DataRepository
 import com.no1.taiwan.newsbasket.domain.usecases.DeleteLocalKeywordReq
 import com.no1.taiwan.newsbasket.domain.usecases.UpdateRemoteKeywordsReq
-import kotlin.coroutines.CoroutineContext
 
 class AddKeywordRespUsecase(
     private val repository: DataRepository,
     override var requestValues: Request? = null
-) : DeferredWrapUsecase<Boolean, AddKeywordRespUsecase.Request>() {
-    override fun acquireCase(parentJob: CoroutineContext) = attachParameter {
+) : DeferredUsecase<Boolean, AddKeywordRespUsecase.Request>() {
+    override suspend fun acquireCase() = attachParameter {
         // 1. Keep it into the local first.
-        val localRes = repository.addKeyword(it.parameters, parentJob).await()
+        val localRes = repository.addKeyword(it.parameters)
         // !!Fails!! If keeping into local database failed.
-        if (!localRes) return@attachParameter gAsync(parentJob) { localRes }
+        if (!localRes) return@attachParameter localRes
 
         // 2. Update to remote server.
         val remoteRes = try {
@@ -33,10 +31,10 @@ class AddKeywordRespUsecase(
         if (!remoteRes) {
             // It might happened issues from remote server.
             rollbackLocalDB(it.parameters.keyword)
-            return@attachParameter gAsync { false }
+            return@attachParameter false
         }
 
-        gAsync(parentJob) { localRes and remoteRes }
+        localRes and remoteRes
     }
 
     class Request(val parameters: KeywordsParams = KeywordsParams()) : RequestValues

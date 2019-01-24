@@ -111,8 +111,8 @@ class NewsFirebaseMessaging : FirebaseMessagingService(), KodeinAware {
         bkg {
             // Check is there same
             val res = addNewsCase
-                .executeWrap(AddLocalNewsRespCase.Request(parameter))
-            if (true == res.data) RxBus.get().post(RxBusConst.REFRESH_ARCHIVE_LIST, DEFAULT_INT)
+                .execute(AddLocalNewsRespCase.Request(parameter))
+            if (res) RxBus.get().post(RxBusConst.REFRESH_ARCHIVE_LIST, DEFAULT_INT)
         }
     }
 

@@ -1,18 +1,17 @@
 package com.no1.taiwan.newsbasket.domain.usecases.keyword
 
 import com.no1.taiwan.newsbasket.domain.BaseUsecase.RequestValues
-import com.no1.taiwan.newsbasket.domain.DeferredWrapUsecase
+import com.no1.taiwan.newsbasket.domain.DeferredUsecase
 import com.no1.taiwan.newsbasket.domain.parameters.params.KeywordsParams
 import com.no1.taiwan.newsbasket.domain.repositories.DataRepository
 import com.no1.taiwan.newsbasket.domain.usecases.keyword.DeleteLocalKeywordRespCase.Request
-import kotlin.coroutines.CoroutineContext
 
 class DeleteLocalKeywordRespCase(
     private val repository: DataRepository,
     override var requestValues: Request? = null
-) : DeferredWrapUsecase<Boolean, Request>() {
-    override fun acquireCase(parentJob: CoroutineContext) = attachParameter {
-        repository.deleteKeyword(it.parameters, parentJob)
+) : DeferredUsecase<Boolean, Request>() {
+    override suspend fun acquireCase() = attachParameter {
+        repository.deleteKeyword(it.parameters)
     }
 
     class Request(val parameters: KeywordsParams = KeywordsParams()) : RequestValues

@@ -5,7 +5,6 @@ import com.no1.taiwan.newsbasket.data.datas.GoogleNewsSourceInfoData
 import com.no1.taiwan.newsbasket.data.datas.RemoteNewsInfoData
 import com.no1.taiwan.newsbasket.data.datas.TokenData
 import com.no1.taiwan.newsbasket.domain.parameters.Parameterable
-import kotlinx.coroutines.Deferred
 
 /**
  * This interface will common the all data stores.
@@ -13,38 +12,38 @@ import kotlinx.coroutines.Deferred
  */
 interface DataStore {
     //region Google News Service
-    fun retrieveTopNews(parameters: Parameterable): Deferred<GoogleNewsInfoData>
+    suspend fun retrieveTopNews(parameters: Parameterable): GoogleNewsInfoData
 
-    fun retrieveEverythingNews(parameters: Parameterable): Deferred<GoogleNewsInfoData>
+    suspend fun retrieveEverythingNews(parameters: Parameterable): GoogleNewsInfoData
 
-    fun retrieveNewsSources(parameters: Parameterable): Deferred<GoogleNewsSourceInfoData>
+    suspend fun retrieveNewsSources(parameters: Parameterable): GoogleNewsSourceInfoData
     //endregion
 
     //region Keeping news into local device & Subscribe the specific news by keyword
-    fun retrieveNewsData(parameters: Parameterable): Deferred<RemoteNewsInfoData>
+    suspend fun retrieveNewsData(parameters: Parameterable): RemoteNewsInfoData
 
-    fun createNews(parameters: Parameterable): Deferred<Boolean>
+    suspend fun createNews(parameters: Parameterable): Boolean
 
-    fun removeNews(parameters: Parameterable): Deferred<Boolean>
+    suspend fun removeNews(parameters: Parameterable): Boolean
 
-    fun createSubscriber(parameters: Parameterable): Deferred<TokenData>
+    suspend fun createSubscriber(parameters: Parameterable): TokenData
 
-    fun modifyKeywords(parameters: Parameterable): Deferred<TokenData>
+    suspend fun modifyKeywords(parameters: Parameterable): TokenData
     //endregion
 
     //region Register for Token
-    fun storeNewsToken(parameters: Parameterable): Deferred<Boolean>
+    suspend fun storeNewsToken(parameters: Parameterable): Boolean
 
-    fun retrieveFirebaseToken(): Deferred<String>
+    suspend fun retrieveFirebaseToken(): String
 
-    fun retrieveToken(): Deferred<String>
+    suspend fun retrieveToken(): String
     //endregion
 
     //region Keyword
-    fun retrieveKeywords(): Deferred<List<String>>
+    suspend fun retrieveKeywords(): List<String>
 
-    fun createKeyword(parameters: Parameterable): Deferred<Boolean>
+    suspend fun createKeyword(parameters: Parameterable): Boolean
 
-    fun removeKeyword(parameters: Parameterable, transactionBlock: (() -> Deferred<Boolean>)? = null): Deferred<Boolean>
+    suspend fun removeKeyword(parameters: Parameterable, transactionBlock: (() -> Boolean)? = null): Boolean
     //endregion
 }

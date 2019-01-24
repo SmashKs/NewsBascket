@@ -1,5 +1,5 @@
 package com.no1.taiwan.newsbasket.features.main.viewmodels
 
-import com.no1.taiwan.newsbasket.components.viewmodel.AutoViewModel
+import androidx.lifecycle.ViewModel
 
-class ArticleViewModel : AutoViewModel()
+class ArticleViewModel : ViewModel()

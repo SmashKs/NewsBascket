@@ -1,7 +1,6 @@
 package com.no1.taiwan.newsbasket.data.repositories
 
 import com.devrapid.kotlinshaver.cast
-import com.devrapid.kotlinshaver.gAsync
 import com.no1.taiwan.newsbasket.data.datas.DataMapper
 import com.no1.taiwan.newsbasket.data.datas.DataMapperPool
 import com.no1.taiwan.newsbasket.data.datas.mappers.ArticleMapper
@@ -13,9 +12,7 @@ import com.no1.taiwan.newsbasket.data.local.cache.AbsCache
 import com.no1.taiwan.newsbasket.domain.parameters.Parameterable
 import com.no1.taiwan.newsbasket.domain.repositories.DataRepository
 import com.no1.taiwan.newsbasket.ext.const.isDefault
-import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
-import kotlin.coroutines.CoroutineContext
 
 /**
  * The data repository for being responsible for selecting an appropriate data store to access
@@ -40,83 +37,80 @@ class NewsDataRepository constructor(
     private val sourceMapper by lazy { digDataMapper<SourceMapper>() }
     //endregion
 
-    override fun fetchTopNewses(parameters: Parameterable, context: CoroutineContext) = gAsync(context) {
-        val data = remote.retrieveTopNews(parameters).await()
+    override suspend fun fetchTopNewses(parameters: Parameterable) = let {
+        val data = remote.retrieveTopNews(parameters)
 
         if (0 == data.totalResults || data.message.isNotBlank())  // Fail fetching.
-            listOf()
+            emptyList()
         else
             data.articles.map(articleMapper::toModelFrom)
     }
 
-    override fun fetchEverything(parameters: Parameterable, context: CoroutineContext) = gAsync(context) {
-        val data = remote.retrieveEverythingNews(parameters).await()
+    override suspend fun fetchEverything(parameters: Parameterable) = let {
+        val data = remote.retrieveEverythingNews(parameters)
 
         if (0 == data.totalResults || data.message.isNotBlank())  // Fail fetching.
-            listOf()
+            emptyList()
         else
             data.articles.map(articleMapper::toModelFrom)
     }
 
-    override fun fetchNewsSources(parameters: Parameterable, context: CoroutineContext) = gAsync(context) {
-        val data = remote.retrieveNewsSources(parameters).await()
+    override suspend fun fetchNewsSources(parameters: Parameterable) = let {
+        val data = remote.retrieveNewsSources(parameters)
 
         data.sources.map(sourceMapper::toModelFrom)
     }
 
-    override fun fetchNewses(parameters: Parameterable, context: CoroutineContext) = gAsync(context) {
-        val data = local.retrieveNewsData(parameters).await()
+    override suspend fun fetchNewses(parameters: Parameterable) = let {
+        val data = local.retrieveNewsData(parameters)
 
-        if (data.count == 0) listOf() else data.results.map(newsMapper::toModelFrom)
+        data.results.map(newsMapper::toModelFrom)
     }
 
-    override fun addNews(parameters: Parameterable, context: CoroutineContext) = gAsync(context) {
-        local.createNews(parameters).await()
+    override suspend fun addNews(parameters: Parameterable) = let {
+        local.createNews(parameters)
     }
 
-    override fun deleteNews(parameters: Parameterable, context: CoroutineContext) = gAsync(context) {
-        local.removeNews(parameters).await()
+    override suspend fun deleteNews(parameters: Parameterable) = let {
+        local.removeNews(parameters)
     }
 
-    override fun addSubscriber(parameters: Parameterable, context: CoroutineContext) = gAsync(context) {
-        val data = remote.createSubscriber(parameters).await()
+    override suspend fun addSubscriber(parameters: Parameterable) = let {
+        val data = remote.createSubscriber(parameters)
 
         tokenMapper.toModelFrom(data)
     }
 
-    override fun updateKeywords(parameters: Parameterable, context: CoroutineContext) = gAsync(context) {
-        val data = remote.modifyKeywords(parameters).await()
+    override suspend fun updateKeywords(parameters: Parameterable) = let {
+        val data = remote.modifyKeywords(parameters)
 
         !data.firebaseToken.isDefault() && !data.token.isDefault()
     }
 
-    override fun keepNewsToken(parameters: Parameterable, context: CoroutineContext) = gAsync(context) {
-        local.storeNewsToken(parameters).await()
+    override suspend fun keepNewsToken(parameters: Parameterable) = let {
+        local.storeNewsToken(parameters)
     }
 
-    override fun fetchFirebaseToken(context: CoroutineContext) = gAsync(context) {
-        local.retrieveFirebaseToken().await()
+    override suspend fun fetchFirebaseToken() = let {
+        local.retrieveFirebaseToken()
     }
 
-    override fun fetchToken(context: CoroutineContext) = gAsync(context) {
-        local.retrieveToken().await()
+    override suspend fun fetchToken() = let {
+        local.retrieveToken()
     }
 
-    override fun fetchKeywords(context: CoroutineContext) = gAsync(context) {
-        local.retrieveKeywords().await()
+    override suspend fun fetchKeywords() = let {
+        local.retrieveKeywords()
     }
 
-    override fun addKeyword(parameters: Parameterable, context: CoroutineContext) = gAsync(context) {
-        local.createKeyword(parameters).await()
+    override suspend fun addKeyword(parameters: Parameterable) = let {
+        local.createKeyword(parameters)
     }
 
-    override fun deleteKeyword(
+    override suspend fun deleteKeyword(
         parameters: Parameterable,
-        context: CoroutineContext,
-        transactionBlock: (() -> Deferred<Boolean>)?
-    ) = gAsync(context) {
-        local.removeKeyword(parameters, transactionBlock).await()
-    }
+        transactionBlock: (() -> Boolean)?
+    ) = let { local.removeKeyword(parameters, transactionBlock) }
 
     /**
      * Get a mapper object from the mapper pool.
