@@ -36,15 +36,15 @@ object UsecaseModule {
         bind<DeleteLocalNewsRespCase>() with singleton { DeleteLocalNewsRespCase(instance()) }
 
         bind<AddSubscriberRespCase>() with singleton { AddSubscriberRespCase(instance()) }
-        bind<UpdateRemoteKeywordsRespCase>() with singleton { UpdateRemoteKeywordsRespCase(instance()) }
+        bind<UpdateRemoteKeywordsRespCase>() with singleton { UpdateRemoteKeywordsRespCase(instance(), instance()) }
 
         bind<KeepNewsTokenRespCase>() with singleton { KeepNewsTokenRespCase(instance()) }
 
         bind<AddLocalKeywordRespCase>() with singleton { AddLocalKeywordRespCase(instance()) }
         bind<DeleteLocalKeywordRespCase>() with singleton { DeleteLocalKeywordRespCase(instance()) }
         bind<FetchLocalKeywordsRespCase>() with singleton { FetchLocalKeywordsRespCase(instance()) }
-        bind<AddKeywordRespUsecase>() with singleton { AddKeywordRespUsecase(instance()) }
-        bind<DeleteKeywordRespUsecase>() with singleton { DeleteKeywordRespUsecase(instance()) }
+        bind<AddKeywordRespUsecase>() with singleton { AddKeywordRespUsecase(instance(), instance()) }
+        bind<DeleteKeywordRespUsecase>() with singleton { DeleteKeywordRespUsecase(instance(), instance()) }
         //endregion
     }
 }

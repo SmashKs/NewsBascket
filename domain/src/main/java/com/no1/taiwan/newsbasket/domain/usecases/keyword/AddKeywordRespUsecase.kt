@@ -4,24 +4,26 @@ import com.devrapid.kotlinshaver.io
 import com.no1.taiwan.newsbasket.domain.BaseUsecase.RequestValues
 import com.no1.taiwan.newsbasket.domain.DeferredUsecase
 import com.no1.taiwan.newsbasket.domain.parameters.params.KeywordsParams
-import com.no1.taiwan.newsbasket.domain.repositories.DataRepository
+import com.no1.taiwan.newsbasket.domain.repositories.KeywordRepository
+import com.no1.taiwan.newsbasket.domain.repositories.TokenRepository
 import com.no1.taiwan.newsbasket.domain.usecases.DeleteLocalKeywordReq
 import com.no1.taiwan.newsbasket.domain.usecases.UpdateRemoteKeywordsReq
 
 class AddKeywordRespUsecase(
-    private val repository: DataRepository,
+    private val keywordRepo: KeywordRepository,
+    private val tokenRepo: TokenRepository,
     override var requestValues: Request? = null
 ) : DeferredUsecase<Boolean, AddKeywordRespUsecase.Request>() {
     override suspend fun acquireCase() = attachParameter {
         // 1. Keep it into the local first.
-        val localRes = repository.addKeyword(it.parameters)
+        val localRes = keywordRepo.addKeyword(it.parameters)
         // !!Fails!! If keeping into local database failed.
         if (!localRes) return@attachParameter localRes
 
         // 2. Update to remote server.
         val remoteRes = try {
             // !!Fails!! Mostly, happening some Internet issues.
-            UpdateRemoteKeywordsRespCase(repository, UpdateRemoteKeywordsReq()).execute()
+            UpdateRemoteKeywordsRespCase(keywordRepo, tokenRepo, UpdateRemoteKeywordsReq()).execute()
         }
         catch (e: Exception) {
             rollbackLocalDB(it.parameters.keyword)
@@ -45,7 +47,7 @@ class AddKeywordRespUsecase(
      */
     private fun rollbackLocalDB(keyword: String) {
         io {
-            DeleteLocalKeywordRespCase(repository)
+            DeleteLocalKeywordRespCase(keywordRepo)
                 .execute(DeleteLocalKeywordReq(KeywordsParams(keyword)))
         }
     }

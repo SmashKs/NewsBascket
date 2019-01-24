@@ -8,8 +8,12 @@ import com.no1.taiwan.newsbasket.data.datastores.RemoteDataStore
 import com.no1.taiwan.newsbasket.data.local.cache.AbsCache
 import com.no1.taiwan.newsbasket.data.local.cache.NewsMemoryCache
 import com.no1.taiwan.newsbasket.data.local.services.NewsDatabase
+import com.no1.taiwan.newsbasket.data.repositories.KeywordDataRepository
 import com.no1.taiwan.newsbasket.data.repositories.NewsDataRepository
-import com.no1.taiwan.newsbasket.domain.repositories.DataRepository
+import com.no1.taiwan.newsbasket.data.repositories.TokenDataRepository
+import com.no1.taiwan.newsbasket.domain.repositories.KeywordRepository
+import com.no1.taiwan.newsbasket.domain.repositories.NewsRepository
+import com.no1.taiwan.newsbasket.domain.repositories.TokenRepository
 import com.no1.taiwan.newsbasket.internal.di.ServiceModule.serviceProvider
 import com.no1.taiwan.newsbasket.internal.di.tags.NewsTag.LOCAL
 import com.no1.taiwan.newsbasket.internal.di.tags.NewsTag.REMOTE
@@ -36,8 +40,15 @@ object RepositoryModule {
         /** Mapper Pool for providing all data mappers */
         bind<DataMapperPool>() with singleton { instance<DataMapperEntries>().toMap() }
 
-        bind<DataRepository>() with singleton {
+        // Repositories into mapper
+        bind<KeywordRepository>() with singleton {
+            KeywordDataRepository(instance(LOCAL), instance(LOCAL), instance(REMOTE), instance())
+        }
+        bind<NewsRepository>() with singleton {
             NewsDataRepository(instance(LOCAL), instance(LOCAL), instance(REMOTE), instance())
+        }
+        bind<TokenRepository>() with singleton {
+            TokenDataRepository(instance(LOCAL), instance(LOCAL), instance(REMOTE), instance())
         }
     }
 }
