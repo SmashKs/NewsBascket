@@ -23,12 +23,17 @@ import java.lang.reflect.Type
  * The basic fragment is in MVVM architecture which prepares all necessary variables or functions.
  */
 abstract class AdvFragment<out A : BaseActivity, out VM : ViewModel> : BaseFragment<A>(), LoadView {
+    companion object {
+        const val PROVIDER_FROM_ACTIVITY = 0x1
+        const val PROVIDER_FROM_FRAGMENT = 0x2
+    }
+
     protected open val genericVMIndex = DEFAULT_INT
-    protected val vmProviders get() = ViewModelProviders.of(this, viewModelFactory)
     /** Add the AAC [ViewModel] for each fragments. */
     @Suppress("UNCHECKED_CAST")
     protected val vm
-        get() = vmCreateMethod.invoke(vmProviders, vmConcreteClass) as? VM ?: throw ClassCastException()
+        get() = vmCreateMethod.invoke(vmProvider(PROVIDER_FROM_FRAGMENT), vmConcreteClass) as? VM
+                ?: throw ClassCastException()
     private val viewModelFactory by instance<ViewModelProvider.Factory>()
     /** [VM] is the first (index: 1) in the generic declare. */
     private val vmConcreteClass: Class<*>
@@ -48,7 +53,8 @@ abstract class AdvFragment<out A : BaseActivity, out VM : ViewModel> : BaseFragm
             return cast(viewmodelClass)
         }
     /** The [ViewModelProviders.of] function for obtaining a [ViewModel]. */
-    private val vmCreateMethod get() = vmProviders.javaClass.getMethod("get", vmConcreteClass.superclass.javaClass)
+    private val vmCreateMethod
+        get() = vmProvider(PROVIDER_FROM_FRAGMENT).javaClass.getMethod("get", vmConcreteClass.superclass.javaClass)
     /** Dialog loading view. */
     private val loadingView by lazy { LoadingDialog.getInstance(this, true) }
     /** Enable dialog loading view or use loading layout. */
@@ -84,6 +90,12 @@ abstract class AdvFragment<out A : BaseActivity, out VM : ViewModel> : BaseFragm
     /** The block of binding to [androidx.lifecycle.ViewModel]'s [androidx.lifecycle.LiveData]. */
     @UiThread
     protected open fun bindLiveData() = Unit
+
+    protected fun vmProvider(providerFrom: Int) = when (providerFrom) {
+        PROVIDER_FROM_ACTIVITY -> ViewModelProviders.of(requireActivity(), viewModelFactory)
+        PROVIDER_FROM_FRAGMENT -> ViewModelProviders.of(this, viewModelFactory)
+        else -> throw IllegalArgumentException()
+    }
 
     private fun recursiveFindGenericSuperClass(superclass: Class<*>): Type =
         if (superclass.genericSuperclass is ParameterizedType)
