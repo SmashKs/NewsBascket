@@ -73,7 +73,7 @@ object Versions {
      */
     object Firebase {
         const val core = "16.0.6"
-        const val database = "16.0.5"
+        const val database = "16.0.6"
         const val auth = "16.0.3"
         const val messaging = "17.3.4"
 
@@ -97,7 +97,7 @@ object Versions {
     object Database {
         const val debug = "1.5.0"
         const val debugDb = "1.0.4"
-        const val mmkv = "1.0.16"
+        const val mmkv = "1.0.17"
     }
 
     /**
@@ -154,7 +154,7 @@ object Versions {
         const val mockitoKotlin = "2.1.0"
         const val mockitoAndroid = "2.23.0"
         const val mockk = "v1.8.9.kotlin13"
-        const val byteBuddy = "1.9.7"
+        const val byteBuddy = "1.9.8"
 
     }
 
