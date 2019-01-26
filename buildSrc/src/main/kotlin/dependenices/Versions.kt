@@ -32,8 +32,8 @@ object Versions {
      * Related Kotlin lib version.
      */
     object Kotlin {
-        const val kotlinLib = "1.3.11"
-        const val kotlinCoroutine = "1.1.0"
+        const val kotlinLib = "1.3.20"
+        const val kotlinCoroutine = "1.1.1"
     }
 
     /**
@@ -57,7 +57,7 @@ object Versions {
 
     object AndroidArchitectureComponent {
         const val aacLifecycle = "2.1.0-alpha01"
-        const val navigation = "1.0.0-alpha09"
+        const val navigation = "1.0.0-alpha11"
         const val room = "2.1.0-alpha01"
     }
 
