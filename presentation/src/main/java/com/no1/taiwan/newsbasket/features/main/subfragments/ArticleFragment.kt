@@ -1,12 +1,17 @@
 package com.no1.taiwan.newsbasket.features.main.subfragments
 
+import android.graphics.Color
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
 import androidx.annotation.LayoutRes
 import androidx.core.os.bundleOf
+import com.devrapid.kotlinknifer.toDrawable
 import com.devrapid.kotlinshaver.cast
 import com.no1.taiwan.newsbasket.R
 import com.no1.taiwan.newsbasket.bases.AdvFragment
 import com.no1.taiwan.newsbasket.entities.NewsArticleEntity
+import com.no1.taiwan.newsbasket.ext.glideNewsOptions
 import com.no1.taiwan.newsbasket.ext.loadByAny
 import com.no1.taiwan.newsbasket.ext.output
 import com.no1.taiwan.newsbasket.ext.timeTranslate
@@ -53,10 +58,15 @@ class ArticleFragment private constructor() : AdvFragment<MainActivity, ArticleV
         super.viewComponentBinding()
 
         article.apply {
-            iv_cover.loadByAny(urlToImage)
+            iv_cover.loadByAny(urlToImage,
+                               options = glideNewsOptions(sizeWidth = iv_cover.width, sizeHeight = iv_cover.height))
             ftv_news_title.text = title
             ftv_news_brief.text = description
             ftv_author.text = author
+            val drawable = R.drawable.ic_account.toDrawable(requireContext()).apply {
+                colorFilter = PorterDuffColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN)
+            }
+            ftv_author.setCompoundDrawablesRelativeWithIntrinsicBounds(drawable, null, null, null)
             ftv_published_at.text = publishedAt.timeTranslate().output()
         }
     }

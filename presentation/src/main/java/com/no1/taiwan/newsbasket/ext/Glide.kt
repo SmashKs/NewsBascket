@@ -36,16 +36,20 @@ fun ImageView.loadByAny(any: Any, context: Context = gContext(), options: Reques
     glideDefault(context, options) { load(any) }
 
 fun glideNewsOptions(
-    @DrawableRes phResource: Int = DEFAULT_INT,
-    @DrawableRes erSource: Int = DEFAULT_INT
+    @DrawableRes phRes: Int = DEFAULT_INT,
+    @DrawableRes erRes: Int = DEFAULT_INT,
+    sizeWidth: Int = 0,
+    sizeHeight: Int = 0
 ) = RequestOptions().apply {
-        override(300)
-        centerCrop()
-        phResource.takeUnlessDefault(::placeholder)
-        erSource.takeUnlessDefault(::error)
-        priority(HIGH)
-        diskCacheStrategy(RESOURCE)
+    if (sizeWidth != 0 && sizeHeight != 0) {
+        override(sizeWidth, sizeHeight)
     }
+    centerCrop()
+    phRes.takeUnlessDefault(::placeholder)
+    erRes.takeUnlessDefault(::error)
+    priority(HIGH)
+    diskCacheStrategy(RESOURCE)
+}
 
 fun glideObtaineBitmapFrom(
     uri: Uri,
