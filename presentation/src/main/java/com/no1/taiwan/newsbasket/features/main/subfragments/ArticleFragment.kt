@@ -8,6 +8,8 @@ import com.no1.taiwan.newsbasket.R
 import com.no1.taiwan.newsbasket.bases.AdvFragment
 import com.no1.taiwan.newsbasket.entities.NewsArticleEntity
 import com.no1.taiwan.newsbasket.ext.loadByAny
+import com.no1.taiwan.newsbasket.ext.output
+import com.no1.taiwan.newsbasket.ext.timeTranslate
 import com.no1.taiwan.newsbasket.features.main.MainActivity
 import com.no1.taiwan.newsbasket.features.main.viewmodels.ArticleViewModel
 import kotlinx.android.synthetic.main.viewpager_news.ftv_author
@@ -55,7 +57,7 @@ class ArticleFragment private constructor() : AdvFragment<MainActivity, ArticleV
             ftv_news_title.text = title
             ftv_news_brief.text = description
             ftv_author.text = author
-            ftv_published_at.text = publishedAt
+            ftv_published_at.text = publishedAt.timeTranslate().output()
         }
     }
 

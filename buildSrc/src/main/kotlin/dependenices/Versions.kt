@@ -59,6 +59,7 @@ object Versions {
         const val aacLifecycle = "2.1.0-alpha01"
         const val navigation = "1.0.0-alpha11"
         const val room = "2.1.0-alpha01"
+        const val worker = "1.0.0-beta02"
     }
 
     /**

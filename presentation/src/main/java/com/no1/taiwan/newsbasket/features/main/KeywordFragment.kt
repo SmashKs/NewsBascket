@@ -36,11 +36,11 @@ import kotlinx.android.synthetic.main.fragment_keyword.fab_add
 import kotlinx.android.synthetic.main.fragment_keyword.rv_keywords
 import org.jetbrains.anko.sdk25.coroutines.onClick
 import org.jetbrains.anko.sdk25.coroutines.onKey
-import org.kodein.di.Kodein.Companion.lazy
+import org.kodein.di.Kodein
 import org.kodein.di.generic.instance
 
 class KeywordFragment : AdvFragment<MainActivity, KeywordViewModel>() {
-    override val kodein = lazy {
+    override val kodein = Kodein.lazy {
         extend(super.kodein)
         import(KeywordModule.keywordProvider())
     }

@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.HORIZONTAL
 import androidx.recyclerview.widget.RecyclerView.VERTICAL
+import androidx.work.WorkManager
 import com.google.gson.FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -19,6 +20,7 @@ import com.no1.taiwan.newsbasket.internal.di.tags.ObjectLabel
 import org.kodein.di.Kodein.Module
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.inSet
+import org.kodein.di.generic.instance
 import org.kodein.di.generic.provider
 import org.kodein.di.generic.setBinding
 import org.kodein.di.generic.singleton
@@ -28,6 +30,7 @@ import org.kodein.di.generic.singleton
  */
 object UtilModule {
     fun utilProvider(context: Context) = Module("Util") {
+        bind<WorkManager>() with instance(WorkManager.getInstance())
         // OPTIMIZE(jieyi): 2018/10/16 We might use Gson for mapping data.
         bind<Gson>() with singleton {
             with(GsonBuilder()) {
@@ -54,10 +57,10 @@ object UtilModule {
         bind() from setBinding<DataMapperEntry>()
 
         /** Data Layer Mapper */
-        bind<DataMapperEntry>().inSet() with provider { NewsMapper::class.java to NewsMapper() }
-        bind<DataMapperEntry>().inSet() with provider { TokenMapper::class.java to TokenMapper() }
-        bind<DataMapperEntry>().inSet() with provider { ArticleMapper::class.java to ArticleMapper(SourceMapper()) }
-        bind<DataMapperEntry>().inSet() with provider { SourceMapper::class.java to SourceMapper() }
+        bind<DataMapperEntry>().inSet() with singleton { NewsMapper::class.java to NewsMapper() }
+        bind<DataMapperEntry>().inSet() with singleton { TokenMapper::class.java to TokenMapper() }
+        bind<DataMapperEntry>().inSet() with singleton { ArticleMapper::class.java to ArticleMapper(SourceMapper()) }
+        bind<DataMapperEntry>().inSet() with singleton { SourceMapper::class.java to SourceMapper() }
     }
 
     /**

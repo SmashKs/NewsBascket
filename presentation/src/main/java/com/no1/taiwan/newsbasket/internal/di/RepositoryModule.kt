@@ -33,9 +33,7 @@ object RepositoryModule {
         bind<AbsCache>(LOCAL) with singleton { NewsMemoryCache() }
         bind<DataStore>(REMOTE) with singleton { RemoteDataStore(instance(), instance(), instance()) }
         bind<DataStore>(LOCAL) with singleton {
-            LocalDataStore(instance(),
-                           instance<NewsDatabase>().contactsDao(),
-                           instance())
+            LocalDataStore(instance(), instance<NewsDatabase>().contactsDao(), instance())
         }
         /** Mapper Pool for providing all data mappers */
         bind<DataMapperPool>() with singleton { instance<DataMapperEntries>().toMap() }

@@ -21,8 +21,7 @@ fun ImageView.loadByBitmap(
     bitmap: Bitmap,
     context: Context = gContext(),
     options: RequestOptions = glideNewsOptions()
-) =
-    glideDefault(context, options) { load(bitmap) }
+) = glideDefault(context, options) { load(bitmap) }
 
 fun ImageView.loadByUri(uri: Uri, context: Context = gContext(), options: RequestOptions = glideNewsOptions()) =
     glideDefault(context, options) { load(uri) }
@@ -31,8 +30,7 @@ fun ImageView.loadByDrawable(
     drawable: Drawable,
     context: Context = gContext(),
     options: RequestOptions = glideNewsOptions()
-) =
-    glideDefault(context, options) { load(drawable) }
+) = glideDefault(context, options) { load(drawable) }
 
 fun ImageView.loadByAny(any: Any, context: Context = gContext(), options: RequestOptions = glideNewsOptions()) =
     glideDefault(context, options) { load(any) }
@@ -40,8 +38,8 @@ fun ImageView.loadByAny(any: Any, context: Context = gContext(), options: Reques
 fun glideNewsOptions(
     @DrawableRes phResource: Int = DEFAULT_INT,
     @DrawableRes erSource: Int = DEFAULT_INT
-) =
-    RequestOptions().apply {
+) = RequestOptions().apply {
+        override(300)
         centerCrop()
         phResource.takeUnlessDefault(::placeholder)
         erSource.takeUnlessDefault(::error)
@@ -53,7 +51,7 @@ fun glideObtaineBitmapFrom(
     uri: Uri,
     context: Context = gContext(),
     options: RequestOptions = glideNewsOptions()
-): Bitmap = glide(context)
+) = glide(context)
     .asBitmap()
     .apply(options)
     .load(uri)
@@ -64,7 +62,7 @@ fun glideObtaineDrawableFrom(
     uri: Uri,
     context: Context = gContext(),
     options: RequestOptions = glideNewsOptions()
-): Drawable = glide(context)
+) = glide(context)
     .asDrawable()
     .apply(options)
     .load(uri)

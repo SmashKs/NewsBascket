@@ -13,10 +13,10 @@ import com.no1.taiwan.newsbasket.features.main.subfragments.ArticleFragment
 import com.no1.taiwan.newsbasket.features.main.viewmodels.IndexViewModel
 import com.no1.taiwan.newsbasket.internal.di.dependency.fragment.IndexModule.indexProvider
 import kotlinx.android.synthetic.main.fragment_news.vp_news
-import org.kodein.di.Kodein.Companion.lazy
+import org.kodein.di.Kodein
 
 class IndexFragment : AdvFragment<MainActivity, IndexViewModel>() {
-    override val kodein = lazy {
+    override val kodein = Kodein.lazy {
         extend(super.kodein)
         import(indexProvider())
     }

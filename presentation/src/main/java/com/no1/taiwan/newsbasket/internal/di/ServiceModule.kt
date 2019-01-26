@@ -18,7 +18,6 @@ import com.tencent.mmkv.MMKV.defaultMMKV
 import org.kodein.di.Kodein.Module
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
-import org.kodein.di.generic.provider
 import org.kodein.di.generic.singleton
 import retrofit2.Retrofit
 
@@ -47,7 +46,7 @@ object ServiceModule {
      * To provide the necessary objects [FirebaseDatabase] into the repository.
      */
     private fun firebaseProvider() = Module("Firebase") {
-        bind<FirebaseDatabase>() with provider { FirebaseDatabase.getInstance() }
+        bind<FirebaseDatabase>() with instance(FirebaseDatabase.getInstance())
     }
 
     /**

@@ -120,6 +120,7 @@ object Deps {
             "android.arch.navigation:navigation-ui-ktx:${Versions.AndroidArchitectureComponent.navigation}"
         const val lifecycle =
             "androidx.lifecycle:lifecycle-extensions:${Versions.AndroidArchitectureComponent.aacLifecycle}"
+        const val worker = "android.arch.work:work-runtime-ktx:${Versions.AndroidArchitectureComponent.worker}"
 
         const val idlingEspresso = "androidx.test.espresso:espresso-idling-resource:${Versions.Test.espresso}"
 

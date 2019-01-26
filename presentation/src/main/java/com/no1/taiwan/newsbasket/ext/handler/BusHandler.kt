@@ -6,11 +6,11 @@ import androidx.lifecycle.Lifecycle.Event.ON_PAUSE
 import androidx.lifecycle.Lifecycle.Event.ON_RESUME
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
-import com.devrapid.kotlinknifer.SoftRef
+import com.devrapid.kotlinknifer.WeakRef
 import com.hwangjr.rxbus.RxBus
 
 class BusFragLifeRegister(fragment: Fragment) : LifecycleObserver {
-    private val frag by SoftRef(fragment)
+    private val frag by WeakRef(fragment)
 
     init {
         frag?.lifecycle?.addObserver(this)
@@ -28,7 +28,7 @@ class BusFragLifeRegister(fragment: Fragment) : LifecycleObserver {
 }
 
 class BusActLifeRegister(activity: AppCompatActivity) : LifecycleObserver {
-    private val act by SoftRef(activity)
+    private val act by WeakRef(activity)
 
     init {
         act?.lifecycle?.addObserver(this)

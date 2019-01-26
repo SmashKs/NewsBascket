@@ -5,7 +5,7 @@ import com.devrapid.adaptiverecyclerview.AdaptiveDiffUtil
 import com.no1.taiwan.newsbasket.components.recyclerview.helpers.AdapterItemTouchHelper
 import com.no1.taiwan.newsbasket.ext.const.DEFAULT_INT
 import com.no1.taiwan.newsbasket.internal.di.RecyclerViewModule
-import org.kodein.di.Kodein.Companion.lazy
+import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.generic.instance
 
@@ -23,7 +23,7 @@ open class MultiTypeAdapter(
     override var diffUtil: AdaptiveDiffUtil<MultiTypeFactory, NewsMultiVisitable>
         get() = externalDiffUtil ?: super.diffUtil
         set(_) = throw UnsupportedOperationException("We don't allow this method to use!")
-    override val kodein = lazy {
+    override val kodein = Kodein.lazy {
         import(RecyclerViewModule.recyclerViewProvider())
     }
     protected var viewType = DEFAULT_INT

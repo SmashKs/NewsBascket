@@ -20,7 +20,7 @@ import com.no1.taiwan.newsbasket.internal.di.tags.ObjectLabel.FRAGMENT
 import org.jetbrains.anko.findOptional
 import org.jetbrains.anko.sdk25.coroutines.onClick
 import org.jetbrains.anko.support.v4.findOptional
-import org.kodein.di.Kodein.Companion.lazy
+import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.bind
@@ -31,7 +31,7 @@ import org.kodein.di.generic.multiton
  * The basic fragment is for the normal activity which prepares all necessary variables or functions.
  */
 abstract class BaseFragment<out A : BaseActivity> : Fragment(), KodeinAware {
-    override val kodein = lazy {
+    override val kodein = Kodein.lazy {
         extend(parentKodein)
         /* fragment specific bindings */
         import(SuperFragmentModule.fragmentModule())

@@ -163,6 +163,7 @@ dependencies {
     implementation(Deps.Presentation.coordinatorLayout)
     implementation(Deps.Presentation.navigationUi)
     implementation(Deps.Presentation.navigationFragment)
+    implementation(Deps.Presentation.worker)
 
     implementation(Deps.Presentation.idlingEspresso)
     //endregion
