@@ -20,23 +20,23 @@ class RemoteDataStore(
 ) : DataStore {
     //region Google News Service
     override suspend fun retrieveTopNews(parameters: Parameterable) =
-        googleNewsService.retrieveTopNews(parameters.toApiParam().apply {
+        googleNewsService.retrieveTopNewsAsync(parameters.toApiParam().apply {
             put("apiKey", BuildConfig.GOOGLE_NEWS_API_KEY)
         }).await()
 
     override suspend fun retrieveEverythingNews(parameters: Parameterable) =
-        googleNewsService.retrieveEverything(parameters.toApiParam().apply {
+        googleNewsService.retrieveEverythingAsync(parameters.toApiParam().apply {
             put("apiKey", BuildConfig.GOOGLE_NEWS_API_KEY)
         }).await()
 
     override suspend fun retrieveNewsSources(parameters: Parameterable) =
-        googleNewsService.retrieveSources(parameters.toApiParam().apply {
+        googleNewsService.retrieveSourcesAsync(parameters.toApiParam().apply {
             put("apiKey", BuildConfig.GOOGLE_NEWS_API_KEY)
         }).await()
     //endregion
 
     override suspend fun retrieveNewsData(parameters: Parameterable) =
-        newsService.retrieveNews(parameters.toApiParam()).await()
+        newsService.retrieveNewsAsync(parameters.toApiParam()).await()
 
     //region Subscribe
     override suspend fun createSubscriber(parameters: Parameterable) = newsService.let {
@@ -45,7 +45,7 @@ class RemoteDataStore(
         if (fields[PARAM_NAME_KEYWORDS] == DEFAULT_STR)
             fields.remove(PARAM_NAME_KEYWORDS)
 
-        it.newSubscriber(fields)
+        it.newSubscriberAsync(fields)
     }.await()
 
     override suspend fun modifyKeywords(parameters: Parameterable) = newsService.let {
@@ -53,7 +53,7 @@ class RemoteDataStore(
         val fields = parameters.toApiParam().apply { remove(PARAM_NAME_TOKEN) }
         val token = parameters.toApiParam()[PARAM_NAME_TOKEN].orEmpty()  // For the query parameter.
 
-        it.replaceSubscriber(token, fields)
+        it.replaceSubscriberAsync(token, fields)
     }.await()
     //endregion
 

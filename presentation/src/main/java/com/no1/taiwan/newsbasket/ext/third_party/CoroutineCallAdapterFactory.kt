@@ -1,4 +1,4 @@
-package com.no1.taiwan.newsbasket.ext.thirdParty
+package com.no1.taiwan.newsbasket.ext.third_party
 
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Deferred

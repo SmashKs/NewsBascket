@@ -11,7 +11,7 @@ import kotlinx.coroutines.async
 /**
  * The data repository for being responsible for selecting an appropriate data store to access
  * the data.
- * Also we need to do [async] & [await] one time for getting the data then transform and wrap to Domain layer.
+ * Also we need to do [async] & [w] one time for getting the data then transform and wrap to Domain layer.
  *
  * @property cache cache data store.
  * @property local from database/file/memory data store.

@@ -18,12 +18,13 @@ import org.jetbrains.anko.findOptional
 fun Activity.findViewStub(@IdRes stub: Int, @IdRes realView: Int) = findOptional<ViewStub>(stub) ?: find<View>(realView)
 
 //region Show View Stub
-fun Activity.showViewStub(@IdRes stub: Int, @IdRes realView: Int, options: (View.() -> Unit)? = null) =
+fun Activity.showViewStub(@IdRes stub: Int, @IdRes realView: Int, options: (View.() -> Unit)? = null) {
     findViewStub(stub, realView).apply {
         visible()
         bringToFront()
         invalidate()
         options?.let(this::apply)
+    }
 }
 
 inline fun Activity.showLoadingView() = showViewStub(R.id.vs_loading, R.id.v_loading, null)

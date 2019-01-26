@@ -14,11 +14,11 @@ import retrofit2.http.QueryMap
  */
 interface GoogleNewsService {
     @GET("$API_REQUEST/top-headlines")
-    fun retrieveTopNews(@QueryMap params: Parameters): Deferred<GoogleNewsInfoData>
+    fun retrieveTopNewsAsync(@QueryMap params: Parameters): Deferred<GoogleNewsInfoData>
 
     @GET("$API_REQUEST/everything")
-    fun retrieveEverything(@QueryMap params: Parameters): Deferred<GoogleNewsInfoData>
+    fun retrieveEverythingAsync(@QueryMap params: Parameters): Deferred<GoogleNewsInfoData>
 
     @GET("$API_REQUEST/sources")
-    fun retrieveSources(@QueryMap params: Parameters): Deferred<GoogleNewsSourceInfoData>
+    fun retrieveSourcesAsync(@QueryMap params: Parameters): Deferred<GoogleNewsSourceInfoData>
 }

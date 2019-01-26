@@ -21,13 +21,13 @@ import retrofit2.http.QueryMap
  */
 interface NewsService {
     @GET("$API_REQUEST/news/")
-    fun retrieveNews(@QueryMap params: Parameters): Deferred<RemoteNewsInfoData>
+    fun retrieveNewsAsync(@QueryMap params: Parameters): Deferred<RemoteNewsInfoData>
 
     @Headers(CONTENT_TYPE_JSON)
     @POST("$API_REQUEST/subscriber/")
-    fun newSubscriber(@Body fields: Fields): Deferred<TokenData>
+    fun newSubscriberAsync(@Body fields: Fields): Deferred<TokenData>
 
     @Headers(CONTENT_TYPE_JSON)
     @PUT("$API_REQUEST/subscriber/{token}/")
-    fun replaceSubscriber(@Path("token") token: String, @Body fields: Fields): Deferred<TokenData>
+    fun replaceSubscriberAsync(@Path("token") token: String, @Body fields: Fields): Deferred<TokenData>
 }

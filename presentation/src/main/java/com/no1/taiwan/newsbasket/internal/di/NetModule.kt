@@ -5,7 +5,7 @@ import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.itkacher.okhttpprofiler.OkHttpProfilerInterceptor
 import com.no1.taiwan.newsbasket.BuildConfig
 import com.no1.taiwan.newsbasket.data.remote.hasNetwork
-import com.no1.taiwan.newsbasket.ext.thirdParty.CoroutineCallAdapterFactory
+import com.no1.taiwan.newsbasket.ext.third_party.CoroutineCallAdapterFactory
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import org.kodein.di.Kodein.Module
