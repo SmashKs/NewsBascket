@@ -28,8 +28,7 @@ fun <E, R> RespMutableLiveData<R>.reqDataMap(
  * A transformer wrapper for encapsulating the [RespMutableLiveData]'s state
  * changing and the state becomes [Success] when retrieving a data from Data layer by Kotlin coroutine.
  */
-infix fun <E> RespMutableLiveData<E>.reqData(usecaseRes: suspend () -> E) =
-    preProc {
+infix fun <E> RespMutableLiveData<E>.reqData(usecaseRes: suspend () -> E) = preProc {
         // Fetching the data from the data layer.
         tryResp { Success(usecaseRes()) }.let(this@reqData::postValue)
     }
