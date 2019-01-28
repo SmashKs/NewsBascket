@@ -1,9 +1,40 @@
 package com.no1.taiwan.newsbasket.ext
 
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.no1.taiwan.newsbasket.domain.NewsResponse
+
+/**
+ * Observe the [LiveData]'s nullable value from [androidx.lifecycle.ViewModel].
+ */
+inline fun <reified T> Fragment.observe(liveData: LiveData<T>, noinline block: (T?.() -> Unit)? = null) =
+    block?.let { liveData.observe(viewLifecycleOwner, Observer(it)) }
+
+/**
+ * Observe the [LiveData]'s nonnull value from [androidx.lifecycle.ViewModel].
+ */
+inline fun <reified T> Fragment.observeNonNull(liveData: LiveData<T>, noinline block: (T.() -> Unit)? = null) =
+    block?.run { liveData.observe(viewLifecycleOwner, Observer { it?.let(this) }) }
+
+/**
+ * Observe the [LiveData]'s nullable value which comes from the un-boxed [NewsResponse] value
+ * from [androidx.lifecycle.ViewModel].
+ */
+inline fun <reified E, T : NewsResponse<E>> Fragment.observeUnbox(
+    liveData: LiveData<T>,
+    noinline block: (E?.() -> Unit)? = null
+) = block?.run { liveData.observe(viewLifecycleOwner, Observer { it?.data.let(this) }) }
+
+/**
+ * Observe the [LiveData]'s nonnull value which comes from the un-boxed [NewsResponse] value
+ * from [androidx.lifecycle.ViewModel].
+ */
+inline fun <reified E, T : NewsResponse<E>> Fragment.observeUnboxNonNull(
+    liveData: LiveData<T>,
+    noinline block: (E.() -> Unit)? = null
+) = block?.run { liveData.observe(viewLifecycleOwner, Observer { it?.data?.let(block) }) }
 
 /**
  * Observe the [LiveData]'s nullable value from [androidx.lifecycle.ViewModel].

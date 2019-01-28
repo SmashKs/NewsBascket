@@ -11,6 +11,7 @@ import org.kodein.di.Kodein.Module
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.inSet
 import org.kodein.di.generic.instance
+import org.kodein.di.generic.provider
 import org.kodein.di.generic.setBinding
 import org.kodein.di.generic.singleton
 
@@ -33,8 +34,8 @@ object SuperActivityModule {
 
     private fun providerViewModel() = Module("Activity ViewModel") {
         // *** ViewModel
-        bind<ViewModelEntry>().inSet() with singleton { MainViewModel::class.java to MainViewModel() }
-        bind<ViewModelEntry>().inSet() with singleton {
+        bind<ViewModelEntry>().inSet() with provider { MainViewModel::class.java to MainViewModel() }
+        bind<ViewModelEntry>().inSet() with provider {
             TestViewModel::class.java to TestViewModel(instance(), instance())
         }
     }

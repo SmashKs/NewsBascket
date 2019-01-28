@@ -1,6 +1,9 @@
 package com.no1.taiwan.newsbasket.bases
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.annotation.UiThread
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -61,9 +64,9 @@ abstract class AdvFragment<out A : BaseActivity, out VM : ViewModel> : BaseFragm
     protected open var enableDialogLoading = true
 
     //region Fragment's lifecycle.
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         bindLiveData()
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
     //endregion
 

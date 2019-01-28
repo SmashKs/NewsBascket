@@ -8,7 +8,7 @@ import org.kodein.di.Kodein.Module
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.inSet
 import org.kodein.di.generic.instance
-import org.kodein.di.generic.singleton
+import org.kodein.di.generic.provider
 
 /**
  * To provide the necessary objects for the specific fragments.
@@ -21,13 +21,13 @@ object SuperFragmentModule {
 
     private fun providerViewModel() = Module("Viewmodel Module") {
         // *** ViewModel
-        bind<ViewModelEntry>().inSet() with singleton {
+        bind<ViewModelEntry>().inSet() with provider {
             IndexViewModel::class.java to IndexViewModel(instance(), instance(), instance(), instance())
         }
-        bind<ViewModelEntry>().inSet() with singleton {
+        bind<ViewModelEntry>().inSet() with provider {
             KeywordViewModel::class.java to KeywordViewModel(instance(), instance(), instance(), instance())
         }
-        bind<ViewModelEntry>().inSet() with singleton {
+        bind<ViewModelEntry>().inSet() with provider {
             ArchiveViewModel::class.java to ArchiveViewModel(instance(), instance(), instance())
         }
     }
