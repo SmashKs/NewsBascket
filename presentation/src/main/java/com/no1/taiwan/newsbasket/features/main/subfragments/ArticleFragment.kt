@@ -6,6 +6,8 @@ import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
 import androidx.annotation.LayoutRes
 import androidx.core.os.bundleOf
+import androidx.navigation.fragment.findNavController
+import com.devrapid.kotlinknifer.invisible
 import com.devrapid.kotlinknifer.toDrawable
 import com.devrapid.kotlinshaver.cast
 import com.no1.taiwan.newsbasket.R
@@ -16,12 +18,14 @@ import com.no1.taiwan.newsbasket.ext.loadByAny
 import com.no1.taiwan.newsbasket.ext.output
 import com.no1.taiwan.newsbasket.ext.timeTranslate
 import com.no1.taiwan.newsbasket.features.main.MainActivity
+import com.no1.taiwan.newsbasket.features.main.NewsDetailFragment
 import com.no1.taiwan.newsbasket.features.main.viewmodels.ArticleViewModel
 import kotlinx.android.synthetic.main.viewpager_news.ftv_author
 import kotlinx.android.synthetic.main.viewpager_news.ftv_news_brief
 import kotlinx.android.synthetic.main.viewpager_news.ftv_news_title
 import kotlinx.android.synthetic.main.viewpager_news.ftv_published_at
 import kotlinx.android.synthetic.main.viewpager_news.iv_cover
+import org.jetbrains.anko.sdk25.coroutines.onClick
 
 class ArticleFragment private constructor() : AdvFragment<MainActivity, ArticleViewModel>() {
     companion object Factory {
@@ -62,12 +66,28 @@ class ArticleFragment private constructor() : AdvFragment<MainActivity, ArticleV
                                options = glideNewsOptions(sizeWidth = iv_cover.width, sizeHeight = iv_cover.height))
             ftv_news_title.text = title
             ftv_news_brief.text = description
-            ftv_author.text = author
+            author.takeIf(String::isNotBlank)?.let(ftv_author::setText) ?: ftv_author.invisible()
             val drawable = R.drawable.ic_account.toDrawable(requireContext()).apply {
                 colorFilter = PorterDuffColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN)
             }
             ftv_author.setCompoundDrawablesRelativeWithIntrinsicBounds(drawable, null, null, null)
             ftv_published_at.text = publishedAt.timeTranslate().output()
+        }
+    }
+
+    /**
+     * For separating the huge function code in [rendered]. Initialize all component listeners here.
+     */
+    override fun componentListenersBinding() {
+        super.componentListenersBinding()
+        view?.onClick {
+            // Start a new activity for opening the news.
+//            article.url
+//                .takeIf(String::isNotBlank)
+//                ?.let { parent.startActivity(Intent(Intent.ACTION_VIEW, it.toUri()), null) }
+            // Move to next detail fragment.
+            findNavController().navigate(R.id.action_frag_index_to_frag_news_detail,
+                                         NewsDetailFragment.createBundle(article.url))
         }
     }
 

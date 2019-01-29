@@ -88,14 +88,6 @@ abstract class BaseFragment<out A : BaseActivity> : Fragment(), KodeinAware {
     //endregion
 
     /**
-     * Initialize doing some methods or actions here.
-     *
-     * @param savedInstanceState previous status.
-     */
-    @UiThread
-    protected abstract fun rendered(savedInstanceState: Bundle?)
-
-    /**
      * Set the parentView for inflating.
      *
      * @return [LayoutRes] layout xml.
@@ -115,6 +107,14 @@ abstract class BaseFragment<out A : BaseActivity> : Fragment(), KodeinAware {
      */
     @UiThread
     protected open fun componentListenersBinding() = Unit
+
+    /**
+     * Initialize doing some methods or actions here.
+     *
+     * @param savedInstanceState previous status.
+     */
+    @UiThread
+    protected open fun rendered(savedInstanceState: Bundle?) = Unit
 
     /**
      * Set specific theme to this fragment.

@@ -2,6 +2,7 @@ package com.no1.taiwan.newsbasket.features.main
 
 import android.os.Bundle
 import androidx.annotation.LayoutRes
+import com.devrapid.kotlinshaver.isNull
 import com.google.firebase.iid.FirebaseInstanceId
 import com.no1.taiwan.newsbasket.App
 import com.no1.taiwan.newsbasket.R
@@ -73,8 +74,10 @@ class IndexFragment : AdvFragment<MainActivity, IndexViewModel>() {
     //endregion
 
     private fun setViewPagerAdapter(articles: Articles) {
-        val adapter = FragmentViewPagerAdapter(requireFragmentManager(),
-                                               articles.map(ArticleFragment.Factory::newInstance))
-        vp_news.adapter = adapter
+        if (vp_news.adapter.isNull()) {
+            val adapter = FragmentViewPagerAdapter(requireFragmentManager(),
+                                                   articles.map(ArticleFragment.Factory::newInstance))
+            vp_news.adapter = adapter
+        }
     }
 }

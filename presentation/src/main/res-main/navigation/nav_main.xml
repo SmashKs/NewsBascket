@@ -26,6 +26,13 @@
             app:exitAnim="@anim/fragment_slide_left_out"
             app:popEnterAnim="@anim/fragment_slide_left_in"
             app:popExitAnim="@anim/fragment_slide_right_out"/>
+        <action
+            android:id="@+id/action_frag_index_to_frag_news_detail"
+            app:destination="@id/frag_news_detail"
+            app:enterAnim="@anim/fragment_slide_right_in"
+            app:exitAnim="@anim/fragment_slide_right_out"
+            app:popEnterAnim="@anim/fragment_slide_left_in"
+            app:popExitAnim="@anim/fragment_slide_right_out"/>
     </fragment>
 
     <fragment
@@ -54,5 +61,12 @@
             app:exitAnim="@anim/fragment_slide_right_out"
             app:popEnterAnim="@anim/fragment_slide_left_in"
             app:popExitAnim="@anim/fragment_slide_right_out"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/frag_news_detail"
+        android:name="com.no1.taiwan.newsbasket.features.main.NewsDetailFragment"
+        android:label="@string/title_detail"
+        tools:layout="@layout/fragment_news_detail">
     </fragment>
 </navigation>
