@@ -6,6 +6,7 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.annotation.LayoutRes
 import androidx.core.os.bundleOf
+import com.no1.taiwan.newsbasket.R
 import com.no1.taiwan.newsbasket.bases.AdvFragment
 import com.no1.taiwan.newsbasket.ext.internet.AdBlocker
 import com.no1.taiwan.newsbasket.features.main.viewmodels.NewsDetailViewModel
@@ -49,13 +50,13 @@ class NewsDetailFragment : AdvFragment<MainActivity, NewsDetailViewModel>() {
      *
      * @return [LayoutRes] layout xml.
      */
-    override fun provideInflateView() = com.no1.taiwan.newsbasket.R.layout.fragment_news_detail
+    override fun provideInflateView() = R.layout.fragment_news_detail
 
     /**
      * Set fragment title into action bar.
      *
      * @return [String] action bar title.
      */
-    override fun actionBarTitle() = getString(com.no1.taiwan.newsbasket.R.string.app_name)
+    override fun actionBarTitle() = getString(R.string.app_name)
     //endregion
 }
