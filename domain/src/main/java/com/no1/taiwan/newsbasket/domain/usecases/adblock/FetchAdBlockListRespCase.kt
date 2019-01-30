@@ -1,17 +1,17 @@
-package com.no1.taiwan.newsbasket.domain.usecases.news
+package com.no1.taiwan.newsbasket.domain.usecases.adblock
 
 import com.no1.taiwan.newsbasket.domain.BaseUsecase.RequestValues
 import com.no1.taiwan.newsbasket.domain.parameters.EmptyParams
 import com.no1.taiwan.newsbasket.domain.parameters.Parameterable
-import com.no1.taiwan.newsbasket.domain.repositories.NewsRepository
-import com.no1.taiwan.newsbasket.domain.usecases.FetchLocalNewsCase
+import com.no1.taiwan.newsbasket.domain.repositories.AdBlockRepository
+import com.no1.taiwan.newsbasket.domain.usecases.FetchAdBlockListCase
 
-class FetchLocalNewsRespCase(
-    private val newsRepo: NewsRepository,
+class FetchAdBlockListRespCase(
+    private val repository: AdBlockRepository,
     override var requestValues: Request? = null
-) : FetchLocalNewsCase() {
+) : FetchAdBlockListCase() {
     override suspend fun acquireCase() = attachParameter {
-        newsRepo.fetchNewses(it.parameters)
+        repository.fetchAdBlockList()
     }
 
     class Request(val parameters: Parameterable = EmptyParams()) : RequestValues

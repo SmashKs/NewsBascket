@@ -33,7 +33,7 @@ class NewsDataRepository constructor(
     //endregion
 
     override suspend fun fetchTopNewses(parameters: Parameterable) = let {
-        val data = remote.retrieveTopNews(parameters)
+        val data = remote.getTopNews(parameters)
 
         if (0 == data.totalResults || data.message.isNotBlank())  // Fail fetching.
             emptyList()
@@ -42,7 +42,7 @@ class NewsDataRepository constructor(
     }
 
     override suspend fun fetchEverything(parameters: Parameterable) = let {
-        val data = remote.retrieveEverythingNews(parameters)
+        val data = remote.getEverythingNews(parameters)
 
         if (0 == data.totalResults || data.message.isNotBlank())  // Fail fetching.
             emptyList()
@@ -51,13 +51,13 @@ class NewsDataRepository constructor(
     }
 
     override suspend fun fetchNewsSources(parameters: Parameterable) = let {
-        val data = remote.retrieveNewsSources(parameters)
+        val data = remote.getNewsSources(parameters)
 
         data.sources.map(sourceMapper::toModelFrom)
     }
 
     override suspend fun fetchNewses(parameters: Parameterable) = let {
-        val data = local.retrieveNewsData(parameters)
+        val data = local.getNewsData(parameters)
 
         data.results.map(newsMapper::toModelFrom)
     }

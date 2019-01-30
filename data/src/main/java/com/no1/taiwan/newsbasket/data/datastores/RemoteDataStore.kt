@@ -19,23 +19,23 @@ class RemoteDataStore(
     private val newsFirebase: NewsFirebase
 ) : DataStore {
     //region Google News Service
-    override suspend fun retrieveTopNews(parameters: Parameterable) =
+    override suspend fun getTopNews(parameters: Parameterable) =
         googleNewsService.retrieveTopNewsAsync(parameters.toApiParam().apply {
             put("apiKey", BuildConfig.GOOGLE_NEWS_API_KEY)
         }).await()
 
-    override suspend fun retrieveEverythingNews(parameters: Parameterable) =
+    override suspend fun getEverythingNews(parameters: Parameterable) =
         googleNewsService.retrieveEverythingAsync(parameters.toApiParam().apply {
             put("apiKey", BuildConfig.GOOGLE_NEWS_API_KEY)
         }).await()
 
-    override suspend fun retrieveNewsSources(parameters: Parameterable) =
+    override suspend fun getNewsSources(parameters: Parameterable) =
         googleNewsService.retrieveSourcesAsync(parameters.toApiParam().apply {
             put("apiKey", BuildConfig.GOOGLE_NEWS_API_KEY)
         }).await()
     //endregion
 
-    override suspend fun retrieveNewsData(parameters: Parameterable) =
+    override suspend fun getNewsData(parameters: Parameterable) =
         newsService.retrieveNewsAsync(parameters.toApiParam()).await()
 
     //region Subscribe
@@ -64,15 +64,17 @@ class RemoteDataStore(
 
     override suspend fun storeNewsToken(parameters: Parameterable) = throw UnsupportedOperationException()
 
-    override suspend fun retrieveFirebaseToken() = throw UnsupportedOperationException()
+    override suspend fun getFirebaseToken() = throw UnsupportedOperationException()
 
-    override suspend fun retrieveToken() = throw UnsupportedOperationException()
+    override suspend fun getToken() = throw UnsupportedOperationException()
 
-    override suspend fun retrieveKeywords() = throw UnsupportedOperationException()
+    override suspend fun getKeywords() = throw UnsupportedOperationException()
 
     override suspend fun createKeyword(parameters: Parameterable) = throw UnsupportedOperationException()
 
     override suspend fun removeKeyword(parameters: Parameterable, transactionBlock: (() -> Boolean)?) =
         throw UnsupportedOperationException()
+
+    override suspend fun getBlockList() = throw UnsupportedOperationException()
     //endregion
 }

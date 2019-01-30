@@ -2,18 +2,18 @@ package com.no1.taiwan.newsbasket.domain.usecases.keyword
 
 import com.devrapid.kotlinshaver.io
 import com.no1.taiwan.newsbasket.domain.BaseUsecase.RequestValues
-import com.no1.taiwan.newsbasket.domain.DeferredUsecase
 import com.no1.taiwan.newsbasket.domain.parameters.params.KeywordsParams
 import com.no1.taiwan.newsbasket.domain.repositories.KeywordRepository
 import com.no1.taiwan.newsbasket.domain.repositories.TokenRepository
+import com.no1.taiwan.newsbasket.domain.usecases.AddKeywordCase
 import com.no1.taiwan.newsbasket.domain.usecases.DeleteLocalKeywordReq
 import com.no1.taiwan.newsbasket.domain.usecases.UpdateRemoteKeywordsReq
 
-class AddKeywordRespUsecase(
+class AddKeywordRespCase(
     private val keywordRepo: KeywordRepository,
     private val tokenRepo: TokenRepository,
     override var requestValues: Request? = null
-) : DeferredUsecase<Boolean, AddKeywordRespUsecase.Request>() {
+) : AddKeywordCase() {
     override suspend fun acquireCase() = attachParameter {
         // 1. Keep it into the local first.
         val localRes = keywordRepo.addKeyword(it.parameters)

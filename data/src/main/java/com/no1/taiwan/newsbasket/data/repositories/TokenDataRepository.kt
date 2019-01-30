@@ -36,7 +36,7 @@ class TokenDataRepository constructor(
 
     override suspend fun keepNewsToken(parameters: Parameterable) = local.storeNewsToken(parameters)
 
-    override suspend fun fetchFirebaseToken() = local.retrieveFirebaseToken()
+    override suspend fun fetchFirebaseToken() = local.getFirebaseToken()
 
-    override suspend fun fetchToken() = local.retrieveToken()
+    override suspend fun fetchToken() = local.getToken()
 }

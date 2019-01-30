@@ -24,7 +24,7 @@ class KeywordDataRepository constructor(
     private val remote: DataStore,
     mapperPool: DataMapperPool
 ) : BaseRepository(mapperPool), KeywordRepository {
-    override suspend fun fetchKeywords() = local.retrieveKeywords()
+    override suspend fun fetchKeywords() = local.getKeywords()
 
     override suspend fun updateKeywords(parameters: Parameterable) = let {
         val data = remote.modifyKeywords(parameters)

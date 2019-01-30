@@ -8,9 +8,11 @@ import com.no1.taiwan.newsbasket.data.datastores.RemoteDataStore
 import com.no1.taiwan.newsbasket.data.local.cache.AbsCache
 import com.no1.taiwan.newsbasket.data.local.cache.NewsMemoryCache
 import com.no1.taiwan.newsbasket.data.local.config.NewsDatabase
+import com.no1.taiwan.newsbasket.data.repositories.AdBlockDataRepository
 import com.no1.taiwan.newsbasket.data.repositories.KeywordDataRepository
 import com.no1.taiwan.newsbasket.data.repositories.NewsDataRepository
 import com.no1.taiwan.newsbasket.data.repositories.TokenDataRepository
+import com.no1.taiwan.newsbasket.domain.repositories.AdBlockRepository
 import com.no1.taiwan.newsbasket.domain.repositories.KeywordRepository
 import com.no1.taiwan.newsbasket.domain.repositories.NewsRepository
 import com.no1.taiwan.newsbasket.domain.repositories.TokenRepository
@@ -36,6 +38,7 @@ object RepositoryModule {
             LocalDataStore(instance(),
                            instance<NewsDatabase>().contactNewsDao(),
                            instance<NewsDatabase>().contactKeywordDao(),
+                           instance(),
                            instance())
         }
         /** Mapper Pool for providing all data mappers */
@@ -50,6 +53,9 @@ object RepositoryModule {
         }
         bind<TokenRepository>() with singleton {
             TokenDataRepository(instance(LOCAL), instance(LOCAL), instance(REMOTE), instance())
+        }
+        bind<AdBlockRepository>() with singleton {
+            AdBlockDataRepository(instance(LOCAL), instance(LOCAL), instance())
         }
     }
 }

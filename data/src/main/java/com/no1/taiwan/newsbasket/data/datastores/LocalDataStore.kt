@@ -6,6 +6,7 @@ import com.no1.taiwan.newsbasket.data.datas.KeywordData
 import com.no1.taiwan.newsbasket.data.datas.NewsData
 import com.no1.taiwan.newsbasket.data.datas.RemoteNewsInfoData
 import com.no1.taiwan.newsbasket.data.local.config.NewsDatabase
+import com.no1.taiwan.newsbasket.data.local.services.AdBlockerService
 import com.no1.taiwan.newsbasket.data.local.services.KeywordDao
 import com.no1.taiwan.newsbasket.data.local.services.NewsDao
 import com.no1.taiwan.newsbasket.domain.parameters.Parameterable
@@ -34,10 +35,11 @@ class LocalDataStore(
     private val newsDbInstance: NewsDatabase,  // for doing transaction if necessary.
     private val newsDao: NewsDao,
     private val keywordDao: KeywordDao,
+    private val adBlocker: AdBlockerService,
     private val mmkv: MMKV
 ) : DataStore {
     //region News
-    override suspend fun retrieveNewsData(parameters: Parameterable) = let {
+    override suspend fun getNewsData(parameters: Parameterable) = let {
         val url = parameters.toApiParam()[PARAM_NAME_URL].orEmpty()
         val data = if (url.isBlank()) newsDao.retrieve() else newsDao.retrieveByUrl(url)
 
@@ -95,17 +97,17 @@ class LocalDataStore(
         }
     }
 
-    override suspend fun retrieveFirebaseToken() = let {
+    override suspend fun getFirebaseToken() = let {
         mmkv.decodeString(Constants.MmkvKey.FIREBASE_TOKEN, DEFAULT_STR)
     }
 
-    override suspend fun retrieveToken() = let {
+    override suspend fun getToken() = let {
         mmkv.decodeString(Constants.MmkvKey.TOKEN, DEFAULT_STR)
     }
     //endregion
 
     //region Keywords
-    override suspend fun retrieveKeywords() = let {
+    override suspend fun getKeywords() = let {
         keywordDao.retrieve().map(KeywordData::keyword)
     }
 
@@ -139,12 +141,14 @@ class LocalDataStore(
     }
     //endregion
 
+    override suspend fun getBlockList() = adBlocker.retrieveBlockList()
+
     //region Unsupported Operation Methods
-    override suspend fun retrieveTopNews(parameters: Parameterable) = throw UnsupportedOperationException()
+    override suspend fun getTopNews(parameters: Parameterable) = throw UnsupportedOperationException()
 
-    override suspend fun retrieveEverythingNews(parameters: Parameterable) = throw UnsupportedOperationException()
+    override suspend fun getEverythingNews(parameters: Parameterable) = throw UnsupportedOperationException()
 
-    override suspend fun retrieveNewsSources(parameters: Parameterable) = throw UnsupportedOperationException()
+    override suspend fun getNewsSources(parameters: Parameterable) = throw UnsupportedOperationException()
 
     override suspend fun createSubscriber(parameters: Parameterable) = throw UnsupportedOperationException()
 

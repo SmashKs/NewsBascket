@@ -3,6 +3,8 @@ package com.no1.taiwan.newsbasket.internal.di
 import android.content.Context
 import com.google.firebase.database.FirebaseDatabase
 import com.no1.taiwan.newsbasket.data.local.config.NewsDatabase
+import com.no1.taiwan.newsbasket.data.local.services.AdBlockerService
+import com.no1.taiwan.newsbasket.data.local.v1.AdBlockImpl
 import com.no1.taiwan.newsbasket.data.remote.RestfulApiFactory
 import com.no1.taiwan.newsbasket.data.remote.config.ApiConfig
 import com.no1.taiwan.newsbasket.data.remote.config.GoogleNewsConfig
@@ -82,9 +84,8 @@ object ServiceModule {
      * To provide the necessary objects Local Implementation objects into the repository.
      */
     private fun implementationLocalProvider(context: Context) = Module("Implementation Local") {
-        MMKV.initialize(context)
-
         bind<NewsDatabase>() with instance(NewsDatabase.getDatabase(context))
+        bind<AdBlockerService>() with instance(AdBlockImpl(context))
         bind<MMKV>() with singleton { defaultMMKV(SINGLE_PROCESS_MODE, TOKEN_PUBLIC_KEY) }
     }
     //endregion

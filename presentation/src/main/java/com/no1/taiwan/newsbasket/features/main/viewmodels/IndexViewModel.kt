@@ -9,12 +9,12 @@ import com.no1.taiwan.newsbasket.domain.parameters.fields.SubscriberFields
 import com.no1.taiwan.newsbasket.domain.parameters.params.TokenParams
 import com.no1.taiwan.newsbasket.domain.parameters.params.googlenews.NewsParameter.Country.JP
 import com.no1.taiwan.newsbasket.domain.parameters.params.googlenews.TopParams
+import com.no1.taiwan.newsbasket.domain.usecases.AddSubscriberCase
 import com.no1.taiwan.newsbasket.domain.usecases.AddSubscriberReq
-import com.no1.taiwan.newsbasket.domain.usecases.AddSubscriberRespCase
+import com.no1.taiwan.newsbasket.domain.usecases.FetchTopNewsCase
 import com.no1.taiwan.newsbasket.domain.usecases.FetchTopNewsReq
+import com.no1.taiwan.newsbasket.domain.usecases.KeepNewsTokenCase
 import com.no1.taiwan.newsbasket.domain.usecases.KeepNewsTokenReq
-import com.no1.taiwan.newsbasket.domain.usecases.KeepNewsTokenRespCase
-import com.no1.taiwan.newsbasket.domain.usecases.googlenews.FetchTopNewsRespCase
 import com.no1.taiwan.newsbasket.entities.Articles
 import com.no1.taiwan.newsbasket.entities.PresentationMapperPool
 import com.no1.taiwan.newsbasket.entities.TokenEntity
@@ -28,9 +28,9 @@ import com.no1.taiwan.newsbasket.ext.execMapping
 import com.no1.taiwan.newsbasket.ext.reqData
 
 class IndexViewModel(
-    private val addSubscriberUsecase: AddSubscriberRespCase,
-    private val keepNewsTokenRespCase: KeepNewsTokenRespCase,
-    private val fetchTopNewsRespCase: FetchTopNewsRespCase,
+    private val addSubscriberCase: AddSubscriberCase,
+    private val keepNewsTokenCase: KeepNewsTokenCase,
+    private val fetchTopNewsCase: FetchTopNewsCase,
     private val mapperPool: PresentationMapperPool
 ) : ViewModel() {
     private val _tokenLiveData by lazy { RespMutableLiveData<TokenEntity>() }
@@ -43,15 +43,15 @@ class IndexViewModel(
     private val articleMapper by lazy { cast<NewsArticleEntityMapper>(mapperPool[NewsArticleEntityMapper::class.java]) }
 
     fun addFirstSubscriber(firebaseToken: Token) = _tokenLiveData reqData {
-        addSubscriberUsecase.execMapping(tokenMapper, AddSubscriberReq(SubscriberFields(firebaseToken)))
+        addSubscriberCase.execMapping(tokenMapper, AddSubscriberReq(SubscriberFields(firebaseToken)))
     }
 
     fun keepNewsToken(entity: TokenEntity) = gLaunch {
-        _resLiveData.postValue(keepNewsTokenRespCase.execute(KeepNewsTokenReq(TokenParams(entity.token,
-                                                                                          entity.firebaseToken))))
+        _resLiveData.postValue(keepNewsTokenCase.execute(KeepNewsTokenReq(TokenParams(entity.token,
+                                                                                      entity.firebaseToken))))
     }
 
     fun fetchTopNews() = _topNewses reqData {
-        fetchTopNewsRespCase.execListMapping(articleMapper, FetchTopNewsReq(TopParams(country = JP)))
+        fetchTopNewsCase.execListMapping(articleMapper, FetchTopNewsReq(TopParams(country = JP)))
     }
 }

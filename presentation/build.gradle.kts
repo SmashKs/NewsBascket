@@ -31,12 +31,19 @@ android {
     }
     buildTypes {
         getByName("release") {
-            isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android.txt"), file("proguard-rules.pro"))
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), file("proguard-rules.pro"))
         }
         getByName("debug") {
+            splits.abi.isEnable = false
+            splits.density.isEnable = false
+            aaptOptions.cruncherEnabled = false
             isMinifyEnabled = false
             isTestCoverageEnabled = true
+            // Only use this flag on builds you don't proguard or upload to beta-by-crashlytics.
+            ext.set("alwaysUpdateBuildId", false)
+            proguardFiles(getDefaultProguardFile("proguard-android.txt"), file("proguard-rules.pro"))
         }
     }
     packagingOptions {

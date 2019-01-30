@@ -9,7 +9,7 @@ import com.no1.taiwan.newsbasket.data.local.config.BaseDao
 /**
  * Thru [androidx.room.Room] we can just define the interfaces which we want to
  * access for from local database.
- * Using prefix name (retrieve), (add), (replace), (release)
+ * Using prefix name (retrieve), (insert), (replace), (release)
  */
 @Dao
 abstract class KeywordDao : BaseDao<KeywordData> {
