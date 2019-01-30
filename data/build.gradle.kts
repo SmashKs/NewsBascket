@@ -34,15 +34,20 @@ android {
         val (GOOGLE_NEWS_API_KEY, apiKeyOfGoogleNews) = "GOOGLE_NEWS_API_KEY" to "google_news_api_key"
 
         getByName("release") {
-            isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android.txt"), file("proguard-rules.pro"))
+            isMinifyEnabled = true
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), file("proguard-rules.pro"))
             buildConfigField("String", URL_SERVER, getProps(remote))
             buildConfigField("String", API_REQUEST, getProps(remoteDomain))
             buildConfigField("String", GOOGLE_NEWS_API_KEY, getProps(apiKeyOfGoogleNews))
         }
         getByName("debug") {
+            splits.abi.isEnable = false
+            splits.density.isEnable = false
+            aaptOptions.cruncherEnabled = false
             isMinifyEnabled = false
             isTestCoverageEnabled = true
+            // Only use this flag on builds you don't proguard or upload to beta-by-crashlytics.
+            ext.set("alwaysUpdateBuildId", false)
 //            buildConfigField("String", URL_SERVER, getProps(remote))
             buildConfigField("String", URL_SERVER, "\"http://${getLocalIp("en0")}:55667\"")
             buildConfigField("String", API_REQUEST, getProps(remoteDomain))
