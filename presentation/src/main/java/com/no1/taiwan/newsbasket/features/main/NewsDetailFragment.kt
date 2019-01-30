@@ -11,7 +11,7 @@ import org.kodein.di.Kodein
 
 class NewsDetailFragment : BaseFragment<MainActivity>() {
     companion object {
-        const val PARAMS_URL = "new url"
+        const val PARAMS_URL = "add url"
         fun createBundle(uri: String) = bundleOf(PARAMS_URL to uri)
     }
 

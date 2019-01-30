@@ -12,7 +12,7 @@ class NewsItemTouchHelper(
 ) : ItemTouchHelper.SimpleCallback(UP or DOWN, LEFT) {
     /**
      * Called when ItemTouchHelper wants to move the dragged item from its old position to
-     * the new position.
+     * the add position.
      *
      *
      * If this method returns true, ItemTouchHelper assumes `viewHolder` has been moved

@@ -56,7 +56,7 @@ object NetModule {
                         *  If the cache is older than 7 days, then discard it,
                         *  and indicate an error in fetching the response.
                         *  The 'max-stale' attribute is responsible for this behavior.
-                        *  The 'only-if-cached' attribute indicates to not retrieve new data; fetch the cache
+                        *  The 'only-if-cached' attribute indicates to not retrieve add data; fetch the cache
                         *  only instead.
                         */
                         request.newBuilder().header("Cache-Control",

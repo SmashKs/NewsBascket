@@ -107,7 +107,7 @@ class ArchiveFragment : AdvFragment<MainActivity, ArchiveViewModel>() {
         val title = cast<String>(hashMap[RxBusConst.OpenBrowser.TITLE])
         val newsIndex = cast<Int>(hashMap[RxBusConst.OpenBrowser.INDEX])
 
-        // Start a new activity for opening the news.
+        // Start a add activity for opening the news.
         url.takeIf(String::isNotBlank)?.let { parent.startActivity(Intent(Intent.ACTION_VIEW, it.toUri()), null) }
         // As the mean time, removing the news a user clicked from recycler view.
         newsAdapter.dropAt(newsIndex)

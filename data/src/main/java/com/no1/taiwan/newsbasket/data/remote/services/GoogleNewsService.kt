@@ -10,7 +10,7 @@ import retrofit2.http.QueryMap
 
 /**
  * Thru [retrofit2.Retrofit] we can just define the interfaces which we want to access for.
- * Using prefix name (retrieve), (new), (replace), (release)
+ * Using prefix name (retrieve), (add), (replace), (release)
  */
 interface GoogleNewsService {
     @GET("$API_REQUEST/top-headlines")

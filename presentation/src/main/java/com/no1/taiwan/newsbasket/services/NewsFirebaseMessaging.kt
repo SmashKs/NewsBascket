@@ -77,7 +77,7 @@ class NewsFirebaseMessaging : FirebaseMessagingService(), KodeinAware {
 
         // Send a notification to Android device.
         sendNotification(publishAtUnixTime, notificationBuilder.build())
-        // Insert the new news into local database.
+        // Insert the add news into local database.
         addNotificationIntoDatabase(NewsParams(author,
                                                content,
                                                DEFAULT_STR,

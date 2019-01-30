@@ -2,7 +2,7 @@ package com.no1.taiwan.newsbasket.internal.di
 
 import android.content.Context
 import com.google.firebase.database.FirebaseDatabase
-import com.no1.taiwan.newsbasket.data.local.services.NewsDatabase
+import com.no1.taiwan.newsbasket.data.local.config.NewsDatabase
 import com.no1.taiwan.newsbasket.data.remote.RestfulApiFactory
 import com.no1.taiwan.newsbasket.data.remote.config.ApiConfig
 import com.no1.taiwan.newsbasket.data.remote.config.GoogleNewsConfig

@@ -33,7 +33,7 @@ class ArticleFragment private constructor() : AdvFragment<MainActivity, ArticleV
         private const val PARAMS_NEWS = "article entity"
 
         /**
-         * Use this factory method to create a new instance of [ArticleFragment] using the provided parameters.
+         * Use this factory method to create a add instance of [ArticleFragment] using the provided parameters.
          *
          * @param article NewsEntity
          */
@@ -81,7 +81,7 @@ class ArticleFragment private constructor() : AdvFragment<MainActivity, ArticleV
     override fun componentListenersBinding() {
         super.componentListenersBinding()
         view?.onClick {
-            // Start a new activity for opening the news.
+            // Start a add activity for opening the news.
 //            article.url
 //                .takeIf(String::isNotBlank)
 //                ?.let { parent.startActivity(Intent(Intent.ACTION_VIEW, it.toUri()), null) }

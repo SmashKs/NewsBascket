@@ -5,8 +5,9 @@ import com.devrapid.kotlinshaver.cast
 import com.no1.taiwan.newsbasket.data.datas.KeywordData
 import com.no1.taiwan.newsbasket.data.datas.NewsData
 import com.no1.taiwan.newsbasket.data.datas.RemoteNewsInfoData
-import com.no1.taiwan.newsbasket.data.local.services.NewsDatabase
-import com.no1.taiwan.newsbasket.data.local.v1.NewsDao
+import com.no1.taiwan.newsbasket.data.local.config.NewsDatabase
+import com.no1.taiwan.newsbasket.data.local.services.KeywordDao
+import com.no1.taiwan.newsbasket.data.local.services.NewsDao
 import com.no1.taiwan.newsbasket.domain.parameters.Parameterable
 import com.no1.taiwan.newsbasket.domain.parameters.params.KeywordsParams.Companion.PARAM_NAME_KEYWORD
 import com.no1.taiwan.newsbasket.domain.parameters.params.NewsParams.Companion.PARAM_NAME_AUTHOR
@@ -31,13 +32,14 @@ import com.tencent.mmkv.MMKV
  */
 class LocalDataStore(
     private val newsDbInstance: NewsDatabase,  // for doing transaction if necessary.
-    private val newsDb: NewsDao,
+    private val newsDao: NewsDao,
+    private val keywordDao: KeywordDao,
     private val mmkv: MMKV
 ) : DataStore {
     //region News
     override suspend fun retrieveNewsData(parameters: Parameterable) = let {
         val url = parameters.toApiParam()[PARAM_NAME_URL].orEmpty()
-        val data = if (url.isBlank()) newsDb.getAllData() else newsDb.getDataByUrl(url)
+        val data = if (url.isBlank()) newsDao.retrieve() else newsDao.retrieveByUrl(url)
 
         RemoteNewsInfoData(data.size, results = data)
     }
@@ -57,7 +59,7 @@ class LocalDataStore(
                                 it[PARAM_NAME_IMAGE_URL].orEmpty())
 
             try {
-                newsDb.insertNews(news)
+                newsDao.insert(news)
                 true
             }
             catch (e: SQLiteConstraintException) {
@@ -70,7 +72,7 @@ class LocalDataStore(
     override suspend fun removeNews(parameters: Parameterable) = let {
         parameters.toApiParam().let {
             try {
-                newsDb.deleteNewsByUrl(cast(it[PARAM_NAME_URL]))
+                newsDao.releaseByUrl(cast(it[PARAM_NAME_URL]))
                 true
             }
             catch (e: SQLiteConstraintException) {
@@ -104,14 +106,14 @@ class LocalDataStore(
 
     //region Keywords
     override suspend fun retrieveKeywords() = let {
-        newsDb.getAllKeywords().map(KeywordData::keyword)
+        keywordDao.retrieve().map(KeywordData::keyword)
     }
 
     override suspend fun createKeyword(parameters: Parameterable) = let {
         parameters.toApiParam()[PARAM_NAME_KEYWORD]
             ?.let {
                 try {
-                    newsDb.insertKeyword(KeywordData(it))
+                    keywordDao.insert(KeywordData(it))
                     true
                 }
                 catch (e: SQLiteConstraintException) {
@@ -125,7 +127,7 @@ class LocalDataStore(
         val keyword = parameters.toApiParam()[PARAM_NAME_KEYWORD] ?: return@let false
 
         newsDbInstance.runInTransaction {
-            newsDb.deleteKeyword(KeywordData(keyword))
+            keywordDao.release(KeywordData(keyword))
 
             if (null != transactionBlock) {
                 val res = transactionBlock()
