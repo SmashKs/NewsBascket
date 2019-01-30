@@ -5,9 +5,11 @@ import com.no1.taiwan.newsbasket.domain.parameters.fields.SubscriberFields
 import com.no1.taiwan.newsbasket.domain.repositories.TokenRepository
 
 class AddSubscriberRespCase(
-    private val tokenRepo: TokenRepository,
-    override var requestValues: Request? = null
+    private val tokenRepo: TokenRepository
 ) : AddSubscriberCase() {
+    /** Provide a common parameter variable for the children class. */
+    override var requestValues: AddSubscriberReq? = null
+
     override suspend fun acquireCase() = attachParameter {
         // Retrieve the firebase token first. If the first time can't get from database then from the parameter.
         val firebaseToken = tokenRepo

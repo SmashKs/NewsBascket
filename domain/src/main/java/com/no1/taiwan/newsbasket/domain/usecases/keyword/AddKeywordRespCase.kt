@@ -6,14 +6,17 @@ import com.no1.taiwan.newsbasket.domain.parameters.params.KeywordsParams
 import com.no1.taiwan.newsbasket.domain.repositories.KeywordRepository
 import com.no1.taiwan.newsbasket.domain.repositories.TokenRepository
 import com.no1.taiwan.newsbasket.domain.usecases.AddKeywordCase
+import com.no1.taiwan.newsbasket.domain.usecases.AddKeywordReq
 import com.no1.taiwan.newsbasket.domain.usecases.DeleteLocalKeywordReq
 import com.no1.taiwan.newsbasket.domain.usecases.UpdateRemoteKeywordsReq
 
 class AddKeywordRespCase(
     private val keywordRepo: KeywordRepository,
-    private val tokenRepo: TokenRepository,
-    override var requestValues: Request? = null
+    private val tokenRepo: TokenRepository
 ) : AddKeywordCase() {
+    /** Provide a common parameter variable for the children class. */
+    override var requestValues: AddKeywordReq? = null
+
     override suspend fun acquireCase() = attachParameter {
         // 1. Keep it into the local first.
         val localRes = keywordRepo.addKeyword(it.parameters)

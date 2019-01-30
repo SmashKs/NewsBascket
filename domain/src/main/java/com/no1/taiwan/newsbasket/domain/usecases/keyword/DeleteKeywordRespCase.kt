@@ -6,14 +6,17 @@ import com.no1.taiwan.newsbasket.domain.parameters.params.KeywordsParams
 import com.no1.taiwan.newsbasket.domain.repositories.KeywordRepository
 import com.no1.taiwan.newsbasket.domain.repositories.TokenRepository
 import com.no1.taiwan.newsbasket.domain.usecases.DeleteKeywordCase
+import com.no1.taiwan.newsbasket.domain.usecases.DeleteKeywordReq
 import com.no1.taiwan.newsbasket.domain.usecases.UpdateRemoteKeywordsReq
 import kotlinx.coroutines.runBlocking
 
 class DeleteKeywordRespCase(
     private val keywordRepo: KeywordRepository,
-    private val tokenRepo: TokenRepository,
-    override var requestValues: Request? = null
+    private val tokenRepo: TokenRepository
 ) : DeleteKeywordCase() {
+    /** Provide a common parameter variable for the children class. */
+    override var requestValues: DeleteKeywordReq? = null
+
     override suspend fun acquireCase() = attachParameter {
         keywordRepo.deleteKeyword(it.parameters) {
             try {

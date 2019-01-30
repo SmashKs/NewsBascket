@@ -25,6 +25,7 @@ class App : MultiDexApplication(), KodeinAware {
 
     private val workManager by instance<WorkManager>()
     private val initRequest by lazy { WorkerRequestFactory.getWorkerRequest(WorkerRequestFactory.WORKER_INIT) }
+    private val fetchAdBlocksRequest by lazy { WorkerRequestFactory.getWorkerRequest(WorkerRequestFactory.WORKER_FETCH_ADBLOCK) }
 
     init {
         appContext = this
@@ -49,5 +50,6 @@ class App : MultiDexApplication(), KodeinAware {
         super.onCreate()
 
         workManager.enqueue(initRequest)
+        workManager.enqueue(fetchAdBlocksRequest)
     }
 }

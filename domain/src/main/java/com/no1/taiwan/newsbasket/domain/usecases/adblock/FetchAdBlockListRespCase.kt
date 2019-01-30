@@ -1,18 +1,19 @@
 package com.no1.taiwan.newsbasket.domain.usecases.adblock
 
 import com.no1.taiwan.newsbasket.domain.BaseUsecase.RequestValues
-import com.no1.taiwan.newsbasket.domain.parameters.EmptyParams
-import com.no1.taiwan.newsbasket.domain.parameters.Parameterable
 import com.no1.taiwan.newsbasket.domain.repositories.AdBlockRepository
 import com.no1.taiwan.newsbasket.domain.usecases.FetchAdBlockListCase
+import com.no1.taiwan.newsbasket.domain.usecases.FetchAdBlockListReq
 
 class FetchAdBlockListRespCase(
-    private val repository: AdBlockRepository,
-    override var requestValues: Request? = null
+    private val adBlockRepo: AdBlockRepository
 ) : FetchAdBlockListCase() {
+    /** Provide a common parameter variable for the children class. */
+    override var requestValues: FetchAdBlockListReq? = FetchAdBlockListReq()
+
     override suspend fun acquireCase() = attachParameter {
-        repository.fetchAdBlockList()
+        adBlockRepo.fetchAdBlockList()
     }
 
-    class Request(val parameters: Parameterable = EmptyParams()) : RequestValues
+    class Request : RequestValues
 }

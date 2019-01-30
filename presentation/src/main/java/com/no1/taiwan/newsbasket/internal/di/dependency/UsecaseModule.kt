@@ -65,7 +65,7 @@ object UsecaseModule {
         bind<DeleteKeywordCase>() with singleton { DeleteKeywordRespCase(instance(), instance()) }
         bind<UpdateRemoteKeywordsCase>() with singleton { UpdateRemoteKeywordsRespCase(instance(), instance()) }
 
-        bind<FetchAdBlockListCase>() with singleton { FetchAdBlockListRespCase(instance(), instance()) }
+        bind<FetchAdBlockListCase>() with singleton { FetchAdBlockListRespCase(instance()) }
         //endregion
     }
 }
